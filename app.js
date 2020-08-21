@@ -48,6 +48,7 @@ app.use(
 app.use(deserializeUser);
 
 app.use('/', indexRouter);
+app.use('/place', indexRouter);
 app.use('/authentication', authenticationRouter);
 
 // Catch missing routes and forward to error handler

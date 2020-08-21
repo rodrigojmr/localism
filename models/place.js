@@ -12,27 +12,31 @@ const placeSchema = new mongoose.Schema(
     openDate: {
       type: Date
     },
-    schedule: [
-      {
-        weekday: {
-          type: String
+    schedule: {
+      from: {
+        type: String
+      },
+      to: {
+        type: String
+      },
+      time: {
+        openTime: {
+          type: Date
         },
-        time: {
-          opening: {
-            type: Date
-          },
-          closing: {
-            type: Date
-          }
+        closeTime: {
+          type: Date
         }
       }
-    ],
+    },
     owner: {
       type: mongoose.Schema.Types.ObjectId,
       ref: 'User'
     },
     contacts: {
       phoneNumber: {
+        type: String
+      },
+      email: {
         type: String
       }
     },
@@ -55,7 +59,8 @@ const placeSchema = new mongoose.Schema(
       type: {
         type: String,
         default: 'Point'
-      }
+      },
+      required: true
     },
     suggestions: [
       {

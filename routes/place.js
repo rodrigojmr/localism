@@ -1,6 +1,6 @@
 const express = require('express');
 
-const Post = require('./../models/post');
+const Place = require('../models/place');
 
 const routeAuthenticationGuard = require('../middleware/route-guard');
 
@@ -8,31 +8,39 @@ const multer = require('multer');
 const cloudinary = require('cloudinary');
 const multerStorageCloudinary = require('multer-storage-cloudinary');
 
-const postRouter = new express.Router();
+const placeRouter = new express.Router();
 
 const storage = new multerStorageCloudinary.CloudinaryStorage({
   cloudinary: cloudinary.v2
 });
 const upload = multer({ storage });
 
-postRouter.get('/list', (request, response, next) => {
-  Post.find()
+placeRouter.get('/list', (req, res, next) => {
+  Place.find()
     .populate('creator')
     .sort({ creationDate: -1 })
-    .then(posts => {
-      response.json({ posts });
+    .then(places => {
+      res.json({ places });
     })
     .catch(error => {
       next(error);
     });
 });
 
-postRouter.get('/:id', async (request, response, next) => {
-  const id = request.params.id;
+placeRouter.get('/:id', async (req, res, next) => {
+  const id = req.params.id;
   try {
-    const post = await Post.findById(id).populate('creator');
-    if (post) {
-      response.json({ post });
+    const place = await (
+      await Place.findById(id).populate('owner suggestions')
+    ).populated({
+      path: 'suggestions',
+      populate: {
+        path: 'user',
+        model: 'User'
+      }
+    });
+    if (place) {
+      res.json({ place });
     } else {
       next();
     }
@@ -41,64 +49,115 @@ postRouter.get('/:id', async (request, response, next) => {
   }
 });
 
-postRouter.post(
-  '/',
-  routeAuthenticationGuard,
-  upload.single('photo'),
-  (request, response, next) => {
-    let url;
-    if (request.file) {
-      url = request.file.path;
+placeRouter.post('/', routeAuthenticationGuard, async (req, res, next) => {
+  const {
+    name,
+    category,
+    openDate,
+    address,
+    areaName,
+    weekDayFrom,
+    weekDayTo,
+    openTime,
+    closeTime,
+    phoneNumber,
+    email,
+    latitude,
+    longitude
+  } = req.body;
+
+  Place.create({
+    owner: req.user._id,
+    name,
+    category,
+    schedule: {
+      from: weekDayFrom,
+      to: weekDayTo,
+      time: {
+        openTime,
+        closeTime
+      }
+    },
+    contacts: {
+      phoneNumber,
+      email
+    },
+    address,
+    areaName,
+    location: {
+      coordinates: [latitude, longitude]
     }
-
-    Post.create({
-      creator: request.user._id,
-      content: request.body.content,
-      photo: url
+  })
+    .then(place => {
+      res.json({ place });
     })
-      .then(post => {
-        response.json({ post });
-      })
-      .catch(error => {
-        next(error);
-      });
-  }
-);
+    .catch(error => {
+      next(error);
+    });
+});
 
-postRouter.delete(
-  '/:id',
-  routeAuthenticationGuard,
-  async (request, response, next) => {
-    const id = request.params.id;
+placeRouter.delete('/:id', routeAuthenticationGuard, async (req, res, next) => {
+  const id = req.params.id;
 
-    Post.findOneAndDelete({ _id: id, creator: request.user._id })
-      .then(() => {
-        response.json({});
-      })
-      .catch(error => {
-        next(error);
-      });
-  }
-);
+  Place.findOneAndDelete({ _id: id, creator: req.user._id })
+    .then(() => {
+      res.json({});
+    })
+    .catch(error => {
+      next(error);
+    });
+});
 
-postRouter.patch(
-  '/:id',
-  routeAuthenticationGuard,
-  (request, response, next) => {
-    const id = request.params.id;
+placeRouter.patch('/:id', routeAuthenticationGuard, (req, res, next) => {
+  const {
+    name,
+    category,
+    openDate,
+    address,
+    areaName,
+    weekDayFrom,
+    weekDayTo,
+    openTime,
+    closeTime,
+    phoneNumber,
+    email,
+    latitude,
+    longitude
+  } = req.body;
 
-    Post.findOneAndUpdate(
-      { _id: id, creator: request.user._id },
-      { content: request.body.content },
-      { new: true }
-    )
-      .then(post => {
-        response.json({ post });
-      })
-      .catch(error => {
-        next(error);
-      });
-  }
-);
+  const id = req.params.id;
 
-module.exports = postRouter;
+  Place.findOneAndUpdate(
+    { _id: id, creator: req.user._id },
+    {
+      name,
+      category,
+      schedule: {
+        from: weekDayFrom,
+        to: weekDayTo,
+        time: {
+          openTime,
+          closeTime
+        }
+      },
+      contacts: {
+        phoneNumber,
+        email
+      },
+      address,
+      areaName,
+      location: {
+        coordinates: [latitude, longitude]
+      }
+    },
+    { new: true }
+  )
+    .then(post => {
+      res.json({ post });
+    })
+    .catch(error => {
+      next(error);
+    });
+});
+
+module.exports = placeRouter;
