@@ -2,6 +2,7 @@
 
 const { join } = require('path');
 const express = require('express');
+const cors = require('cors');
 const serveFavicon = require('serve-favicon');
 const connectMongo = require('connect-mongo');
 const expressSession = require('express-session');
@@ -21,6 +22,12 @@ app.use(serveFavicon(join(__dirname, 'public/images', 'favicon.ico')));
 app.use(logger('dev'));
 app.use(express.json());
 
+app.use(
+  cors({
+    origin: [process.env.CLIENT_APP_URL],
+    credentials: true
+  })
+);
 app.use(
   expressSession({
     secret: process.env.COOKIE_SECRET,
