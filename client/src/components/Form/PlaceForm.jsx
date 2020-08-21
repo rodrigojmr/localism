@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { GoogleMap, LoadScript } from '@react-google-maps/api';
+//import { GoogleMap, LoadScript } from '@react-google-maps/api';
 
 export const PlaceForm = props => {
   const handleFormSubmission = event => {
