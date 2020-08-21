@@ -3,6 +3,7 @@ import './styles/style.scss';
 import { BrowserRouter, Switch, Route } from 'react-router-dom';
 import { loadProfile, signOut } from './services/authentication';
 import HomeView from './views/HomeView';
+import CreatePlace from './views/CreatePlace';
 import AuthenticationSignInView from './views/Authentication/SignInView';
 
 import Navbar from './components/Navbar';
@@ -54,6 +55,7 @@ class App extends Component {
           <Navbar user={this.state.user} onSignOut={this.handleSignOut} />
           <Switch>
             <Route path='/' component={HomeView} exact />
+            <Route path='/place/create' exact component={CreatePlace} />
             <Route
               path='/authentication/sign-in'
               component={AuthenticationSignInView}
