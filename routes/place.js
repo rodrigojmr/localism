@@ -70,6 +70,7 @@ placeRouter.post('/', routeAuthenticationGuard, async (req, res, next) => {
     owner: req.user._id,
     name,
     category,
+    openDate,
     schedule: {
       from: weekDayFrom,
       to: weekDayTo,
