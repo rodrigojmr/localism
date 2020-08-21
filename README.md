@@ -60,10 +60,10 @@ after MVP
 '/place/:id' - Single place view, calls service that loads single place from REST API
 '/event/:id' - Single event view, calls service that loads single event from REST API
 
-'/create/recommendation' - Create recommendation view, when submitted, calls service to create recommendation
-'/create/place' - Create event view, when submitted, calls service to create event: For businesses, exclusive to owners, for everything else,
+'/recommendation/create' - Create recommendation view, when submitted, calls service to create recommendation
+'/place/create' - Create event view, when submitted, calls service to create event: For businesses, exclusive to owners, for everything else,
 needs a certain activity level or permission?
-'/create/event' - Create event view, when submitted, calls service to create event
+'/event/create' - Create event view, when submitted, calls service to create event
 
 '/recommendation/:id/edit' - Edit recommendation view, calls service that loads single recommendation from REST API. Has form that, when submited, calls service that edits specific recommendation. Has second form that, when submited, calls service that deletes recommendation. - Customize depending on the type of place?
 '/place/:id/edit' - Edit place view, calls service that loads single place from REST API. Has form that, when submited, calls service that edits specific place. Has second form that, when submited, calls service that deletes place. - Customize depending on the type of place?

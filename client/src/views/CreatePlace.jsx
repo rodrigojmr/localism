@@ -1,15 +1,12 @@
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
 import Map from '../components/Map';
-import PlacesList from '../components/List/PlacesList';
 import PlaceForm from '../components/Form/PlaceForm';
 
-class HomeView extends Component {
+class CreatePlace extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      loaded: false,
-      places: []
+      loaded: false
     };
   }
 
@@ -20,12 +17,11 @@ class HomeView extends Component {
   render() {
     return (
       <div className="home">
+        <Map />
         <PlaceForm />
-        <PlacesList />
-        <Link to="/place/create">Create Place</Link>
       </div>
     );
   }
 }
 
-export default HomeView;
+export default CreatePlace;
