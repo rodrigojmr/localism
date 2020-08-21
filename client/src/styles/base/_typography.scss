@@ -1,0 +1,12 @@
+$font-sans: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+
+body {
+  font-family: 'Montserrat', sans-serif;
+}
+
+.heading {
+  &--1 {
+    font-size: 2rem;
+    font-weight: 400;
+  }
+}

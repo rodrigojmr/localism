@@ -1,0 +1,92 @@
+$profile-avatar: 100px;
+.profile {
+  display: grid;
+  grid-template-columns:
+    [full-start] minmax(6rem, 1fr) [center-start]
+    repeat(5, [col-start] minmax(min-content, 10rem) [col-end]) [center-end
+    gutter-start] minmax(2rem, 4rem) [gutter-end sidebar-start] minmax(
+      min-content,
+      10rem
+    )
+    [sidebar-end] minmax(6rem, 1fr)
+    [full-end];
+  grid-template-rows: repeat(5, min-content);
+
+  &-top {
+    grid-column: center-start / sidebar-end;
+    position: relative;
+    display: inline-block;
+    display: flex;
+    margin-bottom: 3rem;
+
+    &__left {
+      width: $profile-avatar;
+      position: relative;
+    }
+
+    &__right {
+      margin-left: 3rem;
+      display: flex;
+      width: 100%;
+    }
+  }
+
+  &__top-info {
+    display: flex;
+    padding-left: 1rem;
+    width: 100%;
+  }
+
+  &__icon-wrapper {
+    position: absolute;
+    border: 3px solid white;
+    top: -50px;
+    left: 0;
+    overflow: hidden;
+    border-radius: 50%;
+    width: $profile-avatar;
+    height: $profile-avatar;
+  }
+
+  &__icon {
+    width: 100%;
+  }
+
+  &__name {
+    font-weight: 600;
+    font-size: 1.5rem;
+    position: absolute;
+    left: calc(100% + 1rem);
+    top: -110%;
+    color: white;
+    white-space: nowrap;
+  }
+
+  &__tagline {
+    margin-left: auto;
+    font-style: italic;
+    font-weight: 200;
+    color: $color-primary-light-2;
+  }
+}
+
+.profile-main {
+  grid-column: center-start / center-end;
+}
+
+.profile-sidebar {
+  grid-column: sidebar-start / sidebar-end;
+  grid-row: 2 / -1;
+}
+
+.profile-library {
+  grid-column: center-start / center-end;
+}
+
+.profile-post-area {
+  grid-column: center-start / center-end;
+}
+
+.profile-feed {
+  grid-column: center-start / center-end;
+}

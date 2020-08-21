@@ -36,7 +36,11 @@ const placeSchema = new mongoose.Schema(
         type: String
       }
     },
-    locationName: {
+    address: {
+      type: String,
+      required: true
+    },
+    areaName: {
       type: String,
       required: true
     },
