@@ -16,6 +16,7 @@ class HomeView extends Component {
   render() {
     return (
       <div className="home">
+        <h1>Home View</h1>
         <Map />
         <PlacesList />
       </div>
