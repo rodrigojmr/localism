@@ -1,4 +1,6 @@
 import React, { Component } from 'react';
+import Map from '../components/Map';
+import PlacesList from '../components/List/PlacesList';
 
 class HomeView extends Component {
   constructor(props) {
@@ -12,7 +14,12 @@ class HomeView extends Component {
   componentDidMount() {}
 
   render() {
-    return <div className="post-list"></div>;
+    return (
+      <div className="home">
+        <Map />
+        <PlacesList />
+      </div>
+    );
   }
 }
 
