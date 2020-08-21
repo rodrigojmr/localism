@@ -18,11 +18,11 @@ class HomeView extends Component {
 
   render() {
     return (
-      <div className="home">
+      <div className='home'>
         <h1>Home View</h1>
         <Map />
         <PlacesList />
-        <Link to="/place/create">Create Place</Link>
+        <Link to='/place/create'>Create Place</Link>
       </div>
     );
   }
