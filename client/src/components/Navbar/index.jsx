@@ -5,8 +5,7 @@ import './style.scss';
 const Navbar = props => {
   return (
     <nav>
-      <Link to="/">CRUDer</Link>
-      <Link to="/post/create">Create a post</Link>
+      <Link to='/'>Localista</Link>
       {(props.user && (
         <>
           <span>{props.user.name}</span>
@@ -14,8 +13,8 @@ const Navbar = props => {
         </>
       )) || (
         <>
-          <Link to="/authentication/sign-up">Sign Up</Link>
-          <Link to="/authentication/sign-in">Sign In</Link>
+          <Link to='/authentication/sign-up'>Sign Up</Link>
+          <Link to='/authentication/sign-in'>Sign In</Link>
         </>
       )}
     </nav>
