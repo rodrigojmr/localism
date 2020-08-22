@@ -10,11 +10,12 @@ import { GoogleMap, useLoadScript, Marker, InfoWindow, Autocomplete } from '@rea
 //   ComboboxOption
 // } from '@reach/combobox/styles.css';
 import MapStyles from './../../MapStyles';
+import { formatRelative } from 'date-fns';
 
 const libraries = ['places'];
 const mapContainerStyle = {
-  width: '50vw',
-  height: '50vh',
+  width: '100vw',
+  height: '100vh',
   margin: '0 auto'
 };
 
@@ -35,35 +36,67 @@ const Map = () => {
     libraries
   });
   const [markers, setMarkers] = React.useState([]);
+  //setState on marker click and retrieve value when clicked by user
+  const [selected, setSelected] = React.useState(null);
+
+  const onMapClick = React.useCallback(event => {
+    setMarkers(current => [
+      ...current,
+      {
+        lat: event.latLng.lat(),
+        lng: event.latLng.lng(),
+        time: new Date()
+      }
+    ]);
+  }, []);
+
+  //use this to reference the map without causing re-renders
+  const mapRef = React.useRef();
+  const onMapLoad = React.useCallback(map => {
+    mapRef.current = map;
+  }, []);
+
   if (loadError) return 'Error loading maps';
   if (!isLoaded) return 'Loading Maps';
   return (
     <div>
-      <h1 className="map-name">The Localist</h1>
       <GoogleMap
         mapContainerStyle={mapContainerStyle}
         zoom={8}
         center={center}
         options={options}
-        onClick={event => {
-          console.log(event);
-          setMarkers(current => [
-            ...current,
-            {
-              lat: event.latLng.lat(),
-              lng: event.latLng.lng(),
-              time: new Date()
-            }
-          ]);
-        }}
+        onClick={onMapClick}
+        onLoad={onMapLoad}
       >
         {' '}
-        {markers.map(markers => (
+        {markers.map(marker => (
           <Marker
-            key={markers.time.toISOString()}
-            position={{ lat: markers.lat, lng: markers.lng }}
+            key={marker.time.toISOString()}
+            position={{ lat: marker.lat, lng: marker.lng }}
+            icon={{
+              url: 'http://maps.google.com/mapfiles/ms/icons/pink-dot.png',
+              scaledSize: new window.google.maps.Size(30, 30),
+              origin: new window.google.maps.Point(0, 0),
+              anchor: new window.google.maps.Point(15, 15)
+            }}
+            onClick={() => {
+              setSelected(marker);
+            }}
           />
         ))}
+        {selected ? (
+          <InfoWindow
+            position={{ lat: selected.lat, lng: selected.lng }}
+            onCloseClick={() => {
+              setSelected(null);
+            }}
+          >
+            <div>
+              <h2>Some Place</h2>
+              <p>Created {formatRelative(selected.time, new Date())}</p>
+            </div>
+          </InfoWindow>
+        ) : null}
       </GoogleMap>
     </div>
   );

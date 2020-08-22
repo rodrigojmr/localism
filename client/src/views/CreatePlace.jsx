@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import Map from '../components/Map';
+
 import PlaceForm from '../components/Form/PlaceForm';
 import { createPlace } from '../services/place';
 
@@ -59,8 +59,6 @@ class CreatePlace extends Component {
           onValueChange={this.handleValueChange}
           onFormSubmission={this.handlePlaceCreation}
         />
-
-        <Map />
       </div>
     );
   }
