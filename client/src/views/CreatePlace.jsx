@@ -53,13 +53,14 @@ class CreatePlace extends Component {
   render() {
     return (
       <div className="home">
-        <Map />
         <PlaceForm
           {...this.state}
           onDateChange={this.handleDateChange}
           onValueChange={this.handleValueChange}
           onFormSubmission={this.handlePlaceCreation}
         />
+
+        <Map />
       </div>
     );
   }
