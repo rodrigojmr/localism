@@ -7,15 +7,30 @@ const schema = new mongoose.Schema({
     type: String,
     minlength: 3,
     maxlength: 30,
-    trim: true
+    unique: true,
+    trim: true,
+    required: true
+  },
+  name: {
+    type: String,
+    minlength: 3,
+    maxlength: 60,
+    trim: true,
+    required: true
   },
   email: {
     type: String,
     required: true,
     lowercase: true,
+    unique: true,
     trim: true
   },
-  passwordHash: {
+  token: { type: String },
+  active: {
+    type: Boolean,
+    default: false
+  },
+  passwordHashAndSalt: {
     type: String
   },
   avatar: {
