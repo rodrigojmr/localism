@@ -1,10 +1,16 @@
 import React, { Component } from 'react';
 import './styles/style.scss';
-import { BrowserRouter, Switch, Route } from 'react-router-dom';
+import { Redirect, Switch, Route } from 'react-router-dom';
 import { loadMe, signOut } from './services/authentication';
 import HomeView from './views/HomeView';
 import CreatePlace from './views/CreatePlace';
 import AuthenticationSignInView from './views/Authentication/SignInView';
+import AuthenticationSignUpView from './views/Authentication/SignUpView';
+import ProtectedRoute from './components/ProtectedRoute';
+import ErrorView from './views/ErrorView';
+import ConfirmEmail from './views/Authentication/ConfirmEmail';
+
+import Spinner from './components/Spinner';
 
 import Navbar from './components/Navbar';
 //import ProtectedRoute from './components/ProtectedRoute';
@@ -27,7 +33,7 @@ class App extends Component {
           loaded: true
         });
       })
-      .then(error => {
+      .catch(error => {
         console.log(error);
       });
   }
@@ -51,19 +57,59 @@ class App extends Component {
   render() {
     return (
       <div className="App">
-        <BrowserRouter>
-          <Navbar user={this.state.user} onSignOut={this.handleSignOut} />
-          {this.state.loaded && (
-            <Switch>
-              <Route path="/" component={HomeView} exact />
-              <Route path="/place/create" exact component={CreatePlace} />
-              <Route
-                path="/authentication/sign-in"
-                component={AuthenticationSignInView}
-              />
-            </Switch>
-          )}
-        </BrowserRouter>
+        <Navbar user={this.state.user} onSignOut={this.handleSignOut} />
+        {(this.state.loaded && (
+          <Switch>
+            <Route path="/" component={HomeView} exact />
+            <Route path="/place/create" exact component={CreatePlace} />
+            {/* <ProtectedRoute
+                path="/place/create"
+                exact
+                component={CreatePlace}
+                authorized={this.state.user}
+                redirect="/authentication/sign-in"
+              /> */}
+            <ProtectedRoute
+              path="/authentication/sign-up"
+              render={props => (
+                <AuthenticationSignUpView
+                  {...props}
+                  onUserUpdate={this.handleUserUpdate}
+                />
+              )}
+              authorized={!this.state.user}
+              redirect="/"
+            />
+            <ProtectedRoute
+              path="/authentication/sign-in"
+              render={props => (
+                <AuthenticationSignInView
+                  {...props}
+                  onUserUpdate={this.handleUserUpdate}
+                />
+              )}
+              authorized={!this.state.user}
+              redirect="/"
+            />
+            <Route
+              path="/authentication/confirmation/:token"
+              render={props => (
+                <ConfirmEmail
+                  {...props}
+                  onUserConfirmation={this.handleUserUpdate}
+                />
+              )}
+              redirect="/"
+            />{' '}
+            <Route path="/error" component={ErrorView} />
+            <Redirect from="/" to="/error" />
+            {/* <Route path="/authentication/sign-in" component={AuthenticationSignInView} /> */}
+          </Switch>
+        )) || (
+          <div>
+            <Spinner />
+          </div>
+        )}
       </div>
     );
   }

@@ -5,7 +5,7 @@ class AuthenticationSignInView extends Component {
   constructor() {
     super();
     this.state = {
-      email: '',
+      username: '',
       password: '',
       error: null
     };
@@ -20,8 +20,8 @@ class AuthenticationSignInView extends Component {
 
   handleFormSubmission = event => {
     event.preventDefault();
-    const { email, password } = this.state;
-    const body = { email, password };
+    const { username, password } = this.state;
+    const body = { username, password };
     signIn(body)
       .then(data => {
         const { user } = data;
@@ -39,13 +39,13 @@ class AuthenticationSignInView extends Component {
     return (
       <div>
         <form onSubmit={this.handleFormSubmission}>
-          <label htmlFor="input-email">Email</label>
+          <label htmlFor="input-username">Username</label>
           <input
-            id="input-email"
-            type="email"
-            name="email"
-            placeholder="Email"
-            value={this.state.email}
+            id="input-username"
+            type="text"
+            name="username"
+            placeholder="username"
+            value={this.state.username}
             onChange={this.handleInputChange}
             required
           />

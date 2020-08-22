@@ -6,6 +6,7 @@ class AuthenticationSignUpView extends Component {
     super();
     this.state = {
       name: '',
+      username: '',
       email: '',
       password: ''
     };
@@ -25,12 +26,7 @@ class AuthenticationSignUpView extends Component {
 
   handleFormSubmission = event => {
     event.preventDefault();
-    const { name, email, password } = this.state;
-    if (!this.emailValidation(email)) {
-      throw 
-    }
-    
-    const body = { name, email, password };
+    const body = { ...this.state };
     signUp(body)
       .then(data => {
         const { user } = data;
@@ -54,6 +50,15 @@ class AuthenticationSignUpView extends Component {
             value={this.state.name}
             onChange={this.handleInputChange}
           />
+          <label htmlFor="input-username">Username</label>
+          <input
+            id="input-username"
+            type="text"
+            name="username"
+            placeholder="username"
+            value={this.state.username}
+            onChange={this.handleInputChange}
+          />
 
           <label htmlFor="input-email">Email</label>
           <input
@@ -67,6 +72,7 @@ class AuthenticationSignUpView extends Component {
 
           <label htmlFor="input-password">Password</label>
           <input
+            minLength="8"
             id="input-password"
             type="password"
             name="password"

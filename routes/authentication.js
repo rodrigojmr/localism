@@ -7,35 +7,104 @@ const User = require('./../models/user');
 
 const authenticationRouter = new Router();
 
+const nodemailer = require('nodemailer');
+
+const transport = nodemailer.createTransport({
+  service: 'Gmail',
+  auth: {
+    user: process.env.NODEMAILER_EMAIL,
+    pass: process.env.NODEMAILER_PASSWORD
+  }
+});
+
+const generateId = length => {
+  const characters =
+    '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
+  let token = '';
+  for (let i = 0; i < length; i++) {
+    token += characters[Math.floor(Math.random() * characters.length)];
+  }
+  return token;
+};
+
+function sendMail(user) {
+  return transport.sendMail({
+    from: 'Localism" <process.env.NODEMAILER_EMAIL>',
+    to: `${user.email}`,
+    subject: 'Welcome to Localism!',
+    html: `<b>Hello!</b>
+  please confirm your email clicking <a href = "http://localhost:3000/authentication/confirmation/${user.token}">Click here</a>`
+  });
+}
+
 authenticationRouter.post('/sign-up', async (req, res, next) => {
-  const { name, email, password } = req.body;
+  const { name, username, email, password } = req.body;
+
   try {
     if (password.length < 8) throw new Error('Password is too short.');
     const hashAndSalt = await bcrypt.hash(password, 10);
+    const token = generateId(10);
     const user = await User.create({
       name,
+      username,
       email,
+      token,
       passwordHashAndSalt: hashAndSalt
     });
-    req.session.userId = user._id;
-    res.json({ user: { _id: user._id, name: user.name, email: user.email } });
+    sendMail(user).then(() => {
+      req.session.userId = user._id;
+      res.json({
+        user: {
+          _id: user._id,
+          name: user.name,
+          username: user.username,
+          email: user.email
+        }
+      });
+    });
+  } catch (error) {
+    next(error);
+  }
+});
+
+authenticationRouter.get(`/confirmation/:token`, async (req, res, next) => {
+  const token = req.params.token;
+  try {
+    const user = await User.findOne({ token });
+    if (user.active) {
+      res.json({ message: "You've already confirmed your email." });
+    } else if (!user) {
+      res.json({ message: 'No user with that email.' });
+    } else {
+      user.active = true;
+      user.save();
+      req.session.user = user._id;
+      res.json({
+        message: "You've confirmed your e-mail!",
+        user: {
+          _id: user._id,
+          name: user.name,
+          username: user.username,
+          email: user.email
+        }
+      });
+    }
   } catch (error) {
     next(error);
   }
 });
 
 authenticationRouter.post('/sign-in', async (req, res, next) => {
-  const { email, password } = req.body;
+  const { username, password } = req.body;
   try {
-    const user = await User.findOne({ email });
-    if (!user) throw new Error('No user with that email.');
-
+    const user = await User.findOne({ username });
+    if (!user) throw new Error('No user with that username.');
     const passwordHashAndSalt = user.passwordHashAndSalt;
     const comparison = await bcrypt.compare(password, passwordHashAndSalt);
     if (!comparison) throw new Error('Password did not match.');
 
     req.session.userId = user._id;
-    res.json({ user: { name: user.name, email: user.email } });
+    res.json({ user: { username: user.username, email: user.email } });
   } catch (error) {
     next(error);
   }

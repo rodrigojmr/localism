@@ -15,3 +15,6 @@ export const signOut = () =>
   api.post('/sign-out').then(response => response.data);
 
 export const loadMe = () => api.get('/me').then(response => response.data);
+
+export const confirmEmail = token =>
+  api.get(`/confirmation/${token}`).then(response => response.data);
