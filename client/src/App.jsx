@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import './styles/style.scss';
 import { BrowserRouter, Switch, Route } from 'react-router-dom';
-import { loadProfile, signOut } from './services/authentication';
+import { loadMe, signOut } from './services/authentication';
 import HomeView from './views/HomeView';
 import CreatePlace from './views/CreatePlace';
 import AuthenticationSignInView from './views/Authentication/SignInView';
@@ -19,7 +19,7 @@ class App extends Component {
   }
 
   componentDidMount() {
-    loadProfile()
+    loadMe()
       .then(data => {
         const user = data.user;
         this.handleUserUpdate(user);
@@ -50,17 +50,19 @@ class App extends Component {
 
   render() {
     return (
-      <div className='App'>
+      <div className="App">
         <BrowserRouter>
           <Navbar user={this.state.user} onSignOut={this.handleSignOut} />
-          <Switch>
-            <Route path='/' component={HomeView} exact />
-            <Route path='/place/create' exact component={CreatePlace} />
-            <Route
-              path='/authentication/sign-in'
-              component={AuthenticationSignInView}
-            />
-          </Switch>
+          {this.state.loaded && (
+            <Switch>
+              <Route path="/" component={HomeView} exact />
+              <Route path="/place/create" exact component={CreatePlace} />
+              <Route
+                path="/authentication/sign-in"
+                component={AuthenticationSignInView}
+              />
+            </Switch>
+          )}
         </BrowserRouter>
       </div>
     );
