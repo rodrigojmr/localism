@@ -164,8 +164,8 @@ export const PlaceForm = props => {
       <div className="input-group">
         <label htmlFor="input-address">Address</label>
         <input
-          placeholder="Place address"
-          type="text"
+          placeholder="Email"
+          type="email"
           name="address"
           id="input-address"
           value={props.address}
