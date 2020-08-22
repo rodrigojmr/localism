@@ -59,8 +59,8 @@ const placeSchema = new mongoose.Schema(
       type: {
         type: String,
         default: 'Point'
-      },
-      required: true
+      }
+      // required: true
     },
     suggestions: [
       {

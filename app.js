@@ -10,6 +10,7 @@ const logger = require('morgan');
 const mongoose = require('mongoose');
 
 const indexRouter = require('./routes/index');
+const placeRouter = require('./routes/place');
 const authenticationRouter = require('./routes/authentication');
 const deserializeUser = require('./middleware/deserializeUser.js');
 
@@ -48,7 +49,7 @@ app.use(
 app.use(deserializeUser);
 
 app.use('/', indexRouter);
-app.use('/place', indexRouter);
+app.use('/place', placeRouter);
 app.use('/authentication', authenticationRouter);
 
 // Catch missing routes and forward to error handler

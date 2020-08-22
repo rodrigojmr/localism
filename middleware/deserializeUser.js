@@ -8,7 +8,7 @@ const deserializeUser = (request, response, next) => {
   const id = request.session.userId;
 
   User.findById(id)
-    .select('_id name email')
+    .select('_id name email username')
     .then(user => {
       request.user = user;
       next();

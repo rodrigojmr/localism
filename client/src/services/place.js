@@ -15,10 +15,8 @@ const api = axios.create({
 export const listPlaces = () =>
   api.get('/post/list').then(response => response.data);
 
-// export const createPost = body => api.post('/post', body).then(response => response.data);
-export const createPlace = body => {
-  return api.post('/place', body).then(response => response.data);
-};
+export const createPlace = body =>
+  api.post('/place', body).then(response => response.data);
 
 export const loadplace = id =>
   api.get(`/place/${id}`).then(response => response.data);

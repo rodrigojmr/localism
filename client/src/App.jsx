@@ -63,6 +63,11 @@ class App extends Component {
           <Switch>
             <Route path="/" component={HomeView} exact />
             <Route path="/place/create" exact component={CreatePlace} />
+            <Route
+              path="/support/create"
+              exact
+              component={SupportCreationView}
+            />
             {/* <ProtectedRoute
                 path="/place/create"
                 exact
@@ -103,7 +108,7 @@ class App extends Component {
               redirect="/"
             />{' '}
             <Route path="/error" component={ErrorView} />
-            <Redirect from="/" to="/error" />
+            {/* <Redirect from="/" to="/error" /> */}
             {/* <Route path="/authentication/sign-in" component={AuthenticationSignInView} /> */}
           </Switch>
         )) || (

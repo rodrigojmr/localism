@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import SupportForm from './../../components/SupportForm';
+import SupportForm from './../../components/Form/SupportForm';
 
 import { loadplace } from './../../services/place';
 import { createSupport } from './../../services/support';
@@ -36,6 +36,7 @@ class SupportCreationView extends Component {
       loaded: true
     });
   };
+
   handleContentChange = content => {
     this.setState({
       content
