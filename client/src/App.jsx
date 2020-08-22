@@ -4,6 +4,7 @@ import { BrowserRouter, Switch, Route } from 'react-router-dom';
 import { loadProfile, signOut } from './services/authentication';
 import HomeView from './views/HomeView';
 import CreatePlace from './views/CreatePlace';
+import SupportCreationView from './views/Support/SupportCreationView';
 import AuthenticationSignInView from './views/Authentication/SignInView';
 
 import Navbar from './components/Navbar';
