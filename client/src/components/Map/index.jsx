@@ -1,5 +1,11 @@
 import React from 'react';
-import { GoogleMap, useLoadScript, Marker, InfoWindow, Autocomplete } from '@react-google-maps/api';
+import {
+  GoogleMap,
+  useLoadScript,
+  Marker,
+  InfoWindow,
+  Autocomplete
+} from '@react-google-maps/api';
 // import { formatRelative } from 'date-fns';
 // import usePlacesAutocomplete, { getGeocode, getLatLng } from 'use-places-autocomplete';
 // import {
@@ -39,7 +45,6 @@ const Map = () => {
   if (!isLoaded) return 'Loading Maps';
   return (
     <div>
-      <h1 className="map-name">The Localist</h1>
       <GoogleMap
         mapContainerStyle={mapContainerStyle}
         zoom={8}
