@@ -1,5 +1,4 @@
 const express = require('express');
-
 const Place = require('../models/place');
 
 const routeAuthenticationGuard = require('../middleware/route-guard');
@@ -131,8 +130,10 @@ placeRouter.patch('/:id', routeAuthenticationGuard, (req, res, next) => {
   Place.findOneAndUpdate(
     { _id: id, creator: req.user._id },
     {
+      owner: req.user._id,
       name,
       category,
+      openDate,
       schedule: {
         from: weekDayFrom,
         to: weekDayTo,
