@@ -35,7 +35,7 @@ placeRouter.get('/:id', async (req, res, next) => {
     ).populated({
       path: 'suggestions',
       populate: {
-        path: 'user',
+        path: 'author',
         model: 'User'
       }
     });

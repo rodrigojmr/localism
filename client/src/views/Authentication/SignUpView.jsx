@@ -1,13 +1,14 @@
 import React, { Component } from 'react';
-import { signIn } from './../../services/authentication';
+import { signUp } from './../../services/authentication';
 
-class AuthenticationSignInView extends Component {
+class AuthenticationSignUpView extends Component {
   constructor() {
     super();
     this.state = {
+      name: '',
       username: '',
-      password: '',
-      error: null
+      email: '',
+      password: ''
     };
   }
 
@@ -18,20 +19,21 @@ class AuthenticationSignInView extends Component {
     });
   };
 
+  emailValidation = email => {
+    const regex = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+    return regex.test(email);
+  };
+
   handleFormSubmission = event => {
     event.preventDefault();
-    const { username, password } = this.state;
-    const body = { username, password };
-    signIn(body)
+    const body = { ...this.state };
+    signUp(body)
       .then(data => {
         const { user } = data;
         this.props.onUserUpdate(user);
       })
       .catch(error => {
-        const serverError = error.response.data.error;
-        this.setState({
-          error: serverError
-        });
+        console.log(error);
       });
   };
 
@@ -39,6 +41,15 @@ class AuthenticationSignInView extends Component {
     return (
       <div>
         <form onSubmit={this.handleFormSubmission}>
+          <label htmlFor="input-name">Name</label>
+          <input
+            id="input-name"
+            type="text"
+            name="name"
+            placeholder="Name"
+            value={this.state.name}
+            onChange={this.handleInputChange}
+          />
           <label htmlFor="input-username">Username</label>
           <input
             id="input-username"
@@ -47,33 +58,34 @@ class AuthenticationSignInView extends Component {
             placeholder="username"
             value={this.state.username}
             onChange={this.handleInputChange}
-            required
+          />
+
+          <label htmlFor="input-email">Email</label>
+          <input
+            id="input-email"
+            type="email"
+            name="email"
+            placeholder="Email"
+            value={this.state.email}
+            onChange={this.handleInputChange}
           />
 
           <label htmlFor="input-password">Password</label>
           <input
+            minLength="8"
             id="input-password"
             type="password"
             name="password"
             placeholder="Password"
             value={this.state.password}
             onChange={this.handleInputChange}
-            required
-            minLength="8"
           />
 
-          {this.state.error && (
-            <div className="error-block">
-              <p>There was an error submiting the form:</p>
-              <p>{this.state.error.message}</p>
-            </div>
-          )}
-
-          <button>Sign In</button>
+          <button>Sign Up</button>
         </form>
       </div>
     );
   }
 }
 
-export default AuthenticationSignInView;
+export default AuthenticationSignUpView;

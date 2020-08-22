@@ -12,8 +12,8 @@ class CreatePlace extends Component {
       openDate: '',
       address: '',
       areaName: '',
-      weekDayFrom: '',
-      weekDayTo: '',
+      weekDayOpen: '',
+      weekDayClose: '',
       openTime: '',
       closeTime: '',
       phoneNumber: '',
@@ -24,9 +24,14 @@ class CreatePlace extends Component {
   }
 
   handleValueChange = (name, value) => {
+    console.log(name, value);
     this.setState({
       [name]: value
     });
+  };
+
+  handleDateChange = (name, date) => {
+    console.log(name, date);
   };
 
   handlePlaceCreation = () => {
@@ -48,11 +53,14 @@ class CreatePlace extends Component {
   render() {
     return (
       <div className="home">
-        <Map />
         <PlaceForm
+          {...this.state}
+          onDateChange={this.handleDateChange}
           onValueChange={this.handleValueChange}
           onFormSubmission={this.handlePlaceCreation}
         />
+
+        <Map />
       </div>
     );
   }

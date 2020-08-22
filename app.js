@@ -53,12 +53,14 @@ app.use('/authentication', authenticationRouter);
 
 // Catch missing routes and forward to error handler
 app.use((req, res, next) => {
+  res.status(404);
   const error = new Error('Page not found.');
   next(error);
 });
 
 // Catch all error handler
 app.use((error, req, res, next) => {
+  console.log(error);
   res.status(error.status || 500);
   res.json({ type: 'error', error: { message: error.message } });
 });
