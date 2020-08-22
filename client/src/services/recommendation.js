@@ -5,6 +5,7 @@ const api = axios.create({
   withCredentials: true
 });
 
+// Missing GET
 // POST - '/recommendation' - Handle recommendation creation form submission. Send the created recommendation in JSON response.
 // PATCH - '/recommendation' - Handle recommendation edit form submission. Send the created recommendation in JSON response.
 // DELETE - '/recommendation' - Handle recommendation delete form submission. Send the created recommendation in JSON response.

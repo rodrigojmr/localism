@@ -24,9 +24,14 @@ class CreatePlace extends Component {
   }
 
   handleValueChange = (name, value) => {
+    console.log(name, value);
     this.setState({
       [name]: value
     });
+  };
+
+  handleDateChange = (name, date) => {
+    console.log(name, date);
   };
 
   handlePlaceCreation = () => {
@@ -50,6 +55,8 @@ class CreatePlace extends Component {
       <div className="home">
         <Map />
         <PlaceForm
+          {...this.state}
+          onDateChange={this.handleDateChange}
           onValueChange={this.handleValueChange}
           onFormSubmission={this.handlePlaceCreation}
         />
