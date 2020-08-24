@@ -24,14 +24,9 @@ class CreatePlace extends Component {
   }
 
   handleValueChange = (name, value) => {
-    console.log(name, value);
     this.setState({
       [name]: value
     });
-  };
-
-  handleDateChange = (name, date) => {
-    console.log(name, date);
   };
 
   handlePlaceCreation = () => {
@@ -39,6 +34,7 @@ class CreatePlace extends Component {
 
     createPlace(body)
       .then(data => {
+        console.log('data after createPlace: ', data);
         const id = data.place._id;
         // Redirect user to single post view
         this.props.history.push(`/place/${id}`);

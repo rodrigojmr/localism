@@ -21,6 +21,7 @@ class HomeView extends Component {
       <div className="home">
         <PlacesList />
         <Link to="/place/create">Create Place</Link>
+        <Link to="/support/create">Support a Place</Link>
         <Map />
       </div>
     );

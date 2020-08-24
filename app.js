@@ -8,8 +8,10 @@ const connectMongo = require('connect-mongo');
 const expressSession = require('express-session');
 const logger = require('morgan');
 const mongoose = require('mongoose');
+const bodyParser = require('body-parser');
 
 const indexRouter = require('./routes/index');
+const placeRouter = require('./routes/place');
 const authenticationRouter = require('./routes/authentication');
 
 const deserializeUser = require('./middleware/deserializeUser.js');
@@ -23,12 +25,15 @@ app.use(serveFavicon(join(__dirname, 'public/images', 'favicon.ico')));
 app.use(logger('dev'));
 app.use(express.json());
 
+app.options(process.env.CLIENT_APP_URL, cors());
 app.use(
   cors({
-    origin: [process.env.CLIENT_APP_URL],
-    credentials: true
+    credentials: true,
+    origin: [process.env.CLIENT_APP_URL, `${process.env.CLIENT_APP_URL}/place`]
   })
 );
+
+app.use(bodyParser.json());
 app.use(
   expressSession({
     secret: process.env.COOKIE_SECRET,
@@ -49,7 +54,7 @@ app.use(
 app.use(deserializeUser);
 
 app.use('/', indexRouter);
-app.use('/place', indexRouter);
+app.use('/place', placeRouter);
 app.use('/authentication', authenticationRouter);
 
 // Catch missing routes and forward to error handler

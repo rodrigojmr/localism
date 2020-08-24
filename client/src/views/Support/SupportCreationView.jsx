@@ -36,6 +36,7 @@ class SupportCreationView extends Component {
       loaded: true
     });
   };
+
   handleContentChange = content => {
     this.setState({
       content
