@@ -14,10 +14,9 @@ class SupportCreationView extends Component {
   }
 
   handleSupportCreation = () => {
-    const content = this.state.content;
+    const body = { content: this.state.content };
     const placeId = this.props.match.params.id;
-
-    const body = { content, place: placeId };
+    console.log('placeId: ', placeId);
 
     createSupport(placeId, body)
       .then(data => {

@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
-import SupportForm from '../../components/Form/SupportForm';
+import SupportForm from './../../components/Form/SupportForm';
 
-//import { loadplace } from '../../services/place';
-import { createSupport } from '../../services/support';
+import { loadplace } from './../../services/place';
+import { createSupport } from './../../services/support';
 
 class SupportPlaceView extends Component {
   constructor() {
@@ -13,15 +13,14 @@ class SupportPlaceView extends Component {
     };
   }
 
-  handlePlaceCreation = async () => {
-    const content = this.state.content;
+  handleSupportCreation = () => {
+    const body = { content: this.state.content };
     const placeId = this.props.match.params.id;
+    console.log('placeId: ', placeId);
 
-    createSupport(content, placeId)
+    createSupport(placeId, body)
       .then(data => {
-        const support = data.support;
-        const id = support._id;
-        this.props.history.push(`/place/${id}/support`);
+        this.props.history.push(`/place/${placeId}`);
       })
       .catch(error => {
         console.log(error);
@@ -40,8 +39,6 @@ class SupportPlaceView extends Component {
     });
   };
 
-  componentDidMount() {}
-
   render() {
     return (
       <div>
@@ -49,7 +46,7 @@ class SupportPlaceView extends Component {
           content={this.state.content}
           onContentChange={this.handleContentChange}
           onSupportChange={this.handleSupportChange}
-          onFormSubmission={this.handlePlaceCreation}
+          onFormSubmission={this.handleSupportCreation}
         />
       </div>
     );
