@@ -14,13 +14,13 @@ class SupportCreationView extends Component {
     };
   }
 
-  handleSupportCreation = async () => {
+  handleSupportCreation = () => {
     const content = this.state.content;
     const placeId = this.props.match.params.id;
 
     const body = { content, place: placeId };
 
-    createSupport(body)
+    createSupport(placeId, body)
       .then(data => {
         const support = data.support;
         const id = support._id;
