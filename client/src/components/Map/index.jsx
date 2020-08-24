@@ -1,28 +1,23 @@
 import React from 'react';
-import {
-  GoogleMap,
-  useLoadScript,
-  Marker,
-  InfoWindow,
-  Autocomplete
-} from '@react-google-maps/api';
-// import { formatRelative } from 'date-fns';
-// import usePlacesAutocomplete, { getGeocode, getLatLng } from 'use-places-autocomplete';
-// import {
-//   Combobox,
-//   ComboboxInput,
-//   ComboboxPopover,
-//   ComboboxList,
-//   ComboboxOption
-// } from '@reach/combobox/styles.css';
-import MapStyles from './../../MapStyles';
+import { GoogleMap, useLoadScript, Marker, InfoWindow, Autocomplete } from '@react-google-maps/api';
 import { formatRelative } from 'date-fns';
+import usePlacesAutocomplete, { getGeocode, getLatLng } from 'use-places-autocomplete';
+import {
+  Combobox,
+  ComboboxInput,
+  ComboboxPopover,
+  ComboboxList,
+  ComboboxOption
+} from '@reach/combobox';
+import './../../App.css';
+import '@reach/combobox/styles.css';
+
+import MapStyles from './../../MapStyles';
 
 const libraries = ['places'];
 const mapContainerStyle = {
   width: '100vw',
-  height: '100vh',
-  margin: '0 auto'
+  height: '100vh'
 };
 
 const center = {
@@ -60,6 +55,11 @@ const Map = () => {
   const mapRef = React.useRef();
   const onMapLoad = React.useCallback(map => {
     mapRef.current = map;
+  }, []);
+
+  const panTo = React.useCallback(({ lat, lng }) => {
+    mapRef.current.panTo({ lat, lng });
+    mapRef.current.setZoom(18);
   }, []);
 
   if (loadError) return 'Error loading maps';
@@ -103,9 +103,83 @@ const Map = () => {
             </div>
           </InfoWindow>
         ) : null}
+        <Search panTo={panTo} />
+        <Locate panTo={panTo} />
       </GoogleMap>
     </div>
   );
 };
+
+const Locate = ({ panTo }) => {
+  return (
+    <button
+      className="locate"
+      onClick={() => {
+        navigator.geolocation.getCurrentPosition(
+          position => {
+            panTo({
+              lat: position.coords.latitude,
+              lng: position.coords.longitude
+            });
+          },
+          () => null
+        );
+      }}
+    >
+      <img
+        src="https://listimg.pinclipart.com/picdir/s/101-1016750_compass-clipart-transparent-background-compass-rose-for-a.png"
+        alt="location-compass"
+      />
+    </button>
+  );
+};
+
+function Search({ panTo }) {
+  const {
+    ready,
+    value,
+    suggestions: { status, data },
+    setValue,
+    clearSuggestions
+  } = usePlacesAutocomplete({
+    requestOptions: {
+      location: { lat: () => 6.5568767999999995, lng: () => 3.3488895999999997 },
+      radius: 200 * 1000
+    }
+  });
+  return (
+    <div className="search">
+      <Combobox
+        onSelect={async address => {
+          setValue(address, false);
+          clearSuggestions();
+          try {
+            const results = await getGeocode({ address });
+            const { lat, lng } = await getLatLng(results[0]);
+            console.log(lat, lng);
+            panTo({ lat, lng });
+          } catch (error) {
+            console.log('Error!');
+          }
+        }}
+      >
+        <ComboboxInput
+          value={value}
+          onChange={e => {
+            setValue(e.target.value);
+          }}
+          disabled={!ready}
+          placeholder="Enter your address"
+        />
+        <ComboboxPopover>
+          <ComboboxList>
+            {status === 'OK' &&
+              data.map(({ id, description }) => <ComboboxOption key={id} value={description} />)}
+          </ComboboxList>
+        </ComboboxPopover>
+      </Combobox>
+    </div>
+  );
+}
 
 export default Map;

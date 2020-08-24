@@ -11,6 +11,7 @@ const mongoose = require('mongoose');
 
 const indexRouter = require('./routes/index');
 const authenticationRouter = require('./routes/authentication');
+
 const deserializeUser = require('./middleware/deserializeUser.js');
 
 const mongoStore = connectMongo(expressSession);

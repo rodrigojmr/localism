@@ -7,7 +7,7 @@ import 'react-datepicker/dist/react-datepicker.css';
 import 'react-phone-number-input/style.css';
 import PhoneInput from 'react-phone-number-input';
 
-//import { GoogleMap, LoadScript } from '@react-google-maps/api';
+import { GoogleMap, LoadScript } from '@react-google-maps/api';
 
 export const PlaceForm = props => {
   const onFormSubmission = event => {
@@ -44,7 +44,7 @@ export const PlaceForm = props => {
       <div className="input-group">
         <label htmlFor="input-address">Category</label>
         <input
-          placeholder="Address"
+          placeholder="category"
           type="text"
           name="category"
           id="input-category"
@@ -52,7 +52,6 @@ export const PlaceForm = props => {
           onChange={onValueChange}
         />
       </div>
-      <Map />
       {/* Connect with google maps */}
       <div className="input-group">
         <label htmlFor="input-address">Address</label>
@@ -64,7 +63,8 @@ export const PlaceForm = props => {
           value={props.address}
           onChange={onValueChange}
         />
-      </div>
+      </div>{' '}
+      <Map />
       {/* Auto fill from google maps information */}
       <div className="input-group">
         <label htmlFor="input-areaName">Area</label>
@@ -147,8 +147,7 @@ export const PlaceForm = props => {
           onChange={phoneNumber => props.onValueChange('phoneNumber', phoneNumber)}
         />
       </div>
-
-      <div className="input-group">
+      {/*<div className="input-group" id="address">
         <label htmlFor="input-address">Address</label>
         <input
           placeholder="Email"
@@ -158,7 +157,7 @@ export const PlaceForm = props => {
           value={props.address}
           onChange={onValueChange}
         />
-      </div>
+  </div>*/}
     </form>
   );
 };
