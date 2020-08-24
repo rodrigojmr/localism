@@ -1,5 +1,6 @@
 const express = require('express');
 const Place = require('../models/place');
+const Support = require('../models/support');
 
 const routeAuthenticationGuard = require('../middleware/route-guard');
 
@@ -28,16 +29,17 @@ placeRouter.get('/list', (req, res, next) => {
 
 placeRouter.get('/:id', async (req, res, next) => {
   const id = req.params.id;
+
   try {
-    const place = await (
-      await Place.findById(id).populate('owner suggestions')
-    ).populated({
-      path: 'suggestions',
-      populate: {
-        path: 'author',
-        model: 'User'
-      }
-    });
+    const place = await Place.findById(id)
+      .populate('owner supports')
+      .populate({
+        path: 'supports',
+        populate: {
+          path: 'author',
+          model: 'User'
+        }
+      });
     if (place) {
       res.json({ place });
     } else {
