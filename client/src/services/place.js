@@ -18,11 +18,11 @@ export const listPlaces = () =>
 export const createPlace = body =>
   api.post('/place', body).then(response => response.data);
 
-export const loadplace = id =>
+export const loadPlace = id =>
   api.get(`/place/${id}`).then(response => response.data);
 
-export const deleteplace = id =>
+export const deletePlace = id =>
   api.delete(`/place/${id}`).then(response => response.data);
 
-export const editplace = (id, body) =>
+export const editPlace = (id, body) =>
   api.patch(`/place/${id}`, body).then(response => response.data);

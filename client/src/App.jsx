@@ -6,6 +6,7 @@ import HomeView from './views/HomeView';
 import CreatePlace from './views/CreatePlace';
 import SupportCreationView from './views/Support/SupportCreationView';
 import SupportPlaceView from './views/Support/SupportPlaceView';
+import SinglePlace from './views/Place/SinglePlace';
 import AuthenticationSignInView from './views/Authentication/SignInView';
 import AuthenticationSignUpView from './views/Authentication/SignUpView';
 import ProtectedRoute from './components/ProtectedRoute';
@@ -69,6 +70,7 @@ class App extends Component {
               exact
               component={SupportPlaceView}
             />
+            <Route path="/place/:id" component={SinglePlace} exact />
             <Route
               path="/support/create"
               exact
