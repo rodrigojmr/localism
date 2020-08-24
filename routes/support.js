@@ -5,7 +5,7 @@ const routeAuthenticationGuard = require('./../middleware/route-guard');
 
 const supportRouter = new express.Router();
 
-supportRouter.get('/support', (request, response, next) => {
+supportRouter.get('/', (request, response, next) => {
   Support.find()
     .populate('creator')
     .sort({ creationDate: -1 })
@@ -29,6 +29,23 @@ supportRouter.get('/:id', async (request, response, next) => {
   } catch (error) {
     next(error);
   }
+});
+
+supportRouter.post('/id', (request, response, next) => {
+  //const { creator, place, content } = request.body;
+  //console.log('req.body: ', request.body);
+
+  Support.create({
+    creator: request.user._id,
+    place: request.place._id,
+    content: request.body.content
+  })
+    .then(support => {
+      response.json({ support });
+    })
+    .catch(error => {
+      next(error);
+    });
 });
 
 supportRouter.delete(

@@ -73,7 +73,16 @@ class App extends Component {
             />
             <Route path='/place/:id' component={SinglePlace} exact />
             <Route
+<<<<<<< HEAD
               path='/support/create'
+=======
+              path="/place/:id/support"
+              component={SupportPlaceView}
+              exact
+            />
+            <Route
+              path="/support/create"
+>>>>>>> 746485c94d0084fbc3214bd8ad5a1b7c28d36bf6
               exact
               component={SupportCreationView}
             />
