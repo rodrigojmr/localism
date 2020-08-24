@@ -9,8 +9,7 @@ class SupportCreationView extends Component {
     super();
     this.state = {
       content: '',
-      loaded: false,
-      place: undefined
+      loaded: false
     };
   }
 

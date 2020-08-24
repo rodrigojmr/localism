@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 const Navbar = props => {
   return (
     <nav>
-      <Link to="/">Localista</Link>
+      <Link to='/'>Localista</Link>
       {(props.user && (
         <>
           <span>{props.user.username}</span>
@@ -12,8 +12,8 @@ const Navbar = props => {
         </>
       )) || (
         <>
-          <Link to="/authentication/sign-up">Sign Up</Link>
-          <Link to="/authentication/sign-in">Sign In</Link>
+          <Link to='/authentication/sign-up'>Sign Up</Link>
+          <Link to='/authentication/sign-in'>Sign In</Link>
         </>
       )}
     </nav>

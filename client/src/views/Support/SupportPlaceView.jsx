@@ -1,30 +1,27 @@
 import React, { Component } from 'react';
 import SupportForm from '../../components/Form/SupportForm';
 
-import { loadplace } from '../../services/place';
+//import { loadplace } from '../../services/place';
 import { createSupport } from '../../services/support';
 
-class SupportCreationView extends Component {
+class SupportPlaceView extends Component {
   constructor() {
     super();
     this.state = {
       content: '',
-      loaded: false,
-      place: undefined
+      loaded: false
     };
   }
 
-  handleSupportCreation = async () => {
+  handlePlaceCreation = async () => {
     const content = this.state.content;
     const placeId = this.props.match.params.id;
 
-    const body = { content, place: placeId };
-
-    createSupport(body)
+    createSupport(content, placeId)
       .then(data => {
         const support = data.support;
         const id = support._id;
-        this.props.history.push(`/place/${id}`);
+        this.props.history.push(`/place/${id}/support`);
       })
       .catch(error => {
         console.log(error);
@@ -43,6 +40,8 @@ class SupportCreationView extends Component {
     });
   };
 
+  componentDidMount() {}
+
   render() {
     return (
       <div>
@@ -50,11 +49,11 @@ class SupportCreationView extends Component {
           content={this.state.content}
           onContentChange={this.handleContentChange}
           onSupportChange={this.handleSupportChange}
-          onFormSubmission={this.handleSupportCreation}
+          onFormSubmission={this.handlePlaceCreation}
         />
       </div>
     );
   }
 }
 
-export default SupportCreationView;
+export default SupportPlaceView;
