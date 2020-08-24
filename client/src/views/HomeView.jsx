@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
-import Map from '../components/Map/MapSearch';
+import HomeMap from '../components/Map/HomeMap';
 import PlacesList from '../components/List/PlacesList';
 
 class HomeView extends Component {
@@ -25,7 +25,7 @@ class HomeView extends Component {
         <Link to="/place/5f43a80be9227274903e3b42/support">
           Support Rodrigo's House
         </Link>
-        <Map />
+        <HomeMap />
       </div>
     );
   }

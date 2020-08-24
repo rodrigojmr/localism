@@ -19,6 +19,7 @@ class CreatePlace extends Component {
       closeTime: '',
       phoneNumber: '',
       email: '',
+      place_id: '',
       lat: 0,
       lng: 0
     };

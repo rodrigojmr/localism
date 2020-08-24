@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import { loadPlace } from './../../services/place';
+import SinglePlaceMap from './../../components/Map/SinglePlaceMap';
 
 class SinglePlace extends Component {
   constructor(props) {
@@ -34,6 +35,7 @@ class SinglePlace extends Component {
             <h3>{place.category}</h3>
             <h2>Meet the owners</h2>
             <p>{place.owner.username}</p>
+            <SinglePlaceMap />
             <Link to={`/place/${this.props.match.params.id}/support`}>
               Support this place
             </Link>
