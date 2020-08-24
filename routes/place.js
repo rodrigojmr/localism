@@ -48,22 +48,24 @@ placeRouter.get('/:id', async (req, res, next) => {
   }
 });
 
-placeRouter.post('/', routeAuthenticationGuard, async (req, res, next) => {
+placeRouter.post('/', (req, res, next) => {
   const {
     name,
     category,
     openDate,
-    address,
-    areaName,
+    formatted_address,
+    address_components,
     weekDayFrom,
     weekDayTo,
     openTime,
     closeTime,
     phoneNumber,
     email,
-    latitude,
-    longitude
+    lat,
+    lng
   } = req.body;
+
+  console.log('req.body: ', req.body);
 
   Place.create({
     owner: req.user._id,
@@ -82,10 +84,10 @@ placeRouter.post('/', routeAuthenticationGuard, async (req, res, next) => {
       phoneNumber,
       email
     },
-    address,
-    areaName,
+    formatted_address,
+    address_components,
     location: {
-      coordinates: [latitude, longitude]
+      coordinates: [lat, lng]
     }
   })
     .then(place => {

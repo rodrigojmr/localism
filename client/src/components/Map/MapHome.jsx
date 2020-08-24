@@ -1,7 +1,16 @@
 import React from 'react';
-import { GoogleMap, useLoadScript, Marker, InfoWindow, Autocomplete } from '@react-google-maps/api';
+import {
+  GoogleMap,
+  useLoadScript,
+  Marker,
+  InfoWindow,
+  Autocomplete
+} from '@react-google-maps/api';
 import { formatRelative } from 'date-fns';
-import usePlacesAutocomplete, { getGeocode, getLatLng } from 'use-places-autocomplete';
+import usePlacesAutocomplete, {
+  getGeocode,
+  getLatLng
+} from 'use-places-autocomplete';
 import {
   Combobox,
   ComboboxInput,
@@ -12,7 +21,7 @@ import {
 import './../../App.css';
 import '@reach/combobox/styles.css';
 
-import MapStyles from './../../MapStyles';
+import MapStyles from '../../MapStyles';
 
 const libraries = ['places'];
 const mapContainerStyle = {
@@ -31,25 +40,14 @@ const options = {
   //zoomControl: true
 };
 
-const Map = () => {
+const Map = props => {
   const { isLoaded, loadError } = useLoadScript({
     googleMapsApiKey: process.env.REACT_APP_GOOGLE_MAPS_API_KEY,
     libraries
   });
-  const [markers, setMarkers] = React.useState([]);
   //setState on marker click and retrieve value when clicked by user
   const [selected, setSelected] = React.useState(null);
-
-  const onMapClick = React.useCallback(event => {
-    setMarkers(current => [
-      ...current,
-      {
-        lat: event.latLng.lat(),
-        lng: event.latLng.lng(),
-        time: new Date()
-      }
-    ]);
-  }, []);
+  const [marker, setNewMarker] = React.useState();
 
   //use this to reference the map without causing re-renders
   const mapRef = React.useRef();
@@ -62,34 +60,55 @@ const Map = () => {
     mapRef.current.setZoom(18);
   }, []);
 
+  const setMarker = React.useCallback(({ lat, lng }) => {
+    setNewMarker(current => {
+      return { lat, lng, time: new Date() };
+    });
+  });
+
+  const handleResultInfo = result => {
+    const obj = {
+      formatted_address: result.formatted_address,
+      address_components: result.address_components,
+      lat: result.geometry.location.lat(),
+      lng: result.geometry.location.lng()
+    };
+
+    console.log('obj: ', obj);
+    for (let key in obj) {
+      props.resultInfoHandler(key, obj[key]);
+    }
+  };
+
   if (loadError) return 'Error loading maps';
   if (!isLoaded) return 'Loading Maps';
   return (
     <div>
+      <Search
+        handleResultInfo={handleResultInfo}
+        setMarker={setMarker}
+        panTo={panTo}
+      />
       <GoogleMap
         mapContainerStyle={mapContainerStyle}
         zoom={8}
         center={center}
         options={options}
-        onClick={onMapClick}
+        // onClick={onMapClick}
         onLoad={onMapLoad}
       >
-        {' '}
-        {markers.map(marker => (
+        {marker && (
           <Marker
             key={marker.time.toISOString()}
             position={{ lat: marker.lat, lng: marker.lng }}
             icon={{
-              url: 'http://maps.google.com/mapfiles/ms/icons/pink-dot.png',
-              scaledSize: new window.google.maps.Size(30, 30),
-              origin: new window.google.maps.Point(0, 0),
-              anchor: new window.google.maps.Point(15, 15)
+              url: 'http://maps.google.com/mapfiles/ms/icons/pink-dot.png'
             }}
             onClick={() => {
               setSelected(marker);
             }}
           />
-        ))}
+        )}
         {selected ? (
           <InfoWindow
             position={{ lat: selected.lat, lng: selected.lng }}
@@ -103,38 +122,12 @@ const Map = () => {
             </div>
           </InfoWindow>
         ) : null}
-        <Search panTo={panTo} />
-        <Locate panTo={panTo} />
       </GoogleMap>
     </div>
   );
 };
 
-const Locate = ({ panTo }) => {
-  return (
-    <button
-      className="locate"
-      onClick={() => {
-        navigator.geolocation.getCurrentPosition(
-          position => {
-            panTo({
-              lat: position.coords.latitude,
-              lng: position.coords.longitude
-            });
-          },
-          () => null
-        );
-      }}
-    >
-      <img
-        src="https://listimg.pinclipart.com/picdir/s/101-1016750_compass-clipart-transparent-background-compass-rose-for-a.png"
-        alt="location-compass"
-      />
-    </button>
-  );
-};
-
-function Search({ panTo }) {
+function Search({ handleResultInfo, panTo, setMarker }) {
   const {
     ready,
     value,
@@ -143,27 +136,34 @@ function Search({ panTo }) {
     clearSuggestions
   } = usePlacesAutocomplete({
     requestOptions: {
-      location: { lat: () => 6.5568767999999995, lng: () => 3.3488895999999997 },
-      radius: 200 * 1000
+      // location: {
+      //   lat: () => 6.5568767999999995, - Get current user location
+      //   lng: () => 3.3488895999999997 - Get current user location
+      // },
+      // radius: 200 * 1000
     }
   });
   return (
     <div className="search">
+      <label htmlFor="input-address"> Address</label>
       <Combobox
         onSelect={async address => {
           setValue(address, false);
           clearSuggestions();
           try {
             const results = await getGeocode({ address });
-            const { lat, lng } = await getLatLng(results[0]);
-            console.log(lat, lng);
+            const result = results[0];
+            const { lat, lng } = await getLatLng(result);
             panTo({ lat, lng });
+            setMarker({ lat, lng });
+            handleResultInfo(result);
           } catch (error) {
             console.log('Error!');
           }
         }}
       >
         <ComboboxInput
+          id="input-address"
           value={value}
           onChange={e => {
             setValue(e.target.value);
@@ -174,7 +174,9 @@ function Search({ panTo }) {
         <ComboboxPopover>
           <ComboboxList>
             {status === 'OK' &&
-              data.map(({ id, description }) => <ComboboxOption key={id} value={description} />)}
+              data.map(({ id, description }) => (
+                <ComboboxOption key={id} value={description} />
+              ))}
           </ComboboxList>
         </ComboboxPopover>
       </Combobox>

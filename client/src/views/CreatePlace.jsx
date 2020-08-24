@@ -7,19 +7,20 @@ class CreatePlace extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      loaded: false,
       name: '',
       category: '',
       openDate: '',
-      address: '',
-      areaName: '',
+      formatted_address: '',
+      address_components: [],
       weekDayOpen: '',
       weekDayClose: '',
       openTime: '',
       closeTime: '',
       phoneNumber: '',
       email: '',
-      latitude: 0,
-      longitude: 0
+      lat: 0,
+      lng: 0
     };
   }
 

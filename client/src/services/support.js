@@ -6,14 +6,10 @@ const api = axios.create({
 });
 
 export const listSupports = () =>
-  api.get('/support/list').then(response => response.data);
+  api.get('/support').then(response => response.data);
 
-export const createSupport = body => {
-  const formBody = new window.FormData();
-  formBody.append('support', body.support);
-  formBody.append('content', body.content);
-  return api.post('/support', formBody).then(response => response.data);
-};
+export const createSupport = (id, body) =>
+  api.post(`/place/${id}/support`, body).then(response => response.data);
 
 export const loadPost = id =>
   api.get(`/support/${id}`).then(response => response.data);

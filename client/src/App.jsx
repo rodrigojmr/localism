@@ -5,6 +5,7 @@ import { loadMe, signOut } from './services/authentication';
 import HomeView from './views/HomeView';
 import CreatePlace from './views/CreatePlace';
 import SupportCreationView from './views/Support/SupportCreationView';
+import SupportPlaceView from './views/Support/SupportPlaceView';
 import AuthenticationSignInView from './views/Authentication/SignInView';
 import AuthenticationSignUpView from './views/Authentication/SignUpView';
 import ProtectedRoute from './components/ProtectedRoute';
@@ -63,6 +64,11 @@ class App extends Component {
           <Switch>
             <Route path="/" component={HomeView} exact />
             <Route path="/place/create" exact component={CreatePlace} />
+            <Route
+              path="/place/:id/create"
+              exact
+              component={SupportPlaceView}
+            />
             <Route
               path="/support/create"
               exact

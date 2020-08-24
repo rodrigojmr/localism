@@ -40,13 +40,12 @@ const placeSchema = new mongoose.Schema(
         type: String
       }
     },
-    address: {
+    formatted_address: {
       type: String,
       required: true
     },
-    areaName: {
-      type: String,
-      required: true
+    address_components: {
+      type: Array
     },
     location: {
       coordinates: [

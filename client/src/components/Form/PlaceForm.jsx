@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import Map from './../Map/index';
+import Map from '../Map/MapSearch';
 import { format } from 'date-fns';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
@@ -8,6 +8,8 @@ import 'react-phone-number-input/style.css';
 import PhoneInput from 'react-phone-number-input';
 
 import { GoogleMap, LoadScript } from '@react-google-maps/api';
+
+import MapSearch from '../Map/MapSearch';
 
 export const PlaceForm = props => {
   const onFormSubmission = event => {
@@ -42,7 +44,7 @@ export const PlaceForm = props => {
         />
       </div>
       <div className="input-group">
-        <label htmlFor="input-address">Category</label>
+        <label htmlFor="input-category">Category</label>
         <input
           placeholder="category"
           type="text"
@@ -53,35 +55,18 @@ export const PlaceForm = props => {
         />
       </div>
       {/* Connect with google maps */}
-      <div className="input-group">
-        <label htmlFor="input-address">Address</label>
-        <input
-          placeholder="Place address"
-          type="text"
-          name="address"
-          id="input-address"
-          value={props.address}
-          onChange={onValueChange}
-        />
-      </div>{' '}
-      <Map />
-      {/* Auto fill from google maps information */}
-      <div className="input-group">
-        <label htmlFor="input-areaName">Area</label>
-        <input
-          placeholder="Place areaName"
-          type="text"
-          name="areaName"
-          id="input-areaName"
-          value={props.areaName}
-          onChange={onValueChange}
-        />
-      </div>
+      <MapSearch
+        resultInfoHandler={(name, value) => props.onValueChange(name, value)}
+      />
       <div className="input-group">
         <label htmlFor="input-openDate">Open Date</label>
         <DatePicker
           id="input-openDate"
-          value={props.openDate ? format(props.openDate, 'dd-MM-yyyy') : props.openDate}
+          value={
+            props.openDate
+              ? format(props.openDate, 'dd-MM-yyyy')
+              : props.openDate
+          }
           dateFormat={'dd/MM/yyyy'}
           onChange={date => props.onValueChange('openDate', date)}
         />
@@ -91,7 +76,11 @@ export const PlaceForm = props => {
         <div className="schedule-inputs-wrapper">
           <div>
             <label htmlFor="input-schedule-open">From:</label>
-            <select defaultValue="monday" name="weekDayOpen" id="input-schedule-open">
+            <select
+              defaultValue="monday"
+              name="weekDayOpen"
+              id="input-schedule-open"
+            >
               <option value="monday">Monday</option>
               <option value="tuesday">Tuesday</option>
               <option value="wednesday">Wednesday</option>
@@ -103,7 +92,11 @@ export const PlaceForm = props => {
           </div>
           <div>
             <label htmlFor="input-schedule-open">To:</label>
-            <select defaultValue="friday" name="weekDayClose" id="input-schedule-close">
+            <select
+              defaultValue="friday"
+              name="weekDayClose"
+              id="input-schedule-close"
+            >
               <option value="monday">Monday</option>
               <option value="tuesday">Tuesday</option>
               <option value="wednesday">Wednesday</option>
@@ -144,7 +137,9 @@ export const PlaceForm = props => {
         <PhoneInput
           id="input-phoneNumber"
           value={props.phoneNumber}
-          onChange={phoneNumber => props.onValueChange('phoneNumber', phoneNumber)}
+          onChange={phoneNumber =>
+            props.onValueChange('phoneNumber', phoneNumber)
+          }
         />
       </div>
       {/*<div className="input-group" id="address">
@@ -158,6 +153,7 @@ export const PlaceForm = props => {
           onChange={onValueChange}
         />
   </div>*/}
+      <button type="submit">Create Place</button>
     </form>
   );
 };
