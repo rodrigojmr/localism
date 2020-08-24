@@ -9,8 +9,8 @@ supportRouter.get('/support', (request, response, next) => {
   Support.find()
     .populate('creator')
     .sort({ creationDate: -1 })
-    .then(posts => {
-      response.json({ posts });
+    .then(supports => {
+      response.json({ supports });
     })
     .catch(error => {
       next(error);

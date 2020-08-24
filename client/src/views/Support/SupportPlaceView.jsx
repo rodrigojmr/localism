@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import SupportForm from '../../components/Form/SupportForm';
 
-import { loadplace } from '../../services/place';
+//import { loadplace } from '../../services/place';
 import { createSupport } from '../../services/support';
 
 class SupportPlaceView extends Component {
@@ -9,7 +9,6 @@ class SupportPlaceView extends Component {
     super();
     this.state = {
       content: '',
-      placeId: undefined,
       loaded: false
     };
   }
@@ -18,9 +17,7 @@ class SupportPlaceView extends Component {
     const content = this.state.content;
     const placeId = this.props.match.params.id;
 
-    const body = { content, placeId };
-
-    createSupport(body)
+    createSupport(content, placeId)
       .then(data => {
         const support = data.support;
         const id = support._id;
@@ -43,12 +40,6 @@ class SupportPlaceView extends Component {
     });
   };
 
-  handlePlaceIdChange = content => {
-    this.setState({
-      placeId: loadplace
-    });
-  };
-
   componentDidMount() {}
 
   render() {
@@ -58,7 +49,6 @@ class SupportPlaceView extends Component {
           content={this.state.content}
           onContentChange={this.handleContentChange}
           onSupportChange={this.handleSupportChange}
-          onPlaceIdChange={this.handlePlaceIdChange}
           onFormSubmission={this.handlePlaceCreation}
         />
       </div>
