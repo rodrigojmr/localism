@@ -67,6 +67,7 @@ const Map = props => {
   });
 
   const handleResultInfo = result => {
+    console.log('result: ', result);
     const obj = {
       formatted_address: result.formatted_address,
       address_components: result.address_components,
@@ -174,9 +175,10 @@ function Search({ handleResultInfo, panTo, setMarker }) {
         <ComboboxPopover>
           <ComboboxList>
             {status === 'OK' &&
-              data.map(({ id, description }) => (
-                <ComboboxOption key={id} value={description} />
-              ))}
+              data.map(({ place_id, description }) => {
+                // console.log(id, description);
+                return <ComboboxOption key={place_id} value={description} />;
+              })}
           </ComboboxList>
         </ComboboxPopover>
       </Combobox>
