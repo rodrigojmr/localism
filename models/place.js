@@ -61,10 +61,10 @@ const placeSchema = new mongoose.Schema(
       }
       // required: true
     },
-    suggestions: [
+    supports: [
       {
         type: mongoose.Schema.Types.ObjectId,
-        ref: 'Suggestion'
+        ref: 'Support'
       }
     ]
   },
