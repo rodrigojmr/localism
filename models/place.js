@@ -47,6 +47,10 @@ const placeSchema = new mongoose.Schema(
     address_components: {
       type: Array
     },
+    place_id: {
+      type: String,
+      required: true
+    },
     location: {
       coordinates: [
         {

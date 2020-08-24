@@ -69,6 +69,7 @@ const Map = props => {
   const handleResultInfo = result => {
     console.log('result: ', result);
     const obj = {
+      place_id: result.place_id,
       formatted_address: result.formatted_address,
       address_components: result.address_components,
       lat: result.geometry.location.lat(),

@@ -53,6 +53,7 @@ placeRouter.get('/:id', async (req, res, next) => {
 placeRouter.post('/', (req, res, next) => {
   const {
     name,
+    place_id,
     category,
     openDate,
     formatted_address,
@@ -88,6 +89,7 @@ placeRouter.post('/', (req, res, next) => {
     },
     formatted_address,
     address_components,
+    place_id,
     location: {
       coordinates: [lat, lng]
     }
