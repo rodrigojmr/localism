@@ -72,6 +72,11 @@ class App extends Component {
             />
             <Route path="/place/:id" component={SinglePlace} exact />
             <Route
+              path="/place/:id/support"
+              component={SupportPlaceView}
+              exact
+            />
+            <Route
               path="/support/create"
               exact
               component={SupportCreationView}
