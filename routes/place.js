@@ -15,11 +15,23 @@ const storage = new multerStorageCloudinary.CloudinaryStorage({
 });
 const upload = multer({ storage });
 
-placeRouter.get('/list', (req, res, next) => {
-  Place.find()
-    .populate('creator')
-    .sort({ creationDate: -1 })
+placeRouter.get('/nearby', (req, res, next) => {
+  console.log(req.query);
+
+  const { neLat, neLng, swLat, swLng } = req.query;
+
+  Place.find({})
+    .where('location.coordinates.0')
+    .lt(neLat)
+    .gte(swLat)
+    .where('location.coordinates.1')
+    .gte(swLng)
+    .lt(neLng)
+
+    // .populate('creator')
+    // .sort({ creationDate: -1 })
     .then(places => {
+      console.log('places: ', places);
       res.json({ places });
     })
     .catch(error => {
@@ -67,8 +79,6 @@ placeRouter.post('/', (req, res, next) => {
     lat,
     lng
   } = req.body;
-
-  console.log('req.body: ', req.body);
 
   Place.create({
     owner: req.user._id,

@@ -1,4 +1,7 @@
-import React from 'react';
+import React, { Component } from 'react';
+
+import SearchName from './../Search/SearchName';
+
 import {
   GoogleMap,
   useLoadScript,
@@ -26,28 +29,36 @@ import MapStyles from '../../MapStyles';
 const libraries = ['places'];
 const mapContainerStyle = {
   width: '100vw',
-  height: '100vh'
-};
-
-const center = {
-  lat: 6.5568767999999995,
-  lng: 3.3488895999999997
+  height: '80vh'
 };
 
 const options = {
-  styles: MapStyles
+  styles: MapStyles,
   //disableDefaultUI: true,
-  //zoomControl: true
+  zoomControl: true
 };
 
+// export class HomeMap extends Component {
+//   constructor() {
+//     this.state = {
+//       markers: []
+//     };
+//   }
+
+//   componentDidMount() {
+
+//   }
+
+//   render() {
+//     return <div></div>;
+//   }
+// }
+
+// export default HomeMap;
+
 const Map = props => {
-  const { isLoaded, loadError } = useLoadScript({
-    googleMapsApiKey: process.env.REACT_APP_GOOGLE_MAPS_API_KEY,
-    libraries
-  });
   //setState on marker click and retrieve value when clicked by user
   const [selected, setSelected] = React.useState(null);
-  const [marker, setNewMarker] = React.useState();
 
   //use this to reference the map without causing re-renders
   const mapRef = React.useRef();
@@ -55,16 +66,33 @@ const Map = props => {
     mapRef.current = map;
   }, []);
 
+  const { isLoaded, loadError } = useLoadScript({
+    googleMapsApiKey: process.env.REACT_APP_GOOGLE_MAPS_API_KEY,
+    libraries
+  });
+
   const panTo = React.useCallback(({ lat, lng }) => {
     mapRef.current.panTo({ lat, lng });
     mapRef.current.setZoom(18);
   }, []);
 
-  const setMarker = React.useCallback(({ lat, lng }) => {
-    setNewMarker(current => {
-      return { lat, lng, time: new Date() };
-    });
-  });
+  const getBoundaries = () => {
+    let ne = mapRef.current.getBounds().getNorthEast();
+    let sw = mapRef.current.getBounds().getSouthWest();
+
+    const boundaries = {
+      neLat: ne.lat(),
+      neLng: ne.lng(),
+      swLat: sw.lat(),
+      swLng: sw.lng()
+    };
+
+    props.idleMapSearch(boundaries);
+  };
+
+  const onMapIdle = () => {
+    getBoundaries();
+  };
 
   const handleResultInfo = result => {
     const obj = {
@@ -84,104 +112,59 @@ const Map = props => {
   if (!isLoaded) return 'Loading Maps';
   return (
     <div>
-      <Search
-        handleResultInfo={handleResultInfo}
-        setMarker={setMarker}
-        panTo={panTo}
-      />
       <GoogleMap
         mapContainerStyle={mapContainerStyle}
-        zoom={8}
-        center={center}
+        zoom={15}
+        center={props.center}
         options={options}
         // onClick={onMapClick}
         onLoad={onMapLoad}
+        onIdle={onMapIdle}
       >
-        {marker && (
-          <Marker
-            key={marker.time.toISOString()}
-            position={{ lat: marker.lat, lng: marker.lng }}
-            icon={{
-              url: 'http://maps.google.com/mapfiles/ms/icons/pink-dot.png'
-            }}
-            onClick={() => {
-              setSelected(marker);
-            }}
-          />
+        {props.places.length && (
+          <>
+            {props.places.map(place => {
+              return (
+                <Marker
+                  key={place.place_id}
+                  position={{
+                    lat: place.location.coordinates[0],
+                    lng: place.location.coordinates[1]
+                  }}
+                  icon={{
+                    url: 'http://maps.google.com/mapfiles/ms/icons/pink-dot.png'
+                  }}
+                  onClick={() => {
+                    setSelected(place);
+                  }}
+                />
+              );
+            })}
+          </>
         )}
         {selected ? (
           <InfoWindow
-            position={{ lat: selected.lat, lng: selected.lng }}
+            position={{
+              lat: selected.location.coordinates[0],
+              lng: selected.location.coordinates[1]
+            }}
             onCloseClick={() => {
               setSelected(null);
             }}
           >
             <div>
-              <h2>Some Place</h2>
-              <p>Created {formatRelative(selected.time, new Date())}</p>
+              <h2>{selected.name}</h2>
             </div>
           </InfoWindow>
         ) : null}
       </GoogleMap>
+      <SearchName
+        handleResultInfo={handleResultInfo}
+        // setMarker={setMarker}
+        panTo={panTo}
+      />
     </div>
   );
 };
-
-function Search({ handleResultInfo, panTo, setMarker }) {
-  const {
-    ready,
-    value,
-    suggestions: { status, data },
-    setValue,
-    clearSuggestions
-  } = usePlacesAutocomplete({
-    requestOptions: {
-      // location: {
-      //   lat: () => 6.5568767999999995, - Get current user location
-      //   lng: () => 3.3488895999999997 - Get current user location
-      // },
-      // radius: 200 * 1000
-    }
-  });
-  return (
-    <div className="search">
-      <label htmlFor="input-address"> Address</label>
-      <Combobox
-        onSelect={async address => {
-          setValue(address, false);
-          clearSuggestions();
-          try {
-            const results = await getGeocode({ address });
-            const result = results[0];
-            const { lat, lng } = await getLatLng(result);
-            panTo({ lat, lng });
-            setMarker({ lat, lng });
-            handleResultInfo(result);
-          } catch (error) {
-            console.log('Error!');
-          }
-        }}
-      >
-        <ComboboxInput
-          id="input-address"
-          value={value}
-          onChange={e => {
-            setValue(e.target.value);
-          }}
-          disabled={!ready}
-          placeholder="Enter your address"
-        />
-        <ComboboxPopover>
-          <ComboboxList>
-            {status === 'OK' &&
-              data.map(({ id, description }) => (
-                <ComboboxOption key={id} value={description} />
-              ))}
-          </ComboboxList>
-        </ComboboxPopover>
-      </Combobox>
-    </div>
-  );
-}
 
 export default Map;
