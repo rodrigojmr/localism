@@ -31,7 +31,7 @@ class CreatePlace extends Component {
 
   handlePlaceCreation = () => {
     const body = { ...this.state };
-
+    console.log('body: ', body);
     createPlace(body)
       .then(data => {
         console.log('data after createPlace: ', data);

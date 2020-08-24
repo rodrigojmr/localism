@@ -19,16 +19,17 @@ const mongoStore = connectMongo(expressSession);
 
 const app = express();
 
+app.set('trust proxy', 1);
+
 app.use(serveFavicon(join(__dirname, 'public/images', 'favicon.ico')));
 
 app.use(logger('dev'));
 app.use(express.json());
 
-app.options(process.env.CLIENT_APP_URL, cors());
 app.use(
   cors({
     credentials: true,
-    origin: [process.env.CLIENT_APP_URL, `${process.env.CLIENT_APP_URL}/place`]
+    origin: ['http://localhost:3000']
   })
 );
 
