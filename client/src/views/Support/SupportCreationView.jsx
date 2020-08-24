@@ -9,8 +9,7 @@ class SupportCreationView extends Component {
     super();
     this.state = {
       content: '',
-      loaded: false,
-      place: undefined
+      loaded: false
     };
   }
 
@@ -20,7 +19,7 @@ class SupportCreationView extends Component {
 
     const body = { content, place: placeId };
 
-    createSupport(body)
+    createSupport(placeId, body)
       .then(data => {
         const support = data.support;
         const id = support._id;
