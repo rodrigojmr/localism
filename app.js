@@ -13,6 +13,7 @@ const bodyParser = require('body-parser');
 const indexRouter = require('./routes/index');
 const placeRouter = require('./routes/place');
 const authenticationRouter = require('./routes/authentication');
+
 const deserializeUser = require('./middleware/deserializeUser.js');
 
 const mongoStore = connectMongo(expressSession);
