@@ -8,6 +8,7 @@ class SupportCreationView extends Component {
   constructor() {
     super();
     this.state = {
+      places: [],
       content: '',
       loaded: false
     };
@@ -27,12 +28,6 @@ class SupportCreationView extends Component {
       .catch(error => {
         console.log(error);
       });
-  };
-
-  handleSupportChange = support => {
-    this.setState({
-      loaded: true
-    });
   };
 
   handleContentChange = content => {

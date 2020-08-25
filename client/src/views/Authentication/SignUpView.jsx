@@ -9,7 +9,8 @@ class AuthenticationSignUpView extends Component {
       username: '',
       email: '',
       password: '',
-      avatar: '/images/default-avatar.png',
+      avatarPreview: '/images/default-avatar.png',
+      avatar: '',
       address: undefined
     };
   }
@@ -43,6 +44,7 @@ class AuthenticationSignUpView extends Component {
     const avatar = event.target.files[0];
     console.log('avatar: ', avatar);
     this.setState({
+      avatarPreview: URL.createObjectURL(avatar),
       avatar
     });
   };
@@ -52,7 +54,7 @@ class AuthenticationSignUpView extends Component {
       <div>
         <form onSubmit={this.handleFormSubmission}>
           <label htmlFor="input-avatar">
-            <img src={this.state.avatar} alt="" />
+            <img src={this.state.avatarPreview} alt="" />
           </label>
           <input
             id="input-avatar"
