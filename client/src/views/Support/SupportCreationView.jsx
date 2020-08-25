@@ -8,16 +8,16 @@ class SupportCreationView extends Component {
   constructor() {
     super();
     this.state = {
+      places: [],
       content: '',
       loaded: false
     };
   }
 
   handleSupportCreation = () => {
-    const content = this.state.content;
+    const body = { content: this.state.content };
     const placeId = this.props.match.params.id;
-
-    const body = { content, place: placeId };
+    console.log('placeId: ', placeId);
 
     createSupport(placeId, body)
       .then(data => {
@@ -28,12 +28,6 @@ class SupportCreationView extends Component {
       .catch(error => {
         console.log(error);
       });
-  };
-
-  handleSupportChange = support => {
-    this.setState({
-      loaded: true
-    });
   };
 
   handleContentChange = content => {

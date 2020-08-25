@@ -11,9 +11,14 @@ const api = axios.create({
 // PATCH - '/place/:id' - Handle form submission to edit place.
 
 // DELETE - '/place/:id' - Handle form submission to delete event.
+export const nearbyPlaces = boundaries => {
+  console.log('boundaries: ', boundaries);
+  const { neLat, neLng, swLat, swLng } = boundaries;
 
-export const listPlaces = () =>
-  api.get('/post/list').then(response => response.data);
+  return api
+    .get(`/place/nearby`, { params: { neLat, neLng, swLat, swLng } })
+    .then(response => response.data);
+};
 
 export const createPlace = body =>
   api.post('/place', body).then(response => response.data);

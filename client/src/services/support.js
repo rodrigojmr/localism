@@ -9,7 +9,7 @@ export const listSupports = () =>
   api.get('/support').then(response => response.data);
 
 export const createSupport = (id, body) =>
-  api.post(`/place/${id}/support`, body).then(response => response.data);
+  api.post(`/support/${id}`, body).then(response => response.data);
 
 export const loadSupport = id =>
   api.get(`/support/${id}`).then(response => response.data);

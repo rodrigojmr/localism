@@ -60,25 +60,22 @@ class App extends Component {
 
   render() {
     return (
-      <div className='App'>
+      <div className="App">
         <Navbar user={this.state.user} onSignOut={this.handleSignOut} />
         {(this.state.loaded && (
           <Switch>
-            <Route path='/' component={HomeView} exact />
-            <Route path='/place/create' exact component={CreatePlace} />
+            {/* Index */}
+            <Route path="/" component={HomeView} exact />
+            {/* Places */}
+            <Route path="/place/create" component={CreatePlace} exact />
+            <Route path="/place/:id" component={SinglePlace} exact />
             <Route
-              path='/place/:id/create'
-              exact
-              component={SupportPlaceView}
-            />
-            <Route path='/place/:id' component={SinglePlace} exact />
-            <Route
-              path='/place/:id/support'
+              path="/place/:id/support"
               component={SupportPlaceView}
               exact
             />
             <Route
-              path='/support/create'
+              path="/support/create"
               exact
               component={SupportCreationView}
             />
@@ -90,7 +87,7 @@ class App extends Component {
                 redirect="/authentication/sign-in"
               /> */}
             <ProtectedRoute
-              path='/authentication/sign-up'
+              path="/authentication/sign-up"
               render={props => (
                 <AuthenticationSignUpView
                   {...props}
@@ -98,10 +95,10 @@ class App extends Component {
                 />
               )}
               authorized={!this.state.user}
-              redirect='/'
+              redirect="/"
             />
             <ProtectedRoute
-              path='/authentication/sign-in'
+              path="/authentication/sign-in"
               render={props => (
                 <AuthenticationSignInView
                   {...props}
@@ -109,19 +106,19 @@ class App extends Component {
                 />
               )}
               authorized={!this.state.user}
-              redirect='/'
+              redirect="/"
             />
             <Route
-              path='/authentication/confirmation/:token'
+              path="/authentication/confirmation/:token"
               render={props => (
                 <ConfirmEmail
                   {...props}
                   onUserConfirmation={this.handleUserUpdate}
                 />
               )}
-              redirect='/'
+              redirect="/"
             />{' '}
-            <Route path='/error' component={ErrorView} />
+            <Route path="/error" component={ErrorView} />
             {/* <Redirect from="/" to="/error" /> */}
             {/* <Route path="/authentication/sign-in" component={AuthenticationSignInView} /> */}
           </Switch>

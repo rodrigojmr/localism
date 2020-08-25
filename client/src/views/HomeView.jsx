@@ -1,20 +1,50 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
-import Map from '../components/Map/MapSearch';
+import HomeMap from '../components/Map/HomeMap';
 import PlacesList from '../components/List/PlacesList';
+import { nearbyPlaces } from './../services/place';
 
 class HomeView extends Component {
   constructor(props) {
     super(props);
     this.state = {
       loaded: false,
+      location: undefined,
       places: []
     };
   }
 
   handleContentChange() {}
 
-  componentDidMount() {}
+  componentDidMount() {
+    this.getLocation();
+  }
+
+  getPlaces(boundaries) {
+    nearbyPlaces(boundaries).then(data => {
+      console.log('data: ', data);
+      this.setState({
+        places: data.places
+      });
+    });
+  }
+
+  getLocation() {
+    navigator.geolocation.getCurrentPosition(
+      position => {
+        this.setState({
+          location: {
+            lat: position.coords.latitude,
+            lng: position.coords.longitude
+          }
+        });
+      },
+      function error(msg) {
+        alert('Please enable your GPS position feature.');
+      },
+      { maximumAge: 10000, timeout: 5000, enableHighAccuracy: true }
+    );
+  }
 
   render() {
     return (
@@ -25,7 +55,11 @@ class HomeView extends Component {
         <Link to="/place/5f43a80be9227274903e3b42/support">
           Support Rodrigo's House
         </Link>
-        <Map />
+        <HomeMap
+          places={this.state.places}
+          idleMapSearch={boundaries => this.getPlaces(boundaries)}
+          center={this.state.location}
+        />
       </div>
     );
   }

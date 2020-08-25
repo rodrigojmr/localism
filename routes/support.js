@@ -31,17 +31,18 @@ supportRouter.get('/:id', async (request, response, next) => {
   }
 });
 
-supportRouter.post('/', (request, response, next) => {
-  //const { creator, place, content } = request.body;
-  //console.log('req.body: ', request.body);
+supportRouter.post('/:id', (req, res, next) => {
+  const placeId = req.params.id;
+  const { content } = req.body;
+  console.log('req.body: ', req.body);
 
   Support.create({
-    creator: request.user._id,
-    place: request.place._id,
-    content: request.body.content
+    creator: req.user._id,
+    place: placeId,
+    content
   })
     .then(support => {
-      response.json({ support });
+      res.json({ support });
     })
     .catch(error => {
       next(error);
@@ -51,12 +52,12 @@ supportRouter.post('/', (request, response, next) => {
 supportRouter.delete(
   '/:id',
   routeAuthenticationGuard,
-  async (request, response, next) => {
-    const id = request.params.id;
+  async (req, res, next) => {
+    const id = req.params.id;
 
-    Support.findOneAndDelete({ _id: id, creator: request.user._id })
+    Support.findOneAndDelete({ _id: id, creator: req.user._id })
       .then(() => {
-        response.json({});
+        res.json({});
       })
       .catch(error => {
         next(error);
