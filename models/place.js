@@ -70,7 +70,14 @@ const placeSchema = new mongoose.Schema(
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Support'
       }
-    ]
+    ],
+    bonus: {
+      type: String,
+      enum: ['discount', 'offer', 'promo']
+    },
+    highlights: {
+      type: String
+    }
   },
   {
     timestamps: {

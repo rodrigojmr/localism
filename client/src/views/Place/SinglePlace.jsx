@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import { loadPlace } from './../../services/place';
+import { loadSupport } from './../../services/support';
 import SinglePlaceMap from './../../components/Map/SinglePlaceMap';
 
 class SinglePlace extends Component {
@@ -8,7 +9,8 @@ class SinglePlace extends Component {
     super(props);
     this.state = {
       loaded: false,
-      place: undefined
+      place: undefined,
+      support: undefined
     };
   }
 
@@ -23,12 +25,21 @@ class SinglePlace extends Component {
         place
       });
     });
+    loadSupport(id).then(data => {
+      const { support } = data;
+      this.setState({
+        loaded: true,
+        support
+      });
+    });
+    console.log(this.setState);
   }
 
   render() {
     const { place } = this.state;
+    console.log(this.state);
     return (
-      <div className="home">
+      <div className='home'>
         {this.state.loaded && (
           <>
             <h1>{place.name}</h1>
@@ -36,6 +47,10 @@ class SinglePlace extends Component {
             <h2>Meet the owners</h2>
             <p>{place.owner.username}</p>
             <SinglePlaceMap />
+            <h2>Supported by</h2>
+            <div>
+              <p>{place.supports}</p>
+            </div>
             <Link to={`/place/${this.props.match.params.id}/support`}>
               Support this place
             </Link>
