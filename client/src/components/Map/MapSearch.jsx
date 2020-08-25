@@ -1,7 +1,16 @@
 import React from 'react';
-import { GoogleMap, useLoadScript, Marker, InfoWindow, Autocomplete } from '@react-google-maps/api';
+import {
+  GoogleMap,
+  useLoadScript,
+  Marker,
+  InfoWindow,
+  Autocomplete
+} from '@react-google-maps/api';
 import { formatRelative } from 'date-fns';
-import usePlacesAutocomplete, { getGeocode, getLatLng } from 'use-places-autocomplete';
+import usePlacesAutocomplete, {
+  getGeocode,
+  getLatLng
+} from 'use-places-autocomplete';
 import {
   Combobox,
   ComboboxInput,
@@ -77,7 +86,11 @@ const Map = props => {
   if (!isLoaded) return 'Loading Maps';
   return (
     <div>
-      <Search handleResultInfo={handleResultInfo} setMarker={setMarker} panTo={panTo} />
+      <Search
+        handleResultInfo={handleResultInfo}
+        setMarker={setMarker}
+        panTo={panTo}
+      />
       <GoogleMap
         mapContainerStyle={mapContainerStyle}
         zoom={8}
@@ -164,7 +177,6 @@ function Search({ handleResultInfo, panTo, setMarker }) {
           <ComboboxList>
             {status === 'OK' &&
               data.map(({ place_id, description }) => {
-                // console.log(id, description);
                 return <ComboboxOption key={place_id} value={description} />;
               })}
           </ComboboxList>

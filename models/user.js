@@ -45,7 +45,7 @@ const schema = new mongoose.Schema({
       enum: ['male', 'female', 'other']
     }
   },
-  Locality: {
+  locality: {
     type: String
   },
   privateAddress: {
@@ -56,19 +56,19 @@ const schema = new mongoose.Schema({
       type: String
     }
   },
+  owner: {
+    type: Boolean
+  },
+  support: [
+    {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'Suggestion'
+    }
+  ],
   checkInHistory: [
     {
       type: mongoose.Schema.Types.ObjectId,
       ref: 'Place'
-    }
-  ],
-  owner: {
-    type: Boolean
-  },
-  suggestions: [
-    {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: 'Suggestion'
     }
   ],
   activity: {

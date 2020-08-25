@@ -11,8 +11,7 @@ const UserProfileForm = props => {
   };
 
   const handleValueChange = event => {
-    console.log(event);
-    const name = event.target;
+    const name = event.target.name;
     const value = event.target.value;
     props.onValueChange(name, value);
   };
@@ -27,7 +26,12 @@ const UserProfileForm = props => {
       <label htmlFor="input-avatar">
         <img src={props.avatar} alt="" />
       </label>
-      <input id="input-avatar" type="file" name="avatar" onChange={handleAvatarInputChange} />
+      <input
+        id="input-avatar"
+        type="file"
+        name="avatar"
+        onChange={handleAvatarInputChange}
+      />
       <div className="input-group">
         <label htmlFor="input-name">FullName</label>
         <input
@@ -47,7 +51,7 @@ const UserProfileForm = props => {
           name="username"
           placeholder="Enter a Username"
           value={props.username}
-          onChange={props.handleValueChange}
+          onChange={handleValueChange}
         />
       </div>
       <div className="input-group">
@@ -71,7 +75,7 @@ const UserProfileForm = props => {
           name="password"
           placeholder="Password"
           value={props.password}
-          onChange={props.handleValueChange}
+          onChange={handleValueChange}
         />
       </div>
 
@@ -79,7 +83,11 @@ const UserProfileForm = props => {
         <label htmlFor="input-openDate">Birthday</label>
         <DatePicker
           id="input-birthday"
-          value={props.birthday ? format(props.birthday, 'dd-MM-yyyy') : props.birthday}
+          value={
+            props.birthday
+              ? format(props.birthday, 'dd-MM-yyyy')
+              : props.birthday
+          }
           dateFormat={'dd/MM/yyyy'}
           onChange={date => props.onValueChange('birthday', date)}
         />
