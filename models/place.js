@@ -7,7 +7,8 @@ const placeSchema = new mongoose.Schema(
       required: true
     },
     category: {
-      type: String
+      type: String,
+      required: true
     },
     openDate: {
       type: Date
@@ -30,7 +31,8 @@ const placeSchema = new mongoose.Schema(
     },
     owner: {
       type: mongoose.Schema.Types.ObjectId,
-      ref: 'User'
+      ref: 'User',
+      required: true
     },
     contacts: {
       phoneNumber: {
@@ -45,7 +47,8 @@ const placeSchema = new mongoose.Schema(
       required: true
     },
     address_components: {
-      type: Array
+      type: Array,
+      required: true
     },
     place_id: {
       type: String,
@@ -63,7 +66,6 @@ const placeSchema = new mongoose.Schema(
         type: String,
         default: 'Point'
       }
-      // required: true
     },
     supports: [
       {

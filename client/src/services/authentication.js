@@ -1,4 +1,5 @@
 import axios from 'axios';
+import jsonToFormData from './parseFormData';
 
 const api = axios.create({
   baseURL: `${process.env.REACT_APP_API_BASE_URL}/authentication`,
@@ -6,11 +7,15 @@ const api = axios.create({
 });
 
 export const signUp = body => {
-  const formBody = new window.FormData();
-  for (let property in body) {
-    formBody.append(property, body[property]);
-  }
-  return api.post('/sign-up', formBody).then(response => response.data);
+  const formData = jsonToFormData(body);
+
+  // Object.keys(body).forEach(key =>
+  //   body[key] ? formBody.append(key, body[key]) : formBody.append(key, '')
+  // );
+  // for (let property in body) {
+  //   formBody.append(property, body[property]);
+  // }
+  return api.post('/sign-up', formData).then(response => response.data);
 };
 
 export const signIn = body =>

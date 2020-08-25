@@ -159,6 +159,7 @@ function Search({ handleResultInfo, panTo, setMarker }) {
         }}
       >
         <ComboboxInput
+          required
           id="input-address"
           value={value}
           onChange={e => {

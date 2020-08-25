@@ -39,7 +39,6 @@ class HomeView extends Component {
 
   getPlaces(boundaries) {
     nearbyPlaces(boundaries).then(data => {
-      console.log('data: ', data);
       this.setState({
         places: data.places
       });

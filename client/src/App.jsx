@@ -64,7 +64,7 @@ class App extends Component {
         <Navbar user={this.state.user} onSignOut={this.handleSignOut} />
         {(this.state.loaded && (
           <Switch>
-            {/* Index */}
+            {/* Home */}
             <Route path="/" component={HomeView} exact />
             {/* Places */}
             <Route path="/place/create" component={CreatePlace} exact />

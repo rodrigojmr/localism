@@ -41,6 +41,7 @@ export const PlaceForm = props => {
       <div className="input-group">
         <label htmlFor="input-name">Business Name</label>
         <input
+          required
           placeholder="Enter Business Name"
           type="text"
           name="name"
@@ -52,6 +53,7 @@ export const PlaceForm = props => {
       <div className="input-group">
         <label htmlFor="input-category">Category</label>
         <input
+          required
           placeholder="category"
           type="text"
           name="category"

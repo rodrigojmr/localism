@@ -22,7 +22,6 @@ class AuthenticationSignInView extends Component {
     event.preventDefault();
     const { username, password } = this.state;
     const body = { username, password };
-    console.log('body: ', body);
     signIn(body)
       .then(data => {
         const { user } = data;
