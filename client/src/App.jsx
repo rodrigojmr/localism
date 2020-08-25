@@ -74,6 +74,7 @@ class App extends Component {
               )}
               authorized={this.state.user}
               redirect="/authentication/sign-in"
+              exact
             />
             <Route path="/place/:id" component={SinglePlace} exact />
             <ProtectedRoute
@@ -81,7 +82,15 @@ class App extends Component {
               render={props => <SupportPlaceView {...props} />}
               authorized={this.state.user}
               redirect="/authentication/sign-in"
+              exact
             />
+            {/* <ProtectedRoute
+              path="/me"
+              render={props => <SupportPlaceView {...props} />}
+              authorized={this.state.user}
+              redirect="/authentication/sign-in"
+              exact
+            /> */}
             {/* User Authentication */}
             <ProtectedRoute
               path="/authentication/sign-up"

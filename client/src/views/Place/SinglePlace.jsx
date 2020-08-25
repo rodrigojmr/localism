@@ -26,6 +26,9 @@ class SinglePlace extends Component {
   }
 
   render() {
+    if (this.props.place) {
+      console.log(this.props.place);
+    }
     const { place } = this.state;
     return (
       <div className="home">
@@ -35,7 +38,7 @@ class SinglePlace extends Component {
             <h3>{place.category}</h3>
             <h2>Meet the owners</h2>
             <p>{place.owner.username}</p>
-            <SinglePlaceMap />
+            <SinglePlaceMap place={this.state.place} />
             <Link to={`/place/${this.props.match.params.id}/support`}>
               Support this place
             </Link>
