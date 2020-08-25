@@ -40,16 +40,16 @@ placeRouter.get('/:id', async (req, res, next) => {
   const id = req.params.id;
 
   try {
-    const place = await Place.findById(id)
-      .populate('owner supports')
-      .populate({
+    const place = await Place.findById(id).populate('owner supports');
+    /* .populate({
         path: 'supports',
         populate: {
           path: 'author',
           model: 'User'
         }
-      });
+      });*/
     if (place) {
+      console.log(place);
       res.json({ place });
     } else {
       next();

@@ -25,14 +25,13 @@ class SinglePlace extends Component {
         place
       });
     });
-    loadSupport(id).then(data => {
+    /*loadSupport(id).then(data => {
       const { support } = data;
       this.setState({
         loaded: true,
         support
       });
-    });
-    console.log(this.setState);
+    });*/
   }
 
   render() {
@@ -45,7 +44,7 @@ class SinglePlace extends Component {
             <h1>{place.name}</h1>
             <h3>{place.category}</h3>
             <h2>Meet the owners</h2>
-            <p>{place.owner.username}</p>
+            <p>{/*place.owner.username*/}</p>
             <SinglePlaceMap />
             <h2>Supported by</h2>
             <div>
