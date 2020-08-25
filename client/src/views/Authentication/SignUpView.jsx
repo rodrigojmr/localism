@@ -10,7 +10,8 @@ class AuthenticationSignUpView extends Component {
       username: '',
       email: '',
       password: '',
-      avatar: '/images/default-avatar.png',
+      avatarPreview: '/images/default-avatar.png',
+      avatar: '',
       address: undefined
     };
   }
@@ -41,6 +42,7 @@ class AuthenticationSignUpView extends Component {
   handleAvatarInputChange = avatar => {
     console.log('avatar: ', avatar);
     this.setState({
+      avatarPreview: URL.createObjectURL(avatar),
       avatar
     });
   };
@@ -48,6 +50,7 @@ class AuthenticationSignUpView extends Component {
   render() {
     return (
       <div>
+<<<<<<< HEAD
         <UserProfileForm
           {...this.state}
           onDateChange={this.handleDateChange}
@@ -55,6 +58,67 @@ class AuthenticationSignUpView extends Component {
           onAvatarChange={this.handleAvatarInputChange}
           onFormSubmission={this.handleFormSubmission}
         />
+=======
+        <form onSubmit={this.handleFormSubmission}>
+          <label htmlFor="input-avatar">
+            <img src={this.state.avatarPreview} alt="" />
+          </label>
+          <input
+            id="input-avatar"
+            type="file"
+            name="avatar"
+            onChange={this.handleAvatarInputChange}
+          />
+          <div className="input-group">
+            <label htmlFor="input-name">Name</label>
+            <input
+              id="input-name"
+              type="text"
+              name="name"
+              placeholder="Name"
+              value={this.state.name}
+              onChange={this.handleInputChange}
+            />
+          </div>
+          <div className="input-group">
+            <label htmlFor="input-username">Username</label>
+            <input
+              id="input-username"
+              type="text"
+              name="username"
+              placeholder="username"
+              value={this.state.username}
+              onChange={this.handleInputChange}
+            />
+          </div>
+          <div className="input-group">
+            <label htmlFor="input-email">Email</label>
+            <input
+              id="input-email"
+              type="email"
+              name="email"
+              placeholder="Email"
+              value={this.state.email}
+              onChange={this.handleInputChange}
+            />
+          </div>
+
+          <div className="input-group">
+            <label htmlFor="input-password">Password</label>
+            <input
+              minLength="8"
+              id="input-password"
+              type="password"
+              name="password"
+              placeholder="Password"
+              value={this.state.password}
+              onChange={this.handleInputChange}
+            />
+          </div>
+
+          <button>Sign Up</button>
+        </form>
+>>>>>>> 5982802407018e3de0009e9cd9b8db3cbe457e2a
       </div>
     );
   }

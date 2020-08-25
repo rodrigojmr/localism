@@ -12,6 +12,7 @@ const bodyParser = require('body-parser');
 
 const indexRouter = require('./routes/index');
 const placeRouter = require('./routes/place');
+const supportRouter = require('./routes/support');
 const authenticationRouter = require('./routes/authentication');
 
 const deserializeUser = require('./middleware/deserializeUser.js');
@@ -56,6 +57,7 @@ app.use(deserializeUser);
 
 app.use('/', indexRouter);
 app.use('/place', placeRouter);
+app.use('/support', supportRouter);
 app.use('/authentication', authenticationRouter);
 
 // Catch missing routes and forward to error handler

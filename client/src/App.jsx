@@ -4,6 +4,7 @@ import { Redirect, Switch, Route } from 'react-router-dom';
 import { loadMe, signOut } from './services/authentication';
 import HomeView from './views/HomeView';
 import CreatePlace from './views/CreatePlace';
+
 import SupportCreationView from './views/Support/SupportCreationView';
 import SupportPlaceView from './views/Support/SupportPlaceView';
 import SinglePlace from './views/Place/SinglePlace';
@@ -63,14 +64,16 @@ class App extends Component {
         <Navbar user={this.state.user} onSignOut={this.handleSignOut} />
         {(this.state.loaded && (
           <Switch>
+            {/* Index */}
             <Route path="/" component={HomeView} exact />
-            <Route path="/place/create" exact component={CreatePlace} />
-            <Route
-              path="/place/:id/create"
-              exact
-              component={SupportPlaceView}
-            />
+            {/* Places */}
+            <Route path="/place/create" component={CreatePlace} exact />
             <Route path="/place/:id" component={SinglePlace} exact />
+            <Route
+              path="/place/:id/support"
+              component={SupportPlaceView}
+              exact
+            />
             <Route
               path="/support/create"
               exact

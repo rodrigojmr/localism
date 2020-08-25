@@ -1,30 +1,26 @@
 import React, { Component } from 'react';
-import SupportForm from '../../components/Form/SupportForm';
+import SupportForm from './../../components/Form/SupportForm';
 
-import { loadplace } from '../../services/place';
-import { createSupport } from '../../services/support';
+import { loadplace } from './../../services/place';
+import { createSupport } from './../../services/support';
 
-class SupportCreationView extends Component {
+class SupportPlaceView extends Component {
   constructor() {
     super();
     this.state = {
       content: '',
-      loaded: false,
-      place: undefined
+      loaded: false
     };
   }
 
-  handleSupportCreation = async () => {
-    const content = this.state.content;
+  handleSupportCreation = () => {
+    const body = { content: this.state.content };
     const placeId = this.props.match.params.id;
+    console.log('placeId: ', placeId);
 
-    const body = { content, place: placeId };
-
-    createSupport(body)
+    createSupport(placeId, body)
       .then(data => {
-        const support = data.support;
-        const id = support._id;
-        this.props.history.push(`/place/${id}`);
+        this.props.history.push(`/place/${placeId}`);
       })
       .catch(error => {
         console.log(error);
@@ -57,4 +53,4 @@ class SupportCreationView extends Component {
   }
 }
 
-export default SupportCreationView;
+export default SupportPlaceView;

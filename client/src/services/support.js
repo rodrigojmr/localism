@@ -9,13 +9,13 @@ export const listSupports = () =>
   api.get('/support').then(response => response.data);
 
 export const createSupport = (id, body) =>
-  api.post(`/place/${id}/support`, body).then(response => response.data);
+  api.post(`/support/${id}`, body).then(response => response.data);
 
-export const loadPost = id =>
+export const loadSupport = id =>
   api.get(`/support/${id}`).then(response => response.data);
 
-export const deletePost = id =>
+export const deleteSupport = id =>
   api.delete(`/support/${id}`).then(response => response.data);
 
-export const editPost = (id, body) =>
+export const editSupport = (id, body) =>
   api.patch(`/support/${id}`, body).then(response => response.data);

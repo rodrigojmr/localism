@@ -5,12 +5,12 @@ const routeAuthenticationGuard = require('./../middleware/route-guard');
 
 const supportRouter = new express.Router();
 
-supportRouter.get('/support', (request, response, next) => {
+supportRouter.get('/', (request, response, next) => {
   Support.find()
     .populate('creator')
     .sort({ creationDate: -1 })
-    .then(posts => {
-      response.json({ posts });
+    .then(supports => {
+      response.json({ supports });
     })
     .catch(error => {
       next(error);
@@ -31,15 +31,33 @@ supportRouter.get('/:id', async (request, response, next) => {
   }
 });
 
+supportRouter.post('/:id', (req, res, next) => {
+  const placeId = req.params.id;
+  const { content } = req.body;
+  console.log('req.body: ', req.body);
+
+  Support.create({
+    creator: req.user._id,
+    place: placeId,
+    content
+  })
+    .then(support => {
+      res.json({ support });
+    })
+    .catch(error => {
+      next(error);
+    });
+});
+
 supportRouter.delete(
   '/:id',
   routeAuthenticationGuard,
-  async (request, response, next) => {
-    const id = request.params.id;
+  async (req, res, next) => {
+    const id = req.params.id;
 
-    Support.findOneAndDelete({ _id: id, creator: request.user._id })
+    Support.findOneAndDelete({ _id: id, creator: req.user._id })
       .then(() => {
-        response.json({});
+        res.json({});
       })
       .catch(error => {
         next(error);

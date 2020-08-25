@@ -7,8 +7,9 @@ const User = require('./../models/user');
 
 const authenticationRouter = new Router();
 
-const nodemailer = require('nodemailer');
+const fileUploader = require('../cloudinary-config');
 
+const nodemailer = require('nodemailer');
 const transport = nodemailer.createTransport({
   service: 'Gmail',
   auth: {
@@ -37,35 +38,43 @@ function sendMail(user) {
   });
 }
 
-authenticationRouter.post('/sign-up', async (req, res, next) => {
-  const { name, username, email, password } = req.body;
+authenticationRouter.post(
+  '/sign-up',
+  fileUploader.single('avatar'),
+  async (req, res, next) => {
+    const { name, username, email, password } = req.body;
+    let url;
+    if (req.file) {
+      url = req.file.path;
+    }
 
-  try {
-    if (password.length < 8) throw new Error('Password is too short.');
-    const hashAndSalt = await bcrypt.hash(password, 10);
-    const token = generateId(10);
-    const user = await User.create({
-      name,
-      username,
-      email,
-      token,
-      passwordHashAndSalt: hashAndSalt
-    });
-    sendMail(user).then(() => {
-      req.session.userId = user._id;
-      res.json({
-        user: {
-          _id: user._id,
-          name: user.name,
-          username: user.username,
-          email: user.email
-        }
+    try {
+      if (password.length < 8) throw new Error('Password is too short.');
+      const hashAndSalt = await bcrypt.hash(password, 10);
+      const token = generateId(10);
+      const user = await User.create({
+        name,
+        username,
+        email,
+        token,
+        passwordHashAndSalt: hashAndSalt
       });
-    });
-  } catch (error) {
-    next(error);
+      sendMail(user).then(() => {
+        req.session.userId = user._id;
+        res.json({
+          user: {
+            _id: user._id,
+            name: user.name,
+            username: user.username,
+            email: user.email
+          }
+        });
+      });
+    } catch (error) {
+      next(error);
+    }
   }
-});
+);
 
 authenticationRouter.get(`/confirmation/:token`, async (req, res, next) => {
   const token = req.params.token;
