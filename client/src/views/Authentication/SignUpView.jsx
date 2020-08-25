@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { signUp } from './../../services/authentication';
+import UserProfileForm from '../../components/User/UserProfileForm';
 
 class AuthenticationSignUpView extends Component {
   constructor() {
@@ -15,8 +16,7 @@ class AuthenticationSignUpView extends Component {
     };
   }
 
-  handleInputChange = event => {
-    const { name, value } = event.target;
+  handleValueChange = (name, value) => {
     this.setState({
       [name]: value
     });
@@ -27,8 +27,7 @@ class AuthenticationSignUpView extends Component {
     return regex.test(email);
   };
 
-  handleFormSubmission = event => {
-    event.preventDefault();
+  handleFormSubmission = () => {
     const body = { ...this.state };
     signUp(body)
       .then(data => {
@@ -40,8 +39,7 @@ class AuthenticationSignUpView extends Component {
       });
   };
 
-  handleAvatarInputChange = event => {
-    const avatar = event.target.files[0];
+  handleAvatarInputChange = avatar => {
     console.log('avatar: ', avatar);
     this.setState({
       avatarPreview: URL.createObjectURL(avatar),
@@ -52,65 +50,13 @@ class AuthenticationSignUpView extends Component {
   render() {
     return (
       <div>
-        <form onSubmit={this.handleFormSubmission}>
-          <label htmlFor="input-avatar">
-            <img src={this.state.avatarPreview} alt="" />
-          </label>
-          <input
-            id="input-avatar"
-            type="file"
-            name="avatar"
-            onChange={this.handleAvatarInputChange}
-          />
-          <div className="input-group">
-            <label htmlFor="input-name">Name</label>
-            <input
-              id="input-name"
-              type="text"
-              name="name"
-              placeholder="Name"
-              value={this.state.name}
-              onChange={this.handleInputChange}
-            />
-          </div>
-          <div className="input-group">
-            <label htmlFor="input-username">Username</label>
-            <input
-              id="input-username"
-              type="text"
-              name="username"
-              placeholder="username"
-              value={this.state.username}
-              onChange={this.handleInputChange}
-            />
-          </div>
-          <div className="input-group">
-            <label htmlFor="input-email">Email</label>
-            <input
-              id="input-email"
-              type="email"
-              name="email"
-              placeholder="Email"
-              value={this.state.email}
-              onChange={this.handleInputChange}
-            />
-          </div>
-
-          <div className="input-group">
-            <label htmlFor="input-password">Password</label>
-            <input
-              minLength="8"
-              id="input-password"
-              type="password"
-              name="password"
-              placeholder="Password"
-              value={this.state.password}
-              onChange={this.handleInputChange}
-            />
-          </div>
-
-          <button>Sign Up</button>
-        </form>
+        <UserProfileForm
+          {...this.state}
+          onDateChange={this.handleDateChange}
+          onValueChange={this.handleValueChange}
+          onAvatarChange={this.handleAvatarInputChange}
+          onFormSubmission={this.handleFormSubmission}
+        />
       </div>
     );
   }

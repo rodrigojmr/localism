@@ -23,6 +23,12 @@ export const PlaceForm = props => {
     props.onValueChange(name, value);
   };
 
+  //Places shpuld have Photos
+  //const handlePhotoInputChange = event => {
+  //  const file = props.event.target.files[0];
+  //  props.onPhotoChange(file);
+  //};
+
   const setHours = () => {
     let startTime = new Date();
     startTime.setHours(8);
@@ -33,9 +39,9 @@ export const PlaceForm = props => {
   return (
     <form className="form form-create-place" onSubmit={onFormSubmission}>
       <div className="input-group">
-        <label htmlFor="input-name">Name</label>
+        <label htmlFor="input-name">Business Name</label>
         <input
-          placeholder="Name"
+          placeholder="Enter Business Name"
           type="text"
           name="name"
           id="input-name"
@@ -55,18 +61,12 @@ export const PlaceForm = props => {
         />
       </div>
       {/* Connect with google maps */}
-      <MapSearch
-        resultInfoHandler={(name, value) => props.onValueChange(name, value)}
-      />
+      <MapSearch resultInfoHandler={(name, value) => props.onValueChange(name, value)} />
       <div className="input-group">
         <label htmlFor="input-openDate">Open Date</label>
         <DatePicker
           id="input-openDate"
-          value={
-            props.openDate
-              ? format(props.openDate, 'dd-MM-yyyy')
-              : props.openDate
-          }
+          value={props.openDate ? format(props.openDate, 'dd-MM-yyyy') : props.openDate}
           dateFormat={'dd/MM/yyyy'}
           onChange={date => props.onValueChange('openDate', date)}
         />
@@ -76,11 +76,7 @@ export const PlaceForm = props => {
         <div className="schedule-inputs-wrapper">
           <div>
             <label htmlFor="input-schedule-open">From:</label>
-            <select
-              defaultValue="monday"
-              name="weekDayOpen"
-              id="input-schedule-open"
-            >
+            <select defaultValue="monday" name="weekDayOpen" id="input-schedule-open">
               <option value="monday">Monday</option>
               <option value="tuesday">Tuesday</option>
               <option value="wednesday">Wednesday</option>
@@ -92,11 +88,7 @@ export const PlaceForm = props => {
           </div>
           <div>
             <label htmlFor="input-schedule-open">To:</label>
-            <select
-              defaultValue="friday"
-              name="weekDayClose"
-              id="input-schedule-close"
-            >
+            <select defaultValue="friday" name="weekDayClose" id="input-schedule-close">
               <option value="monday">Monday</option>
               <option value="tuesday">Tuesday</option>
               <option value="wednesday">Wednesday</option>
@@ -137,22 +129,20 @@ export const PlaceForm = props => {
         <PhoneInput
           id="input-phoneNumber"
           value={props.phoneNumber}
-          onChange={phoneNumber =>
-            props.onValueChange('phoneNumber', phoneNumber)
-          }
+          onChange={phoneNumber => props.onValueChange('phoneNumber', phoneNumber)}
         />
       </div>
-      {/*<div className="input-group" id="address">
-        <label htmlFor="input-address">Address</label>
+      <div className="input-group" id="email">
+        <label htmlFor="input-email">Email</label>
         <input
           placeholder="Email"
           type="email"
           name="address"
-          id="input-address"
-          value={props.address}
+          id="input-email"
+          value={props.email}
           onChange={onValueChange}
         />
-  </div>*/}
+      </div>
       <button type="submit">Create Place</button>
     </form>
   );

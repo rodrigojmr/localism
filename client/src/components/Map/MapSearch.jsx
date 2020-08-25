@@ -160,7 +160,7 @@ function Search({ handleResultInfo, panTo, setMarker }) {
             setMarker({ lat, lng });
             handleResultInfo(result);
           } catch (error) {
-            console.log('Error!');
+            console.log('Error!', error);
           }
         }}
       >
@@ -177,7 +177,6 @@ function Search({ handleResultInfo, panTo, setMarker }) {
           <ComboboxList>
             {status === 'OK' &&
               data.map(({ place_id, description }) => {
-                // console.log(id, description);
                 return <ComboboxOption key={place_id} value={description} />;
               })}
           </ComboboxList>

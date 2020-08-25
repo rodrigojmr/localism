@@ -157,7 +157,6 @@ function Search({ panTo }) {
       // radius: 200 * 1000
     }
   });
-  console.log('ready: ', ready);
   return (
     <div className="search">
       <label htmlFor="input-address"> Address</label>
