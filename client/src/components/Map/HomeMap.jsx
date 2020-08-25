@@ -75,8 +75,37 @@ const Map = props => {
     props.idleMapSearch(boundaries);
   };
 
+  const getLocality = () => {
+    let geocoder = new window.google.maps.Geocoder();
+
+    const center = {
+      lat: mapRef.current.getCenter().lat(),
+      lng: mapRef.current.getCenter().lng()
+    };
+
+    geocoder.geocode({ location: center }, function(results, status) {
+      if (status === 'OK') {
+        if (results[0]) {
+          const result = results[0].address_components.find(
+            component =>
+              component.types.includes('locality') ||
+              component.types.includes('administrative_area_level_1')
+          );
+          if (result) {
+            props.onLocalityUpdate(result.locality);
+          }
+        } else {
+          window.alert('No results found');
+        }
+      } else {
+        window.alert('Geocoder failed due to: ' + status);
+      }
+    });
+  };
+
   const onMapIdle = () => {
     getBoundaries();
+    getLocality();
   };
 
   if (loadError) return 'Error loading maps';
@@ -129,11 +158,6 @@ const Map = props => {
           </InfoWindow>
         ) : null}
       </GoogleMap>
-      <SearchName
-        // handleResultInfo={handleResultInfo}
-        // setMarker={setMarker}
-        panTo={panTo}
-      />
     </div>
   );
 };
