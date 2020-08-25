@@ -74,7 +74,6 @@ const Map = props => {
       lng: result.geometry.location.lng()
     };
 
-    console.log('obj: ', obj);
     for (let key in obj) {
       props.resultInfoHandler(key, obj[key]);
     }

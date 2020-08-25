@@ -76,7 +76,6 @@ const Map = props => {
       lng: result.geometry.location.lng()
     };
 
-    console.log('obj: ', obj);
     for (let key in obj) {
       props.resultInfoHandler(key, obj[key]);
     }
@@ -93,8 +92,8 @@ const Map = props => {
       />
       <GoogleMap
         mapContainerStyle={mapContainerStyle}
-        zoom={8}
-        center={center}
+        zoom={15}
+        center={props.center}
         options={options}
         // onClick={onMapClick}
         onLoad={onMapLoad}

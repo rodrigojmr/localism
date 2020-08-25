@@ -10,7 +10,7 @@ export const signUp = body => {
   for (let property in body) {
     formBody.append(property, body[property]);
   }
-  return api.post('/post', formBody).then(response => response.data);
+  return api.post('/sign-up', formBody).then(response => response.data);
 };
 
 export const signIn = body =>

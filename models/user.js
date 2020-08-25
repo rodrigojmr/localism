@@ -49,15 +49,11 @@ const schema = new mongoose.Schema({
     type: String
   },
   privateAddress: {
-    long: {
-      type: String
-    },
-    lat: {
-      type: String
-    }
+    type: Array
   },
   owner: {
-    type: Boolean
+    type: Boolean,
+    default: false
   },
   support: [
     {

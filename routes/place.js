@@ -16,8 +16,6 @@ const storage = new multerStorageCloudinary.CloudinaryStorage({
 const upload = multer({ storage });
 
 placeRouter.get('/nearby', (req, res, next) => {
-  console.log(req.query);
-
   const { neLat, neLng, swLat, swLng } = req.query;
 
   Place.find({})
@@ -31,7 +29,6 @@ placeRouter.get('/nearby', (req, res, next) => {
     // .populate('creator')
     // .sort({ creationDate: -1 })
     .then(places => {
-      console.log('places: ', places);
       res.json({ places });
     })
     .catch(error => {
