@@ -31,7 +31,7 @@ supportRouter.get('/:id', async (request, response, next) => {
   }
 });
 
-supportRouter.post('/id', (request, response, next) => {
+supportRouter.post('/', (request, response, next) => {
   //const { creator, place, content } = request.body;
   //console.log('req.body: ', request.body);
 
