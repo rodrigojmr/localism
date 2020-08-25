@@ -73,6 +73,9 @@ const placeSchema = new mongoose.Schema(
         default: 'Point'
       }
     },
+    about: {
+      type: String
+    },
     supports: [
       {
         type: mongoose.Schema.Types.ObjectId,
