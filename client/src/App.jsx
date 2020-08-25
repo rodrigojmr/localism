@@ -3,7 +3,7 @@ import './styles/style.scss';
 import { Redirect, Switch, Route } from 'react-router-dom';
 import { loadMe, signOut } from './services/authentication';
 import HomeView from './views/HomeView';
-import CreatePlace from './views/CreatePlace';
+import CreatePlace from './views/Place/CreatePlace';
 
 import SupportCreationView from './views/Support/SupportCreationView';
 import SupportPlaceView from './views/Support/SupportPlaceView';
@@ -67,18 +67,22 @@ class App extends Component {
             {/* Home */}
             <Route path="/" component={HomeView} exact />
             {/* Places */}
-            <Route path="/place/create" component={CreatePlace} exact />
+            <ProtectedRoute
+              path="/place/create"
+              render={props => (
+                <CreatePlace user={this.state.user} {...props} />
+              )}
+              authorized={this.state.user}
+              redirect="/authentication/sign-in"
+            />
             <Route path="/place/:id" component={SinglePlace} exact />
-            <Route
+            <ProtectedRoute
               path="/place/:id/support"
-              component={SupportPlaceView}
-              exact
+              render={props => <SupportPlaceView {...props} />}
+              authorized={this.state.user}
+              redirect="/authentication/sign-in"
             />
-            <Route
-              path="/support/create"
-              exact
-              component={SupportCreationView}
-            />
+            {/* User Authentication */}
             <ProtectedRoute
               path="/authentication/sign-up"
               render={props => (

@@ -1,5 +1,9 @@
 const buildFormData = (formData, data, parentKey) => {
-  if (
+  if (parentKey === 'images') {
+    for (let i = 0; i < data.length; i++) {
+      formData.append('images', data[i]);
+    }
+  } else if (
     data &&
     typeof data === 'object' &&
     !(data instanceof Date) &&
@@ -14,7 +18,6 @@ const buildFormData = (formData, data, parentKey) => {
     });
   } else {
     const value = data === null ? '' : data;
-
     formData.append(parentKey, value);
   }
 };
@@ -23,7 +26,6 @@ const jsonToFormData = data => {
   const formData = new FormData();
 
   buildFormData(formData, data);
-
   return formData;
 };
 

@@ -6,16 +6,14 @@ const api = axios.create({
   withCredentials: true
 });
 
-export const signUp = body => {
+export const signUp = async body => {
   const formData = jsonToFormData(body);
-
-  // Object.keys(body).forEach(key =>
-  //   body[key] ? formBody.append(key, body[key]) : formBody.append(key, '')
-  // );
-  // for (let property in body) {
-  //   formBody.append(property, body[property]);
-  // }
-  return api.post('/sign-up', formData).then(response => response.data);
+  try {
+    const response = await api.post('/sign-up', formData);
+    return response.data;
+  } catch (error) {
+    console.log(error);
+  }
 };
 
 export const signIn = body =>

@@ -40,6 +40,12 @@ const placeSchema = new mongoose.Schema(
       },
       email: {
         type: String
+      },
+      website: {
+        type: String
+      },
+      instagram: {
+        type: String
       }
     },
     formatted_address: {
@@ -71,6 +77,11 @@ const placeSchema = new mongoose.Schema(
       {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Support'
+      }
+    ],
+    images: [
+      {
+        type: String
       }
     ]
   },
