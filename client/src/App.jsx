@@ -64,7 +64,7 @@ class App extends Component {
         <Navbar user={this.state.user} onSignOut={this.handleSignOut} />
         {(this.state.loaded && (
           <Switch>
-            {/* Index */}
+            {/* Home */}
             <Route path="/" component={HomeView} exact />
             {/* Places */}
             <Route path="/place/create" component={CreatePlace} exact />
@@ -79,13 +79,6 @@ class App extends Component {
               exact
               component={SupportCreationView}
             />
-            {/* <ProtectedRoute
-                path="/place/create"
-                exact
-                component={CreatePlace}
-                authorized={this.state.user}
-                redirect="/authentication/sign-in"
-              /> */}
             <ProtectedRoute
               path="/authentication/sign-up"
               render={props => (

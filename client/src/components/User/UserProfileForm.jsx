@@ -1,5 +1,5 @@
 import React from 'react';
-import MapBackup from '../Map/MapBackup';
+import MapSearch from '../Map/MapSearch';
 import { format } from 'date-fns';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
@@ -24,7 +24,7 @@ const UserProfileForm = props => {
   return (
     <form onSubmit={handleFormSubmission}>
       <label htmlFor="input-avatar">
-        <img src={props.avatar} alt="" />
+        <img src={props.avatarPreview} alt="" />
       </label>
       <input
         id="input-avatar"
@@ -107,7 +107,10 @@ const UserProfileForm = props => {
       </div>
       <div className="map-input">
         <p>Find Location on Map </p>
-        <MapBackup />
+        <MapSearch
+          resultInfoHandler={(name, value) => props.onValueChange(name, value)}
+          center={props.location}
+        />
       </div>
 
       <button> {props.isEdit ? 'Edit Profile' : 'Sign Up'} </button>

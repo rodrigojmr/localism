@@ -29,15 +29,10 @@ const mapContainerStyle = {
   height: '100vh'
 };
 
-const center = {
-  lat: 6.5568767999999995,
-  lng: 3.3488895999999997
-};
-
 const options = {
-  styles: MapStyles
+  styles: MapStyles,
   //disableDefaultUI: true,
-  //zoomControl: true
+  zoomControl: true
 };
 
 const Map = props => {
@@ -76,7 +71,6 @@ const Map = props => {
       lng: result.geometry.location.lng()
     };
 
-    console.log('obj: ', obj);
     for (let key in obj) {
       props.resultInfoHandler(key, obj[key]);
     }
@@ -93,8 +87,8 @@ const Map = props => {
       />
       <GoogleMap
         mapContainerStyle={mapContainerStyle}
-        zoom={8}
-        center={center}
+        zoom={15}
+        center={props.center}
         options={options}
         // onClick={onMapClick}
         onLoad={onMapLoad}
@@ -165,6 +159,7 @@ function Search({ handleResultInfo, panTo, setMarker }) {
         }}
       >
         <ComboboxInput
+          required
           id="input-address"
           value={value}
           onChange={e => {

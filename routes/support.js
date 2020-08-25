@@ -34,7 +34,6 @@ supportRouter.get('/:id', async (request, response, next) => {
 supportRouter.post('/:id', (req, res, next) => {
   const placeId = req.params.id;
   const { content } = req.body;
-  console.log('req.body: ', req.body);
 
   Support.create({
     creator: req.user._id,

@@ -12,8 +12,30 @@ class AuthenticationSignUpView extends Component {
       password: '',
       avatarPreview: '/images/default-avatar.png',
       avatar: '',
+      location: undefined,
       address: undefined
     };
+  }
+
+  componentDidMount() {
+    this.getLocation();
+  }
+
+  getLocation() {
+    navigator.geolocation.getCurrentPosition(
+      position => {
+        this.setState({
+          location: {
+            lat: position.coords.latitude,
+            lng: position.coords.longitude
+          }
+        });
+      },
+      function error(msg) {
+        alert('Please enable your GPS position feature.');
+      },
+      { maximumAge: 10000, timeout: 5000, enableHighAccuracy: true }
+    );
   }
 
   handleValueChange = (name, value) => {
@@ -40,7 +62,6 @@ class AuthenticationSignUpView extends Component {
   };
 
   handleAvatarInputChange = avatar => {
-    console.log('avatar: ', avatar);
     this.setState({
       avatarPreview: URL.createObjectURL(avatar),
       avatar

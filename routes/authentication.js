@@ -42,7 +42,15 @@ authenticationRouter.post(
   '/sign-up',
   fileUploader.single('avatar'),
   async (req, res, next) => {
-    const { name, username, email, password } = req.body;
+    const {
+      name,
+      username,
+      email,
+      password,
+      birthday,
+      gender,
+      address_components
+    } = req.body;
     let url;
     if (req.file) {
       url = req.file.path;
@@ -57,6 +65,12 @@ authenticationRouter.post(
         username,
         email,
         token,
+        privateAddress: address_components,
+        info: {
+          birthday,
+          gender
+        },
+        avatar: url,
         passwordHashAndSalt: hashAndSalt
       });
       sendMail(user).then(() => {

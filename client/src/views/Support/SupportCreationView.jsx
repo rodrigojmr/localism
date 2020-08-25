@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import SupportForm from './../../components/Form/SupportForm';
 
-import { loadplace } from './../../services/place';
+import { loadPlace } from './../../services/place';
 import { createSupport } from './../../services/support';
 
 class SupportCreationView extends Component {
@@ -17,7 +17,6 @@ class SupportCreationView extends Component {
   handleSupportCreation = () => {
     const body = { content: this.state.content };
     const placeId = this.props.match.params.id;
-    console.log('placeId: ', placeId);
 
     createSupport(placeId, body)
       .then(data => {
