@@ -20,15 +20,6 @@ class HomeView extends Component {
     this.getLocation();
   }
 
-  getPlaces(boundaries) {
-    nearbyPlaces(boundaries).then(data => {
-      console.log('data: ', data);
-      this.setState({
-        places: data.places
-      });
-    });
-  }
-
   getLocation() {
     navigator.geolocation.getCurrentPosition(
       position => {
@@ -44,6 +35,15 @@ class HomeView extends Component {
       },
       { maximumAge: 10000, timeout: 5000, enableHighAccuracy: true }
     );
+  }
+
+  getPlaces(boundaries) {
+    nearbyPlaces(boundaries).then(data => {
+      console.log('data: ', data);
+      this.setState({
+        places: data.places
+      });
+    });
   }
 
   render() {

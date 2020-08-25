@@ -2,16 +2,25 @@ import React, { Component } from 'react';
 
 import SearchName from './../Search/SearchName';
 
-import { GoogleMap, useLoadScript, Marker, InfoWindow, Autocomplete } from '@react-google-maps/api';
-import { formatRelative } from 'date-fns';
-import usePlacesAutocomplete, { getGeocode, getLatLng } from 'use-places-autocomplete';
 import {
-  Combobox,
-  ComboboxInput,
-  ComboboxPopover,
-  ComboboxList,
-  ComboboxOption
-} from '@reach/combobox';
+  GoogleMap,
+  useLoadScript,
+  Marker,
+  InfoWindow,
+  Autocomplete
+} from '@react-google-maps/api';
+// import { formatRelative } from 'date-fns';
+// import usePlacesAutocomplete, {
+//   getGeocode,
+//   getLatLng
+// } from 'use-places-autocomplete';
+// import {
+//   Combobox,
+//   ComboboxInput,
+//   ComboboxPopover,
+//   ComboboxList,
+//   ComboboxOption
+// } from '@reach/combobox';
 import './../../App.css';
 import '@reach/combobox/styles.css';
 
@@ -29,26 +38,16 @@ const options = {
   zoomControl: true
 };
 
-// export class HomeMap extends Component {
-//   constructor() {
-//     this.state = {
-//       markers: []
-//     };
-//   }
-
-//   componentDidMount() {
-
-//   }
-
-//   render() {
-//     return <div></div>;
-//   }
-// }
-
 // export default HomeMap;
 
 const Map = props => {
   //setState on marker click and retrieve value when clicked by user
+
+  const { isLoaded, loadError } = useLoadScript({
+    googleMapsApiKey: process.env.REACT_APP_GOOGLE_MAPS_API_KEY,
+    libraries
+  });
+
   const [selected, setSelected] = React.useState(null);
 
   //use this to reference the map without causing re-renders
@@ -56,11 +55,6 @@ const Map = props => {
   const onMapLoad = React.useCallback(map => {
     mapRef.current = map;
   }, []);
-
-  const { isLoaded, loadError } = useLoadScript({
-    googleMapsApiKey: process.env.REACT_APP_GOOGLE_MAPS_API_KEY,
-    libraries
-  });
 
   const panTo = React.useCallback(({ lat, lng }) => {
     mapRef.current.panTo({ lat, lng });
@@ -83,20 +77,6 @@ const Map = props => {
 
   const onMapIdle = () => {
     getBoundaries();
-  };
-
-  const handleResultInfo = result => {
-    const obj = {
-      formatted_address: result.formatted_address,
-      address_components: result.address_components,
-      lat: result.geometry.location.lat(),
-      lng: result.geometry.location.lng()
-    };
-
-    console.log('obj: ', obj);
-    for (let key in obj) {
-      props.resultInfoHandler(key, obj[key]);
-    }
   };
 
   if (loadError) return 'Error loading maps';
@@ -150,7 +130,7 @@ const Map = props => {
         ) : null}
       </GoogleMap>
       <SearchName
-        handleResultInfo={handleResultInfo}
+        // handleResultInfo={handleResultInfo}
         // setMarker={setMarker}
         panTo={panTo}
       />

@@ -29,15 +29,10 @@ const mapContainerStyle = {
   height: '100vh'
 };
 
-const center = {
-  lat: 6.5568767999999995,
-  lng: 3.3488895999999997
-};
-
 const options = {
-  styles: MapStyles
+  styles: MapStyles,
   //disableDefaultUI: true,
-  //zoomControl: true
+  zoomControl: true
 };
 
 const Map = props => {

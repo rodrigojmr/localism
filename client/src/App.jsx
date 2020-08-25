@@ -79,13 +79,6 @@ class App extends Component {
               exact
               component={SupportCreationView}
             />
-            {/* <ProtectedRoute
-                path="/place/create"
-                exact
-                component={CreatePlace}
-                authorized={this.state.user}
-                redirect="/authentication/sign-in"
-              /> */}
             <ProtectedRoute
               path="/authentication/sign-up"
               render={props => (

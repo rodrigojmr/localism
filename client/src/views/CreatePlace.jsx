@@ -1,11 +1,10 @@
 import React, { Component } from 'react';
-
 import PlaceForm from '../components/Form/PlaceForm';
 import { createPlace } from '../services/place';
 
 class CreatePlace extends Component {
-  constructor(props) {
-    super(props);
+  constructor() {
+    super();
     this.state = {
       loaded: false,
       name: '',
@@ -20,9 +19,29 @@ class CreatePlace extends Component {
       phoneNumber: '',
       email: '',
       place_id: '',
-      lat: 0,
-      lng: 0
+      location: undefined
     };
+  }
+
+  componentDidMount() {
+    this.getLocation();
+  }
+
+  getLocation() {
+    navigator.geolocation.getCurrentPosition(
+      position => {
+        this.setState({
+          location: {
+            lat: position.coords.latitude,
+            lng: position.coords.longitude
+          }
+        });
+      },
+      function error(msg) {
+        alert('Please enable your GPS position feature.');
+      },
+      { maximumAge: 10000, timeout: 5000, enableHighAccuracy: true }
+    );
   }
 
   handleValueChange = (name, value) => {
@@ -45,8 +64,6 @@ class CreatePlace extends Component {
         console.log(error);
       });
   };
-
-  componentDidMount() {}
 
   render() {
     return (
