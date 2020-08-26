@@ -82,16 +82,18 @@ class CreatePlace extends Component {
   };
 
   render() {
-    console.log(this.props);
     return (
       <div className="create-place">
         <h1 className="heading heading--1">
-          Hey {this.props.user.username}, do you own a place in this area?
+          Hey {this.props.user && <>{this.props.user.username}</>}, do you own a
+          place in this area?
         </h1>
         Yes / No
         {/* Make two separate sections for this */}
         <div className="create-place-form-wrapper">
-          <h2 className="heading heading--2">Let locals know better, register your place!</h2>
+          <h2 className="heading heading--2">
+            Let locals know better, register your place!
+          </h2>
           <PlaceForm
             {...this.state}
             onImagesChange={this.handleImages}

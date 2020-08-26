@@ -12,7 +12,7 @@ import '@reach/combobox/styles.css';
 const SearchName = props => {
   return (
     <div className="search">
-      <label htmlFor="input-name"> Search By Name</label>
+      {/* <label htmlFor="input-name"> Search By Name</label> */}
       <Combobox
         onSelect={async name => {
           // setValue(address, false);
