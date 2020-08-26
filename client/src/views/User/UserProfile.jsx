@@ -15,7 +15,7 @@ class UserProfile extends Component {
 
   handleContentChange() {}
 
-  componentDidMount() {
+  getUser() {
     const { id } = this.props.match.params;
     console.log('props match params id:', id);
     loadProfile(id).then(data => {
@@ -27,72 +27,83 @@ class UserProfile extends Component {
     });
   }
 
+  componentDidMount() {
+    this.getUser();
+  }
+
   render() {
     const { publicUser } = this.state;
-    console.log({ user });
-
-    const locality = publicUser.privateAddress.find(
-      component =>
-        component.types.includes('locality') ||
-        component.types.includes('administrative_area_level_1')
-    ).short_name;
+    console.log({ publicUser });
+    let locality;
+    if (publicUser) {
+      locality = publicUser.privateAddress.find(
+        component =>
+          component.types.includes('locality') ||
+          component.types.includes('administrative_area_level_1')
+      ).short_name;
+    }
+    console.log('locality: ', locality);
 
     return (
-      <div className="user">
+      <div className="public-user">
         {this.state.loaded && (
           <>
             <div className="user-info__row">
               <div>
-                <h4> {user.username}'s profile</h4>
+                <h4> {publicUser.username}'s profile</h4>
               </div>
             </div>
             <div className="user-info__row">
               <div className="user-name">
-                <Link to={`/profile/${user._id}`}>
-                  <img src={user.avatar} alt={user.name} />
+                <Link to={`/profile/${publicUser._id}`}>
+                  <img src={publicUser.avatar} alt={publicUser.name} />
                 </Link>
-
                 <div>
                   <p>Name and Last Name</p>
                   <h4>
-                    <strong> {user.name}</strong>
+                    <strong> {publicUser.name}</strong>
                   </h4>
                 </div>
                 <div>
                   <p>Email</p>
                   <h4>
-                    <strong> {user.email}</strong>
+                    <strong> {publicUser.email}</strong>
                   </h4>
                 </div>
                 <div>
                   <p>Gender</p>
-                  <h4>{/*<strong> {user.gender}</strong>*/}</h4>
+                  {(publicUser.gender && publicUser.gender.length > 0 && (
+                    <h4>
+                      <strong> {publicUser.gender}</strong>
+                    </h4>
+                  )) || <h4>User did not state their gender.</h4>}
                 </div>
                 <div>
                   <p>Birthday</p>
-                  <h4>{/*<strong> {user.info.birthday}</strong>*/}</h4>
+                  {(publicUser.birthday && (
+                    <h4>
+                      <strong> {publicUser.info.birthday}</strong>
+                    </h4>
+                  )) || <h4>No Birthdate Specified.</h4>}
                 </div>
+
                 <div>
                   <p>Pasword</p>
                   <h4>
-                    <strong> {user.passwordHashAndSalt}</strong>
+                    <strong> {publicUser.passwordHashAndSalt}</strong>
                   </h4>
                 </div>
                 <div className="Address">
-                  {user.privateAddress.length && (
-                    <>
-                      <p>Address</p>
-
-                      <h4>
-                        <strong> {locality}</strong>
-                      </h4>
-                    </>
-                  )}
+                  <p>Address</p>
+                  <h4>
+                    <strong> {locality}</strong>
+                  </h4>
                 </div>
               </div>
             </div>
           </>
         )}
+        <button> Edit Profile</button>
       </div>
     );
   }
