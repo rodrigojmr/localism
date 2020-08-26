@@ -49,8 +49,9 @@ placeRouter.get('/:id', async (req, res, next) => {
       .populate({
         path: 'supports',
         populate: {
-          path: 'author',
-          model: 'User'
+          path: 'creator',
+          model: 'User',
+          select: { _id: 1, username: 1, name: 1, avatar: 1 }
         }
       });
     if (place) {
