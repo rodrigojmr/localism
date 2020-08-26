@@ -18,6 +18,7 @@ import ConfirmEmail from './views/Authentication/ConfirmEmail';
 import Spinner from './components/Spinner';
 
 import Navbar from './components/Navbar';
+import UserProfile from './views/User/UserProfile';
 //import ProtectedRoute from './components/ProtectedRoute';
 
 class App extends Component {
@@ -134,6 +135,13 @@ class App extends Component {
               )}
               redirect="/"
             />{' '}
+            {/*Profile route */}
+            <Route
+              path="/profile/:id"
+              user={this.state.user}
+              component={UserProfile}
+              exact
+            />
             <Route path="/error" component={ErrorView} />
             {/* <Redirect from="/" to="/error" /> */}
             {/* <Route path="/authentication/sign-in" component={AuthenticationSignInView} /> */}

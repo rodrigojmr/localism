@@ -59,7 +59,7 @@ const schema = new mongoose.Schema({
   supports: [
     {
       type: mongoose.Schema.Types.ObjectId,
-      ref: 'Suggestion'
+      ref: 'Support'
     }
   ],
   checkInHistory: [
