@@ -86,6 +86,7 @@ class EditProfileView extends Component {
           onValueChange={this.handleValueChange}
           onAvatarChange={this.handleAvatarInputChange}
           onFormSubmission={this.handleFormSubmission}
+          isEdit={true}
         />
       </div>
     );
