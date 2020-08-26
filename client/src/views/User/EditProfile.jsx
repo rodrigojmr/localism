@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
+import { loadUser } from '../../services/user';
+import { signUp } from '../../services/authentication';
+import EditUserProfileForm from '../../components/Form/EditProfileForm';
 
-import SignUpForm from '../../components/User/SignUpForm';
-
-export class UserProfileView extends Component {
+class EditProfileView extends Component {
   constructor() {
     super();
     this.state = {
@@ -10,17 +11,23 @@ export class UserProfileView extends Component {
       username: '',
       email: '',
       password: '',
-      gender: '',
-      birthday: '',
       avatarPreview: '/images/default-avatar.png',
       avatar: '',
       location: undefined,
-      address: undefined
+      locality: '',
+      password: '',
+      birthday: ''
     };
   }
 
   componentDidMount() {
-    this.getLocation();
+    this.getUser();
+  }
+
+  getUser() {
+    loadUser().then(data => {
+      this.setState({ ...data.user });
+    });
   }
 
   getLocation() {
@@ -73,7 +80,7 @@ export class UserProfileView extends Component {
   render() {
     return (
       <div>
-        <SignUpForm
+        <EditUserProfileForm
           {...this.state}
           onDateChange={this.handleDateChange}
           onValueChange={this.handleValueChange}
@@ -85,4 +92,4 @@ export class UserProfileView extends Component {
   }
 }
 
-export default UserProfileView;
+export default EditProfileView;

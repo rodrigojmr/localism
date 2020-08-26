@@ -142,7 +142,9 @@ authenticationRouter.get('/me/full', async (req, res, next) => {
   const id = req.session.userId;
 
   try {
-    const user = User.findById(id);
+    const user = await User.findById(id).select(
+      '_id name email username avatar privateAddress locality info owner'
+    );
     res.json({ user });
   } catch (error) {
     next(error);

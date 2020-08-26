@@ -1,8 +1,5 @@
 import React from 'react';
 import MapSearch from '../Map/MapSearch';
-import { format } from 'date-fns';
-import DatePicker from 'react-datepicker';
-import 'react-datepicker/dist/react-datepicker.css';
 
 const UserProfileForm = props => {
   const handleFormSubmission = event => {
@@ -25,8 +22,14 @@ const UserProfileForm = props => {
     <form onSubmit={handleFormSubmission}>
       <label htmlFor="input-avatar">
         <img src={props.avatarPreview} alt="" />
+        <input
+          style={{ display: 'none' }}
+          id="input-avatar"
+          type="file"
+          name="avatar"
+          onChange={handleAvatarInputChange}
+        />
       </label>
-      <input id="input-avatar" type="file" name="avatar" onChange={handleAvatarInputChange} />
       <div className="input-group">
         <label htmlFor="input-name">FullName</label>
         <input
@@ -74,32 +77,10 @@ const UserProfileForm = props => {
         />
       </div>
 
-      <div className="input-group">
-        <label htmlFor="input-openDate">Birthday</label>
-        <DatePicker
-          id="input-birthday"
-          value={props.birthday ? format(props.birthday, 'dd-MM-yyyy') : props.birthday}
-          dateFormat={'dd/MM/yyyy'}
-          onChange={date => props.onValueChange('birthday', date)}
-        />
-      </div>
-      <div className="input-group">
-        <label>Gender</label>
-        <div className="gender-inputs-wrapper">
-          <div>
-            <label htmlFor="input-gender">From:</label>
-            <select defaultValue="male" name="gender" id="input-gender">
-              <option value="male">Male</option>
-              <option value="female">Female</option>
-              <option value="other">Other</option>
-            </select>
-          </div>
-        </div>
-      </div>
       <div className="map-input">
         <p>Find Location on Map </p>
         <MapSearch
-          height={'50vh'}
+          height={'20vh'}
           resultInfoHandler={(name, value) => props.onValueChange(name, value)}
           center={props.location}
         />

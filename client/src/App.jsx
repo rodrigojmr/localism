@@ -10,7 +10,7 @@ import SupportPlaceView from './views/Support/SupportPlaceView';
 import SinglePlace from './views/Place/SinglePlace';
 import AuthenticationSignInView from './views/Authentication/SignInView';
 import AuthenticationSignUpView from './views/Authentication/SignUpView';
-import EditUserProfile from './views/User/EditUserProfile';
+import EditUserProfile from './views/User/EditProfile';
 import ProtectedRoute from './components/ProtectedRoute';
 import ErrorView from './views/ErrorView';
 import ConfirmEmail from './views/Authentication/ConfirmEmail';
@@ -70,28 +70,24 @@ class App extends Component {
             {/* Places */}
             <ProtectedRoute
               path="/place/create"
-              render={props => (
-                <CreatePlace user={this.state.user} {...props} />
-              )}
-              authorized={this.state.user}
+              render={props => <CreatePlace {...props} />}
+              user={this.state.user}
               redirect="/authentication/sign-in"
               exact
             />
-            <Route path="/place/:id" component={SinglePlace} exact />
+            <Route
+              path="/place/:id"
+              user={this.state.user}
+              component={SinglePlace}
+              exact
+            />
             <ProtectedRoute
               path="/place/:id/support"
               render={props => <SupportPlaceView {...props} />}
-              authorized={this.state.user}
+              user={this.state.user}
               redirect="/authentication/sign-in"
               exact
             />
-            {/* <ProtectedRoute
-              path="/me"
-              render={props => <SupportPlaceView {...props} />}
-              authorized={this.state.user}
-              redirect="/authentication/sign-in"
-              exact
-            /> */}
             {/* User Authentication */}
             <ProtectedRoute
               path="/me/edit"
@@ -101,7 +97,7 @@ class App extends Component {
                   onUserUpdate={this.handleUserUpdate}
                 />
               )}
-              authorized={this.state.user}
+              user={this.state.user}
               redirect="/"
             />
             <ProtectedRoute
@@ -112,7 +108,7 @@ class App extends Component {
                   onUserUpdate={this.handleUserUpdate}
                 />
               )}
-              authorized={!this.state.user}
+              user={!this.state.user}
               redirect="/"
             />
             <ProtectedRoute
@@ -123,7 +119,7 @@ class App extends Component {
                   onUserUpdate={this.handleUserUpdate}
                 />
               )}
-              authorized={!this.state.user}
+              user={!this.state.user}
               redirect="/"
             />
             <Route

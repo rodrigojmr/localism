@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import { loadPlace } from './../../services/place';
 import SinglePlaceMap from './../../components/Map/SinglePlaceMap';
 import getHours from 'date-fns/getHours';
+import SupportCreationView from '../Support/SupportCreationView';
 // import parse from 'date-fns/parse';
 const { zonedTimeToUtc, utcToZonedTime, format } = require('date-fns-tz');
 
@@ -101,7 +102,8 @@ class SinglePlace extends Component {
               )) || <h2>Not supported by anyone yet!</h2>}
             </div>
             <div className="place-info__row">
-              {place.supports.length && (
+              {place.supports.some(support => support.content !== '')
+                .length && (
                 <>
                   <h2>What people had to say:</h2>
                   {place.supports
