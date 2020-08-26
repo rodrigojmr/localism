@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import HomeMap from '../components/Map/HomeMap';
 import PlacesList from '../components/List/PlacesList';
+import SearchName from './../components/Search/SearchName';
 import { nearbyPlaces } from './../services/place';
 
 class HomeView extends Component {
@@ -10,11 +11,12 @@ class HomeView extends Component {
     this.state = {
       loaded: false,
       location: undefined,
-      places: []
+      locality: undefined,
+      places: [],
+      filteredPlaces: [],
+      searchQuery: ''
     };
   }
-
-  handleContentChange() {}
 
   componentDidMount() {
     this.getLocation();
@@ -43,21 +45,49 @@ class HomeView extends Component {
         places: data.places
       });
     });
+    this.handleSearch(this.state.searchQuery);
   }
+
+  handleLocalityUpdate(locality) {
+    this.setState({
+      locality
+    });
+  }
+
+  handleSearch = searchQuery => {
+    const filteredPlaces = this.state.places.filter(place =>
+      place.name.toLowerCase().includes(searchQuery.toLowerCase())
+    );
+
+    this.setState({
+      searchQuery,
+      filteredPlaces
+    });
+  };
 
   render() {
     return (
       <div className="home">
         <PlacesList />
         <Link to="/place/create">Create Place</Link>
-        <Link to="/support/create">Support a Place</Link>
         <Link to="/place/5f43a80be9227274903e3b42/support">
           Support Rodrigo's House
         </Link>
         <HomeMap
-          places={this.state.places}
-          idleMapSearch={boundaries => this.getPlaces(boundaries)}
+          locality={this.state.locality}
+          places={
+            this.state.filteredPlaces.length
+              ? this.state.filteredPlaces
+              : this.state.places
+          }
           center={this.state.location}
+          onLocalityUpdate={locality => this.handleLocalityUpdate(locality)}
+          idleMapSearch={boundaries => this.getPlaces(boundaries)}
+        />
+        <SearchName
+          onSearchUpdate={searchQuery => this.handleSearch(searchQuery)}
+          searchQuery={this.state.searchQuery}
+          places={this.props.places}
         />
       </div>
     );

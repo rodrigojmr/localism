@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { signUp } from './../../services/authentication';
-import UserProfileForm from '../../components/User/UserProfileForm';
+import SignUpForm from '../../components/User/SignUpForm';
 
 class AuthenticationSignUpView extends Component {
   constructor() {
@@ -71,7 +71,7 @@ class AuthenticationSignUpView extends Component {
   render() {
     return (
       <div>
-        <UserProfileForm
+        <SignUpForm
           {...this.state}
           onDateChange={this.handleDateChange}
           onValueChange={this.handleValueChange}

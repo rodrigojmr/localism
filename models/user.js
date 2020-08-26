@@ -34,7 +34,8 @@ const schema = new mongoose.Schema({
     type: String
   },
   avatar: {
-    type: String
+    type: String,
+    default: '/images/default-avatar.png'
   },
   info: {
     age: {
@@ -55,7 +56,7 @@ const schema = new mongoose.Schema({
     type: Boolean,
     default: false
   },
-  support: [
+  supports: [
     {
       type: mongoose.Schema.Types.ObjectId,
       ref: 'Suggestion'

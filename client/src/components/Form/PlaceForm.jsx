@@ -1,15 +1,11 @@
-import React, { useState } from 'react';
-import Map from '../Map/MapSearch';
+import React from 'react';
+import MapSearch from '../Map/MapSearch';
 import { format } from 'date-fns';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 
 import 'react-phone-number-input/style.css';
 import PhoneInput from 'react-phone-number-input';
-
-import { GoogleMap, LoadScript } from '@react-google-maps/api';
-
-import MapSearch from '../Map/MapSearch';
 
 export const PlaceForm = props => {
   const onFormSubmission = event => {
@@ -23,21 +19,30 @@ export const PlaceForm = props => {
     props.onValueChange(name, value);
   };
 
-  //Places shpuld have Photos
-  //const handlePhotoInputChange = event => {
-  //  const file = props.event.target.files[0];
-  //  props.onPhotoChange(file);
-  //};
+  const handleImagesInputChange = event => {
+    const files = event.target.files;
+    if (files.length > 3) {
+      alert('You can only upload 3 images!');
+    } else {
+      props.onImagesChange(files);
+    }
+  };
 
-  const setHours = () => {
+  const setHours = time => {
+    const hour = time === 'open' ? 9 : 17;
     let startTime = new Date();
-    startTime.setHours(8);
+    startTime.setHours(hour);
     startTime.setMinutes(0);
     return startTime;
   };
 
   return (
     <form className="form form-create-place" onSubmit={onFormSubmission}>
+      <MapSearch
+        height={'20vh'}
+        resultInfoHandler={(name, value) => props.onValueChange(name, value)}
+        center={props.location}
+      />
       <div className="input-group">
         <label htmlFor="input-name">Business Name</label>
         <input
@@ -51,34 +56,94 @@ export const PlaceForm = props => {
         />
       </div>
       <div className="input-group">
+        {/* Change to drop down */}
         <label htmlFor="input-category">Category</label>
-        <input
+        <select
           required
           placeholder="category"
-          type="text"
           name="category"
           id="input-category"
           value={props.category}
           onChange={onValueChange}
-        />
+        >
+          <option hidden value=""></option>
+          <option value="restaurant">Restaurant</option>
+          <option value="bar">Bar</option>
+          <option value="shop">Shop</option>
+          <option value="grocery">Grocery Store</option>
+          <option value="drugstore">Drugstore</option>
+          <option value="bakery">Bakery</option>
+          <option value="coffe_shop">Coffee Shop</option>
+          <option value="antique">Antique</option>
+          <option value="hotel">Hotel</option>
+          <option value="hairdresser">Hairdresser</option>
+          <option value="delicatessem">Delicatessen</option>
+          <option value="butcher">Butcher</option>
+          <option value="florist">Florist</option>
+          <option value="car_workshop">Car workshop</option>
+          <option value="atellier">Atellier</option>
+          <option value="co_working">Co-working</option>
+          <option value="ngo">NGO</option>
+          <option value="jewerly">Jewerly</option>
+          <option value="laundry">Laundry</option>
+          <option value="keycutter">Keycutter</option>
+          <option value="haberdasher">Haberdasher</option>
+          <option value="funerary">Funerary</option>
+          <option value="gallery">Gallery</option>
+          <option value="clinic">Clinic</option>
+          <option value="cellphone_suplier">Cellphone supplier</option>
+          <option value="lottery">Lottery</option>
+          <option value="newstand">Newstand</option>
+          <option value="snack_bar">Snack bar</option>
+          <option value="real_estate">Real Estate</option>
+          <option value="other">Other</option>
+        </select>
       </div>
-      {/* Connect with google maps */}
-      <MapSearch
-        resultInfoHandler={(name, value) => props.onValueChange(name, value)}
-        center={props.location}
-      />
       <div className="input-group">
-        <label htmlFor="input-openDate">Open Date</label>
-        <DatePicker
-          id="input-openDate"
-          value={
-            props.openDate
-              ? format(props.openDate, 'dd-MM-yyyy')
-              : props.openDate
-          }
-          dateFormat={'dd/MM/yyyy'}
-          onChange={date => props.onValueChange('openDate', date)}
-        />
+        <h4 className="heading heading--4">Contacts</h4>
+        <div className="input-group">
+          <label htmlFor="input-phoneNumber">Phone Number</label>
+          <PhoneInput
+            id="input-phoneNumber"
+            value={props.phoneNumber}
+            onChange={phoneNumber =>
+              props.onValueChange('phoneNumber', phoneNumber)
+            }
+          />
+        </div>
+        <div className="input-group" id="email">
+          <label htmlFor="input-email">Email</label>
+          <input
+            placeholder="Email"
+            type="email"
+            name="email"
+            id="input-email"
+            value={props.email}
+            onChange={onValueChange}
+          />
+        </div>
+        <div className="input-group" id="instagram">
+          <label htmlFor="input-instagram">instagram</label>
+          <input
+            placeholder="instagram"
+            type="instagram"
+            name="instagram"
+            id="input-instagram"
+            value={props.instagram}
+            onChange={onValueChange}
+          />
+        </div>
+        <div className="input-group" id="website">
+          <label htmlFor="input-website">website</label>
+          <input
+            placeholder="website"
+            type="website"
+            name="website"
+            id="input-website"
+            value={props.website}
+            onChange={onValueChange}
+          />
+        </div>
       </div>
       <div className="input-group">
         <label>Schedule</label>
@@ -86,10 +151,12 @@ export const PlaceForm = props => {
           <div>
             <label htmlFor="input-schedule-open">From:</label>
             <select
-              defaultValue="monday"
+              selected=""
+              onChange={onValueChange}
               name="weekDayOpen"
               id="input-schedule-open"
             >
+              <option hidden value=""></option>
               <option value="monday">Monday</option>
               <option value="tuesday">Tuesday</option>
               <option value="wednesday">Wednesday</option>
@@ -102,10 +169,12 @@ export const PlaceForm = props => {
           <div>
             <label htmlFor="input-schedule-open">To:</label>
             <select
-              defaultValue="friday"
+              selected=""
+              onChange={onValueChange}
               name="weekDayClose"
               id="input-schedule-close"
             >
+              <option hidden value=""></option>
               <option value="monday">Monday</option>
               <option value="tuesday">Tuesday</option>
               <option value="wednesday">Wednesday</option>
@@ -117,7 +186,7 @@ export const PlaceForm = props => {
           </div>
           <div>
             <DatePicker
-              selected={props.openTime ? props.openTime : setHours('open')}
+              selected={props.openTime || setHours('open')}
               onChange={date => props.onValueChange('openTime', date)}
               showTimeSelect
               showTimeSelectOnly
@@ -126,7 +195,7 @@ export const PlaceForm = props => {
               dateFormat="h:mm aa"
             />
             <DatePicker
-              selected={props.closeTime ? props.closeTime : setHours()}
+              selected={props.closeTime || setHours('close')}
               onChange={date => props.onValueChange('closeTime', date)}
               showTimeSelect
               showTimeSelectOnly
@@ -137,29 +206,61 @@ export const PlaceForm = props => {
           </div>
         </div>
       </div>
-      {/* weekDayFrom: '',
-      weekDayTo: '',
-      openTime: '',
-    closeTime: '', */}
+
+      <h2 className="heading heading--2">
+        Let's get relatable, tell locals more about your place!
+      </h2>
+      {/* Separate into another form? */}
       <div className="input-group">
-        <label htmlFor="input-phoneNumber">Phone Number</label>
-        <PhoneInput
-          id="input-phoneNumber"
-          value={props.phoneNumber}
-          onChange={phoneNumber =>
-            props.onValueChange('phoneNumber', phoneNumber)
+        <label htmlFor="input-openDate">It has been open since:</label>
+        <DatePicker
+          id="input-openDate"
+          value={
+            props.openDate
+              ? format(props.openDate, 'dd-MM-yyyy')
+              : props.openDate
           }
+          dateFormat={'dd/MM/yyyy'}
+          onChange={date => props.onValueChange('openDate', date)}
         />
       </div>
-      <div className="input-group" id="email">
-        <label htmlFor="input-email">Email</label>
+      <div className="input-group">
+        <label htmlFor="input-about">What inspired you to open it?</label>
+        <textarea name="about" id="input-about" cols="30" rows="10"></textarea>
+      </div>
+      <div className="input-group input-images">
+        <h4>
+          Add recent photos and some of your important moments of your place!
+        </h4>
+        <div className="input-images__preview">
+          <div className="input-image__img-wrapper">
+            <img
+              src={props.imagesPreview[0]}
+              alt=""
+              className="input-image__img"
+            />
+          </div>
+          <div className="input-image__img-wrapper">
+            <img
+              src={props.imagesPreview[1]}
+              alt=""
+              className="input-image__img"
+            />
+          </div>
+          <div className="input-image__img-wrapper">
+            <img
+              src={props.imagesPreview[2]}
+              alt=""
+              className="input-image__img"
+            />
+          </div>
+        </div>
         <input
-          placeholder="Email"
-          type="email"
-          name="address"
-          id="input-email"
-          value={props.email}
-          onChange={onValueChange}
+          onChange={handleImagesInputChange}
+          type="file"
+          name="images"
+          accept="image/*"
+          multiple
         />
       </div>
       <button type="submit">Create Place</button>

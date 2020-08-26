@@ -42,15 +42,7 @@ authenticationRouter.post(
   '/sign-up',
   fileUploader.single('avatar'),
   async (req, res, next) => {
-    const {
-      name,
-      username,
-      email,
-      password,
-      birthday,
-      gender,
-      address_components
-    } = req.body;
+    const { name, username, email, password, address_components } = req.body;
     let url;
     if (req.file) {
       url = req.file.path;
@@ -66,10 +58,10 @@ authenticationRouter.post(
         email,
         token,
         privateAddress: address_components,
-        info: {
-          birthday,
-          gender
-        },
+        // info: {
+        //   birthday,
+        //   gender
+        // },
         avatar: url,
         passwordHashAndSalt: hashAndSalt
       });
@@ -138,9 +130,20 @@ authenticationRouter.post('/sign-out', (req, res, next) => {
   res.json({});
 });
 
-authenticationRouter.get('/me', (request, response) => {
-  const user = request.user;
-  response.json({ user });
+authenticationRouter.get('/me', (req, res) => {
+  const user = req.user;
+  res.json({ user });
+});
+
+authenticationRouter.get('/me/full', async (req, res, next) => {
+  const id = req.session.userId;
+
+  try {
+    const user = User.findById(id);
+    res.json({ user });
+  } catch (error) {
+    next(error);
+  }
 });
 
 module.exports = authenticationRouter;

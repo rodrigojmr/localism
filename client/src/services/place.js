@@ -1,4 +1,5 @@
 import axios from 'axios';
+import jsonToFormData from './parseFormData';
 
 const api = axios.create({
   baseURL: `${process.env.REACT_APP_API_BASE_URL}`,
@@ -11,16 +12,31 @@ const api = axios.create({
 // PATCH - '/place/:id' - Handle form submission to edit place.
 
 // DELETE - '/place/:id' - Handle form submission to delete event.
-export const nearbyPlaces = boundaries => {
-  const { neLat, neLng, swLat, swLng } = boundaries;
 
-  return api
-    .get(`/place/nearby`, { params: { neLat, neLng, swLat, swLng } })
-    .then(response => response.data);
+export const loadAllPlaces = () =>
+  api.get('/place/all').then(response => response.data);
+
+export const nearbyPlaces = async boundaries => {
+  const { neLat, neLng, swLat, swLng } = boundaries;
+  try {
+    const response = await api.get(`/place/nearby`, {
+      params: { neLat, neLng, swLat, swLng }
+    });
+    return response.data;
+  } catch (error) {
+    console.log(error);
+  }
 };
 
-export const createPlace = body =>
-  api.post('/place', body).then(response => response.data);
+export const createPlace = async body => {
+  const formData = jsonToFormData(body);
+  try {
+    const response = await api.post('/place', formData);
+    return response.data;
+  } catch (error) {
+    console.log(error);
+  }
+};
 
 export const loadPlace = id =>
   api.get(`/place/${id}`).then(response => response.data);

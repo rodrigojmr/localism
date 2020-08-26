@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-import PlaceForm from '../components/Form/PlaceForm';
-import { createPlace } from '../services/place';
+import PlaceForm from '../../components/Form/PlaceForm';
+import { createPlace } from '../../services/place';
 
 class CreatePlace extends Component {
   constructor() {
@@ -18,8 +18,12 @@ class CreatePlace extends Component {
       closeTime: '',
       phoneNumber: '',
       email: '',
+      website: '',
+      instagram: '',
       place_id: '',
-      location: undefined
+      location: undefined,
+      images: [],
+      imagesPreview: []
     };
   }
 
@@ -63,15 +67,40 @@ class CreatePlace extends Component {
       });
   };
 
+  handleImages = images => {
+    const imagesPreview = [];
+    for (let key in images) {
+      if (key !== 'length' && key !== 'item') {
+        imagesPreview.push(URL.createObjectURL(images[key]));
+      }
+    }
+
+    this.setState({
+      images,
+      imagesPreview
+    });
+  };
+
   render() {
     return (
-      <div className="home">
-        <PlaceForm
-          {...this.state}
-          onDateChange={this.handleDateChange}
-          onValueChange={this.handleValueChange}
-          onFormSubmission={this.handlePlaceCreation}
-        />
+      <div className="create-place">
+        <h1 className="heading heading--1">
+          Hey {this.props.user.username}, do you own a place in this area?
+        </h1>
+        Yes / No
+        {/* Make two separate sections for this */}
+        <div className="create-place-form-wrapper">
+          <h2 className="heading heading--2">
+            Let locals know better, register your place!
+          </h2>
+          <PlaceForm
+            {...this.state}
+            onImagesChange={this.handleImages}
+            onDateChange={this.handleDateChange}
+            onValueChange={this.handleValueChange}
+            onFormSubmission={this.handlePlaceCreation}
+          />
+        </div>
       </div>
     );
   }

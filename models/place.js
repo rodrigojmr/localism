@@ -40,6 +40,12 @@ const placeSchema = new mongoose.Schema(
       },
       email: {
         type: String
+      },
+      website: {
+        type: String
+      },
+      instagram: {
+        type: String
       }
     },
     formatted_address: {
@@ -67,6 +73,9 @@ const placeSchema = new mongoose.Schema(
         default: 'Point'
       }
     },
+    about: {
+      type: String
+    },
     supports: [
       {
         type: mongoose.Schema.Types.ObjectId,
@@ -80,6 +89,11 @@ const placeSchema = new mongoose.Schema(
     highlights: {
       type: String
     }
+    images: [
+      {
+        type: String
+      }
+    ]
   },
   {
     timestamps: {

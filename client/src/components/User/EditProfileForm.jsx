@@ -108,6 +108,7 @@ const UserProfileForm = props => {
       <div className="map-input">
         <p>Find Location on Map </p>
         <MapSearch
+          width={'20vh'}
           resultInfoHandler={(name, value) => props.onValueChange(name, value)}
           center={props.location}
         />

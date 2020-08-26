@@ -1,19 +1,23 @@
+'use strict';
+
 const express = require('express');
 const Place = require('../models/place');
-const Support = require('../models/support');
 
 const routeAuthenticationGuard = require('../middleware/route-guard');
 
-const multer = require('multer');
-const cloudinary = require('cloudinary');
-const multerStorageCloudinary = require('multer-storage-cloudinary');
+const fileUploader = require('../cloudinary-config');
+const placeImages = fileUploader.array('images');
 
 const placeRouter = new express.Router();
 
-const storage = new multerStorageCloudinary.CloudinaryStorage({
-  cloudinary: cloudinary.v2
+placeRouter.get('/all', async (req, res, next) => {
+  try {
+    const places = Place.find({}).populate('owner');
+    res.json({ places });
+  } catch (error) {
+    next(error);
+  }
 });
-const upload = multer({ storage });
 
 placeRouter.get('/nearby', (req, res, next) => {
   const { neLat, neLng, swLat, swLng } = req.query;
@@ -44,8 +48,9 @@ placeRouter.get('/:id', async (req, res, next) => {
     /* .populate({
         path: 'supports',
         populate: {
-          path: 'author',
-          model: 'User'
+          path: 'creator',
+          model: 'User',
+          select: { _id: 1, username: 1, name: 1, avatar: 1 }
         }
       });*/
     if (place) {
@@ -59,54 +64,65 @@ placeRouter.get('/:id', async (req, res, next) => {
   }
 });
 
-placeRouter.post('/', (req, res, next) => {
+placeRouter.post('/', placeImages, async (req, res, next) => {
   const {
     name,
     place_id,
     category,
-    openDate,
     formatted_address,
     address_components,
-    weekDayFrom,
-    weekDayTo,
+    openDate,
     openTime,
     closeTime,
+    weekDayOpen,
+    weekDayClose,
     phoneNumber,
     email,
-    lat,
-    lng
+    website,
+    instagram,
+    location,
+    about
   } = req.body;
 
-  Place.create({
-    owner: req.user._id,
-    name,
-    category,
-    openDate,
-    schedule: {
-      from: weekDayFrom,
-      to: weekDayTo,
-      time: {
-        openTime,
-        closeTime
-      }
-    },
-    contacts: {
-      phoneNumber,
-      email
-    },
-    formatted_address,
-    address_components,
-    place_id,
-    location: {
-      coordinates: [lat, lng]
+  try {
+    let images;
+    if (!req.files) {
+      images = '';
+    } else {
+      images = req.files.map(image => image.path);
     }
-  })
-    .then(place => {
-      res.json({ place });
-    })
-    .catch(error => {
-      next(error);
+    const place = await Place.create({
+      owner: req.user._id,
+      name,
+      category,
+      openDate,
+      schedule: {
+        from: weekDayOpen,
+        to: weekDayClose,
+        time: {
+          openTime,
+          closeTime
+        }
+      },
+      contacts: {
+        phoneNumber,
+        email,
+        instagram,
+        website
+      },
+      about,
+      formatted_address,
+      address_components,
+      place_id,
+      location: {
+        coordinates: [location.lat, location.lng]
+      },
+      images
     });
+    res.json({ place });
+  } catch (error) {
+    next(error);
+  }
 });
 
 placeRouter.delete('/:id', routeAuthenticationGuard, async (req, res, next) => {
@@ -121,7 +137,7 @@ placeRouter.delete('/:id', routeAuthenticationGuard, async (req, res, next) => {
     });
 });
 
-placeRouter.patch('/:id', routeAuthenticationGuard, (req, res, next) => {
+placeRouter.patch('/:id', (req, res, next) => {
   const {
     name,
     category,

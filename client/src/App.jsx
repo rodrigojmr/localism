@@ -3,13 +3,14 @@ import './styles/style.scss';
 import { Redirect, Switch, Route } from 'react-router-dom';
 import { loadMe, signOut } from './services/authentication';
 import HomeView from './views/HomeView';
-import CreatePlace from './views/CreatePlace';
+import CreatePlace from './views/Place/CreatePlace';
 
 import SupportCreationView from './views/Support/SupportCreationView';
 import SupportPlaceView from './views/Support/SupportPlaceView';
 import SinglePlace from './views/Place/SinglePlace';
 import AuthenticationSignInView from './views/Authentication/SignInView';
 import AuthenticationSignUpView from './views/Authentication/SignUpView';
+import EditUserProfile from './views/User/EditUserProfile';
 import ProtectedRoute from './components/ProtectedRoute';
 import ErrorView from './views/ErrorView';
 import ConfirmEmail from './views/Authentication/ConfirmEmail';
@@ -67,17 +68,41 @@ class App extends Component {
             {/* Home */}
             <Route path="/" component={HomeView} exact />
             {/* Places */}
-            <Route path="/place/create" component={CreatePlace} exact />
-            <Route path="/place/:id" component={SinglePlace} exact />
-            <Route
-              path="/place/:id/support"
-              component={SupportPlaceView}
+            <ProtectedRoute
+              path="/place/create"
+              render={props => (
+                <CreatePlace user={this.state.user} {...props} />
+              )}
+              authorized={this.state.user}
+              redirect="/authentication/sign-in"
               exact
             />
-            <Route
-              path="/support/create"
+            <Route path="/place/:id" component={SinglePlace} exact />
+            <ProtectedRoute
+              path="/place/:id/support"
+              render={props => <SupportPlaceView {...props} />}
+              authorized={this.state.user}
+              redirect="/authentication/sign-in"
               exact
-              component={SupportCreationView}
+            />
+            {/* <ProtectedRoute
+              path="/me"
+              render={props => <SupportPlaceView {...props} />}
+              authorized={this.state.user}
+              redirect="/authentication/sign-in"
+              exact
+            /> */}
+            {/* User Authentication */}
+            <ProtectedRoute
+              path="/me/edit"
+              render={props => (
+                <EditUserProfile
+                  {...props}
+                  onUserUpdate={this.handleUserUpdate}
+                />
+              )}
+              authorized={this.state.user}
+              redirect="/"
             />
             <ProtectedRoute
               path="/authentication/sign-up"
@@ -116,7 +141,7 @@ class App extends Component {
             {/* <Route path="/authentication/sign-in" component={AuthenticationSignInView} /> */}
           </Switch>
         )) || (
-          <div>
+          <div className="loading">
             <Spinner />
           </div>
         )}

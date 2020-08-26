@@ -6,7 +6,7 @@ dotenv.config();
 
 const storage = new CloudinaryStorage({
   cloudinary: cloudinary.v2,
-  folder: 'Localism',
+  folder: 'localista',
   allowedFormats: ['jpg', 'png'],
   filename: function(req, file, cb) {
     cb(null, file.originalname);
