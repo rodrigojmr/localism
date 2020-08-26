@@ -93,7 +93,7 @@ const Map = props => {
               component.types.includes('administrative_area_level_1')
           );
           if (result) {
-            props.onLocalityUpdate(result.locality);
+            props.onLocalityUpdate(result.short_name);
           }
         } else {
           window.alert('No results found');

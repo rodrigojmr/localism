@@ -76,7 +76,7 @@ class HomeView extends Component {
         <HomeMap
           locality={this.state.locality}
           places={
-            this.state.filteredPlaces.length
+            this.state.searchQuery
               ? this.state.filteredPlaces
               : this.state.places
           }
