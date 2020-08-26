@@ -44,6 +44,7 @@ class SinglePlace extends Component {
         );
       }
     }
+
     return (
       <div className="home">
         {this.state.loaded && (
@@ -52,12 +53,12 @@ class SinglePlace extends Component {
               <div>
                 <h1>{place.name}</h1>
                 <h3>{`#${place.category.split(' ').join('_')}`}</h3>
-                {place.schedule.time.openTime && place.schedule.time.closeTime && (
-                  <p>
-                    {`Schedule: ${openTime}h - ${closeTime}h from $
-                    {place.schedule.from} to ${place.schedule.to}`}
-                  </p>
-                )}
+                {place.schedule.time.openTime &&
+                  place.schedule.time.closeTime && (
+                    <p>
+                      {`Schedule: ${openTime}h - ${closeTime}h from ${place.schedule.from} to ${place.schedule.to}`}
+                    </p>
+                  )}
               </div>
               <div>
                 <div className="suggestions-num-wrapper">
@@ -100,7 +101,7 @@ class SinglePlace extends Component {
               )) || <h2>Not supported by anyone yet!</h2>}
             </div>
             <div className="place-info__row">
-              {(place.supports.length && (
+              {place.supports.length && (
                 <>
                   <h2>What people had to say:</h2>
                   {place.supports
@@ -124,7 +125,7 @@ class SinglePlace extends Component {
                       </div>
                     ))}
                 </>
-              )) || <h2>Not supported by anyone yet!</h2>}
+              )}
             </div>
             <div className="place-info__row"></div>
             <SinglePlaceMap place={this.state.place} />

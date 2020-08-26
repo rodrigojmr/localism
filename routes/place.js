@@ -81,7 +81,8 @@ placeRouter.post('/', placeImages, async (req, res, next) => {
     email,
     website,
     instagram,
-    location,
+    lat,
+    lng,
     about,
     description
   } = req.body;
@@ -118,7 +119,7 @@ placeRouter.post('/', placeImages, async (req, res, next) => {
       address_components,
       place_id,
       location: {
-        coordinates: [location.lat, location.lng]
+        coordinates: [lat, lng]
       },
       images
     });
