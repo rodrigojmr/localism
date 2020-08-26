@@ -9,7 +9,7 @@ const fileUploader = require('../cloudinary-config');
 
 const profileRouter = new express.Router();
 
-profileRouter.get('/:id', async (req, res, next) => {
+profileRouter.get('/:id', fileUploader.single('avatar'), async (req, res, next) => {
   const id = req.params.id;
   try {
     const user = await User.findById(id)
@@ -39,61 +39,58 @@ profileRouter.get('/:id', async (req, res, next) => {
   }
 });
 
-// profileeRouter.delete('/:id', routeAuthenticationGuard, async (req, res, next) => {
-//   const id = req.params.id;
+profileRouter.patch('/:id', async (req, res, next) => {
+  const { name, username, password, gender, birthday, privateAddress, email, avatar } = req.body;
 
-//   Place.findOneAndDelete({ _id: id, creator: req.user._id })
-//     .then(() => {
-//       res.json({});
-//     })
-//     .catch(error => {
-//       next(error);
-//     });
-// });
+  const id = req.params.id;
+  try {
+    const user = await User.findOneAndUpdate(
+      { _id: id, creator: req.user._id },
+      {
+        user: req.user._id,
+        name,
+        username,
+        password,
+        gender,
+        birthday,
+        privateAddress,
+        email,
+        avatar
+      },
+      { new: true }
+    );
+    res.json({ user });
+  } catch (error) {
+    next(error);
+  }
+});
 
-// profileRouter.patch('/:id', (req, res, next) => {
-//   const {
-//     name,
-//     category,
-//     address,
-//     email,
-//   } = req.body;
+//ostRouter.patch('/:id', routeAuthenticationGuard, (request, response, next) => {
+//const id = request.params.id;
 
-//   const id = req.params.id;
+//Post.findOneAndUpdate(
+//  { _id: id, creator: request.user._id },
+//  { content: request.body.content },
+//  { new: true }
+//)
+//  .then(post => {
+//     response.json({ post });
+//   })
+//   .catch(error => {
+//     next(error);
+//   });
+//);
 
-//   Place.findOneAndUpdate(
-//     { _id: id, creator: req.user._id },
-//     {
-//       owner: req.user._id,
-//       name,
-//       category,
-//       openDate,
-//       schedule: {
-//         from: weekDayFrom,
-//         to: weekDayTo,
-//         time: {
-//           openTime,
-//           closeTime
-//         }
-//       },
-//       contacts: {
-//         phoneNumber,
-//         email
-//       },
-//       address,
-//       areaName,
-//       location: {
-//         coordinates: [latitude, longitude]
-//       }
-//     },
-//     { new: true }
-//   )
-//     .then(post => {
-//       res.json({ post });
-//     })
-//     .catch(error => {
-//       next(error);
-//     });
-// });
+profileRouter.delete('/:id', routeAuthenticationGuard, async (req, res, next) => {
+  const id = req.params.id;
+
+  User.findOneAndDelete({ _id: id, creator: req.user._id })
+    .then(() => {
+      res.json({});
+    })
+    .catch(error => {
+      next(error);
+    });
+});
 
 module.exports = profileRouter;
