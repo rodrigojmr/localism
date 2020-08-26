@@ -69,7 +69,7 @@ class SinglePlace extends Component {
             </div>
             <div className="place-info__row place-info__images-wrapper">
               {place.images.map(image => (
-                <div className="place-info__image-wrapper">
+                <div key={image} className="place-info__image-wrapper">
                   <img src={image} className="place-info__image" />
                 </div>
               ))}
@@ -131,9 +131,13 @@ class SinglePlace extends Component {
             </div>
             <div className="place-info__row"></div>
             <SinglePlaceMap place={this.state.place} />
-            <Link to={`/place/${this.props.match.params.id}/support`}>
-              Support this place
-            </Link>
+            {this.props.user && place.owner._id !== this.props.user._id && (
+              <>
+                <Link to={`/place/${this.props.match.params.id}/support`}>
+                  Support this place
+                </Link>
+              </>
+            )}
           </>
         )}
       </div>
