@@ -76,7 +76,14 @@ class App extends Component {
               redirect="/authentication/sign-in"
               exact
             />
-            <Route path="/place/:id" user={this.state.user} component={SinglePlace} exact />
+            <Route
+              path="/place/:id"
+              render={props => (
+                <SinglePlace user={this.state.user} {...props} />
+              )}
+              // component={SinglePlace}
+              exact
+            />
             <ProtectedRoute
               path="/place/:id/support"
               render={props => <SupportPlaceView {...props} />}
@@ -87,14 +94,22 @@ class App extends Component {
             {/* User Authentication */}
             <ProtectedRoute
               path="/me/edit"
-              render={props => <EditUserProfile {...props} onUserUpdate={this.handleUserUpdate} />}
+              render={props => (
+                <EditUserProfile
+                  {...props}
+                  onUserUpdate={this.handleUserUpdate}
+                />
+              )}
               user={this.state.user}
               redirect="/"
             />
             <ProtectedRoute
               path="/authentication/sign-up"
               render={props => (
-                <AuthenticationSignUpView {...props} onUserUpdate={this.handleUserUpdate} />
+                <AuthenticationSignUpView
+                  {...props}
+                  onUserUpdate={this.handleUserUpdate}
+                />
               )}
               user={!this.state.user}
               redirect="/"
@@ -102,7 +117,10 @@ class App extends Component {
             <ProtectedRoute
               path="/authentication/sign-in"
               render={props => (
-                <AuthenticationSignInView {...props} onUserUpdate={this.handleUserUpdate} />
+                <AuthenticationSignInView
+                  {...props}
+                  onUserUpdate={this.handleUserUpdate}
+                />
               )}
               user={!this.state.user}
               redirect="/"
@@ -110,12 +128,20 @@ class App extends Component {
             <Route
               path="/authentication/confirmation/:token"
               render={props => (
-                <ConfirmEmail {...props} onUserConfirmation={this.handleUserUpdate} />
+                <ConfirmEmail
+                  {...props}
+                  onUserConfirmation={this.handleUserUpdate}
+                />
               )}
               redirect="/"
             />{' '}
             {/*Profile route */}
-            <Route path="/profile/:id" user={this.state.user} component={UserProfile} exact />
+            <Route
+              path="/profile/:id"
+              user={this.state.user}
+              component={UserProfile}
+              exact
+            />
             <Route path="/error" component={ErrorView} />
             {/* <Redirect from="/" to="/error" /> */}
             {/* <Route path="/authentication/sign-in" component={AuthenticationSignInView} /> */}
