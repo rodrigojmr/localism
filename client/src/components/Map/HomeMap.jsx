@@ -110,7 +110,7 @@ const Map = props => {
   if (loadError) return 'Error loading maps';
   if (!isLoaded) return 'Loading Maps';
   return (
-    <div>
+    <div className="home-map">
       <GoogleMap
         mapContainerStyle={mapContainerStyle}
         zoom={15}
