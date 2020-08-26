@@ -2,15 +2,14 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 
 const Navbar = props => {
+  const user = props.user;
   return (
     <nav>
       <Link to="/">Localista</Link>
-      <Link to={'/profile'}>Profile</Link>
-      {(props.user && (
-        <>
-          {/* <Link to={`/me`}>{props.user.username}</Link> */}
-          {props.user.username}
 
+      {(user && (
+        <>
+          <Link to={`/profile/${user._id}`}>Profile</Link>
           <Link to="/me/edit">Edit Profile</Link>
           <button onClick={props.onSignOut}>Sign Out</button>
         </>

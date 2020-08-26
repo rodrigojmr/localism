@@ -9,9 +9,8 @@ const fileUploader = require('../cloudinary-config');
 
 const profileRouter = new express.Router();
 
-profileRouter.get('/', async (req, res, next) => {
+profileRouter.get('/:id', async (req, res, next) => {
   const id = req.params.id;
-
   try {
     const user = await User.findById(id)
       .populate('supports')
