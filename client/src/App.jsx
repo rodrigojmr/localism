@@ -10,6 +10,7 @@ import SupportPlaceView from './views/Support/SupportPlaceView';
 import SinglePlace from './views/Place/SinglePlace';
 import AuthenticationSignInView from './views/Authentication/SignInView';
 import AuthenticationSignUpView from './views/Authentication/SignUpView';
+import EditUserProfile from './views/User/EditUserProfile';
 import ProtectedRoute from './components/ProtectedRoute';
 import ErrorView from './views/ErrorView';
 import ConfirmEmail from './views/Authentication/ConfirmEmail';
@@ -93,6 +94,17 @@ class App extends Component {
             /> */}
             {/* User Authentication */}
             <ProtectedRoute
+              path="/me/edit"
+              render={props => (
+                <EditUserProfile
+                  {...props}
+                  onUserUpdate={this.handleUserUpdate}
+                />
+              )}
+              authorized={this.state.user}
+              redirect="/"
+            />
+            <ProtectedRoute
               path="/authentication/sign-up"
               render={props => (
                 <AuthenticationSignUpView
@@ -129,7 +141,7 @@ class App extends Component {
             {/* <Route path="/authentication/sign-in" component={AuthenticationSignInView} /> */}
           </Switch>
         )) || (
-          <div>
+          <div className="loading">
             <Spinner />
           </div>
         )}
