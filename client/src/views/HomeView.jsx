@@ -162,7 +162,7 @@ class HomeView extends Component {
           <SearchName
             onSearchUpdate={searchQuery => this.handleSearch(searchQuery)}
             searchQuery={this.state.searchQuery}
-            places={this.props.places}
+            places={this.state.filteredPlaces}
           />
         </div>
 

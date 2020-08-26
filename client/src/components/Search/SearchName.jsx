@@ -38,10 +38,12 @@ const SearchName = props => {
         />
         <ComboboxPopover>
           <ComboboxList>
-            {/* {status === 'OK' &&
-              props.places.map(({ id, description }) => (
-                <ComboboxOption key={id} value={description} />
-              ))} */}
+            {props.places &&
+              props.places.map(place => {
+                return (
+                  <ComboboxOption key={place.place_id} value={place.name} />
+                );
+              })}
           </ComboboxList>
         </ComboboxPopover>
       </Combobox>

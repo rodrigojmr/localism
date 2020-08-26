@@ -14,23 +14,18 @@ profileRouter.get('/:id', async (req, res, next) => {
   const id = req.params.id;
   try {
     const user = await User.findById(id)
-      .select('username name avatar info locality supports')
+      .select('username name avatar locality supports info')
       .populate('supports')
       .populate({
         path: 'supports',
         populate: {
           path: 'place',
           model: 'Place',
-          select: {
-            _id: 1,
-            name: 1,
-            category: 1,
-            address_components: 1,
-            images: 1
-          }
+          select: '_id name category address_components images'
         }
       });
     if (user) {
+      console.log('user: ', user);
       res.json({ user });
     } else {
       next();

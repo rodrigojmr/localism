@@ -21,7 +21,7 @@ class UserProfile extends Component {
       const { user } = data;
       this.setState({
         loaded: true,
-        publicUser: user
+        publicUser: { ...user }
       });
     });
   }
