@@ -30,7 +30,7 @@ export const nearbyPlaces = async boundaries => {
 
 export const localityPlaces = async locality => {
   try {
-    const response = await api.get(`/place/${locality}`);
+    const response = await api.get(`/place/locality/${locality}`);
     return response.data;
   } catch (error) {
     console.log(error);

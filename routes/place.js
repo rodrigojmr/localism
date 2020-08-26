@@ -66,7 +66,7 @@ placeRouter.get('/:id', async (req, res, next) => {
   }
 });
 
-placeRouter.get('/:locality', async (req, res, next) => {
+placeRouter.get('/locality/:locality', async (req, res, next) => {
   const locality = req.params.locality;
 
   try {

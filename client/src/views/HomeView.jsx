@@ -61,11 +61,13 @@ class HomeView extends Component {
   }
 
   getLocalityPlaces() {
-    localityPlaces(this.state.locality).then(data => {
-      this.setState({
-        places: data.places
+    if (this.state.locality) {
+      localityPlaces(this.state.locality).then(data => {
+        this.setState({
+          places: data.places
+        });
       });
-    });
+    }
   }
 
   handleLocalityUpdate(locality) {
