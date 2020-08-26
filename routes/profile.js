@@ -32,7 +32,7 @@ profileRouter.get('/:id', async (req, res, next) => {
   }
 });
 
-// placeRouter.delete('/:id', routeAuthenticationGuard, async (req, res, next) => {
+// profileeRouter.delete('/:id', routeAuthenticationGuard, async (req, res, next) => {
 //   const id = req.params.id;
 
 //   Place.findOneAndDelete({ _id: id, creator: req.user._id })
@@ -44,21 +44,12 @@ profileRouter.get('/:id', async (req, res, next) => {
 //     });
 // });
 
-// placeRouter.patch('/:id', (req, res, next) => {
+// profileRouter.patch('/:id', (req, res, next) => {
 //   const {
 //     name,
 //     category,
-//     openDate,
 //     address,
-//     areaName,
-//     weekDayFrom,
-//     weekDayTo,
-//     openTime,
-//     closeTime,
-//     phoneNumber,
 //     email,
-//     latitude,
-//     longitude
 //   } = req.body;
 
 //   const id = req.params.id;
