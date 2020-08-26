@@ -28,13 +28,16 @@ import MapStyles from '../../MapStyles';
 const libraries = ['places'];
 const mapContainerStyle = {
   width: '100vw',
-  height: '80vh'
+  height: '90vh'
+  // height: 'calc(100vh - #{$navbar-height})'
 };
 
 const options = {
   styles: MapStyles,
+  streetViewControl: false,
+  fullscreenControl: false,
   //disableDefaultUI: true,
-  zoomControl: true
+  zoomControl: false
 };
 
 // export default HomeMap;

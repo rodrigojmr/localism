@@ -76,7 +76,9 @@ class App extends Component {
               {/* Places */}
               <ProtectedRoute
                 path="/place/create"
-                render={props => <CreatePlace {...props} />}
+                render={props => (
+                  <CreatePlace user={this.state.user} {...props} />
+                )}
                 user={this.state.user}
                 redirect="/authentication/sign-in"
                 exact

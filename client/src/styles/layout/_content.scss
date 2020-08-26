@@ -1,4 +1,6 @@
 .content {
-  // margin-top: $header-height;
+  position: relative;
   background-color: #eee;
+  overflow: hidden;
+  margin-bottom: $navbar-height;
 }

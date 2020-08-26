@@ -20,6 +20,7 @@ class HomeView extends Component {
       searchQuery: '',
       selectedPlace: null
     };
+    this.searchWrapper = React.createRef();
   }
 
   componentDidMount() {
@@ -75,6 +76,11 @@ class HomeView extends Component {
     });
   };
 
+  toggleSearch() {
+    const searchWrapper = this.searchWrapper.current;
+    searchWrapper.classList.toggle('search-expanded');
+  }
+
   render() {
     const selected = this.state.selectedPlace;
     let openTime, closeTime;
@@ -94,7 +100,6 @@ class HomeView extends Component {
 
     return (
       <div className="home">
-        {this.props.user && <Link to="/place/create">Create Place</Link>}
         <HomeMap
           locality={this.state.locality}
           places={
@@ -108,11 +113,29 @@ class HomeView extends Component {
           onLocalityUpdate={locality => this.handleLocalityUpdate(locality)}
           idleMapSearch={boundaries => this.getPlaces(boundaries)}
         />
-        <SearchName
-          onSearchUpdate={searchQuery => this.handleSearch(searchQuery)}
-          searchQuery={this.state.searchQuery}
-          places={this.props.places}
-        />
+        <div ref={this.searchWrapper} className="search-wrapper">
+          <svg
+            onClick={() => this.toggleSearch()}
+            xmlns="http://www.w3.org/2000/svg"
+            width="24"
+            height="24"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            class="search-icon feather feather-search"
+          >
+            <circle cx="11" cy="11" r="8"></circle>
+            <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+          </svg>
+          <SearchName
+            onSearchUpdate={searchQuery => this.handleSearch(searchQuery)}
+            searchQuery={this.state.searchQuery}
+            places={this.props.places}
+          />
+        </div>
         {selected && (
           <div className="place-info-mini">
             <div className="place-info-mini__img-wrapper">
