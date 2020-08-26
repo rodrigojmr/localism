@@ -82,7 +82,6 @@ class CreatePlace extends Component {
   };
 
   render() {
-    console.log(this.props);
     return (
       <div className="create-place">
         <h1 className="heading heading--1">

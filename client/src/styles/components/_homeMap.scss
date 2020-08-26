@@ -1,0 +1,57 @@
+.home-map {
+  > *:first-child {
+    height: calc(100vh - #{$navbar-height}) !important;
+  }
+}
+
+.signup-page .map .gmnoprint {
+  display: none;
+}
+
+.home .search-icon {
+  stroke: $color-primary;
+  width: 30px;
+  height: 30px;
+  margin-right: 20px;
+}
+
+.search-wrapper {
+  display: flex;
+  align-items: center;
+  position: absolute;
+  bottom: 0rem;
+  width: calc(100vw);
+
+  left: 83vw;
+  padding: 1rem 1.5rem;
+  background-color: white;
+  border-radius: 40px;
+
+  transition: all 0.4s ease;
+}
+
+.search-expanded {
+  left: 0rem;
+  border-radius: 5px;
+  padding: 1rem 1.5rem;
+}
+
+.home .search,
+.home .search input {
+  width: 100%;
+}
+
+.home .search input {
+  padding: 5px 10px;
+}
+
+.place-info-mini {
+  position: absolute;
+  top: 0%;
+
+  display: flex;
+}
+
+.place-info-mini--expanded {
+  top: 100%;
+}

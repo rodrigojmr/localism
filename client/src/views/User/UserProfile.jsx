@@ -76,7 +76,6 @@ class UserProfile extends Component {
                     </h4>
                   )) || <h4>No Birthdate Specified.</h4>}
                 </div>
-
                 <div>
                   <p>Pasword</p>
                   <h4>

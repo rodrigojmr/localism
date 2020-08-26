@@ -136,27 +136,36 @@ class HomeView extends Component {
             places={this.props.places}
           />
         </div>
-        {selected && (
-          <div className="place-info-mini">
-            <div className="place-info-mini__img-wrapper">
-              <img
-                src={selected.images[0]}
-                alt={selected.name}
-                className="place-info-mini__img"
-              />
-            </div>
-            <div className="place-info-mini__description">
-              <h1 className="heading heading--1">{selected.name}</h1>
-              <h3>{`#${selected.category.split(' ').join('_')}`}</h3>
-              {selected.schedule.time.openTime &&
-                selected.schedule.time.closeTime && (
-                  <p>
-                    {`Schedule: ${openTime}h - ${closeTime}h from ${selected.schedule.from} to ${selected.schedule.to}`}
-                  </p>
-                )}
-            </div>
-          </div>
-        )}
+
+        <div className="place-info-mini">
+          {selected && (
+            <>
+              <div className="place-info__row">
+                <div className="place-info__overview">
+                  <h1 className="heading heading--1">{selected.name}</h1>
+                  <h3>{`#${selected.category.split(' ').join('_')}`}</h3>
+                  {selected.schedule.time.openTime &&
+                    selected.schedule.time.closeTime && (
+                      <p>
+                        {`Schedule: ${openTime}h - ${closeTime}h from ${selected.schedule.from} to ${selected.schedule.to}`}
+                      </p>
+                    )}
+                </div>
+                <div>
+                  <div className="suggestions-num-wrapper">
+                    {selected.supports.length}
+                  </div>
+                </div>
+              </div>
+              <div className="place-info__row">
+                <div className="place-info__image-wrapper">
+                  <img src={selected.images[0]} className="place-info__image" />
+                </div>
+                <p>{selected.description}</p>
+              </div>
+            </>
+          )}
+        </div>
       </div>
     );
   }

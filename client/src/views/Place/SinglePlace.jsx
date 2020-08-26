@@ -42,7 +42,6 @@ class SinglePlace extends Component {
     const { place } = this.state;
     let openTime, closeTime;
     if (place) {
-      console.log('place: ', place);
       if (place.schedule.time.openTime) {
         openTime = getHours(
           utcToZonedTime(place.schedule.time.openTime, 'Europe/Lisbon')

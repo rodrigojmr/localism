@@ -1,0 +1,20 @@
+// .place-info-mini {
+//   height: 20rem;
+// }
+
+.place-info__row {
+  display: flex;
+}
+
+.place-info__overview {
+  flex: 0 0 70%;
+}
+.place-info__overview {
+  flex: 0 0 80%;
+}
+.suggestions-num-wrapper {
+  flex: 0 0 20%;
+  padding: 1rem;
+  border-radius: 50%;
+  background-color: #798897;
+}
