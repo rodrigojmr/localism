@@ -1,0 +1,31 @@
+// .place &.place-row
+// =
+// .place.place-row
+//
+// .place{
+// width: 100%;
+//
+//   &__row {
+//      width: 80%;
+//   }
+// }
+//  VVVVVVVVVV
+//
+// .place: { width: 100%; }
+// .place__row { width: 80% }
+//
+// <div class="place">
+//   <img class="place__img"/>
+// </div>
+//
+
+.place-info__row {
+  display: flex;
+}
+
+.place-info__overview {
+  flex: 0 0 70%;
+}
+.place-info__overview {
+  flex: 0 0 80%;
+}
