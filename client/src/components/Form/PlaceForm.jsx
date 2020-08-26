@@ -58,15 +58,46 @@ export const PlaceForm = props => {
       <div className="input-group">
         {/* Change to drop down */}
         <label htmlFor="input-category">Category</label>
-        <input
+        <select
           required
           placeholder="category"
-          type="text"
           name="category"
           id="input-category"
           value={props.category}
           onChange={onValueChange}
-        />
+        >
+          <option hidden value=""></option>
+          <option value="restaurant">Restaurant</option>
+          <option value="bar">Bar</option>
+          <option value="shop">Shop</option>
+          <option value="grocery">Grocery Store</option>
+          <option value="drugstore">Drugstore</option>
+          <option value="bakery">Bakery</option>
+          <option value="coffe_shop">Coffee Shop</option>
+          <option value="antique">Antique</option>
+          <option value="hotel">Hotel</option>
+          <option value="hairdresser">Hairdresser</option>
+          <option value="delicatessem">Delicatessen</option>
+          <option value="butcher">Butcher</option>
+          <option value="florist">Florist</option>
+          <option value="car_workshop">Car workshop</option>
+          <option value="atellier">Atellier</option>
+          <option value="co_working">Co-working</option>
+          <option value="ngo">NGO</option>
+          <option value="jewerly">Jewerly</option>
+          <option value="laundry">Laundry</option>
+          <option value="keycutter">Keycutter</option>
+          <option value="haberdasher">Haberdasher</option>
+          <option value="funerary">Funerary</option>
+          <option value="gallery">Gallery</option>
+          <option value="clinic">Clinic</option>
+          <option value="cellphone_suplier">Cellphone supplier</option>
+          <option value="lottery">Lottery</option>
+          <option value="newstand">Newstand</option>
+          <option value="snack_bar">Snack bar</option>
+          <option value="real_estate">Real Estate</option>
+          <option value="other">Other</option>
+        </select>
       </div>
       <div className="input-group">
         <h4 className="heading heading--4">Contacts</h4>
@@ -120,10 +151,12 @@ export const PlaceForm = props => {
           <div>
             <label htmlFor="input-schedule-open">From:</label>
             <select
-              defaultValue="monday"
+              selected=""
+              onChange={onValueChange}
               name="weekDayOpen"
               id="input-schedule-open"
             >
+              <option hidden value=""></option>
               <option value="monday">Monday</option>
               <option value="tuesday">Tuesday</option>
               <option value="wednesday">Wednesday</option>
@@ -136,10 +169,12 @@ export const PlaceForm = props => {
           <div>
             <label htmlFor="input-schedule-open">To:</label>
             <select
-              defaultValue="friday"
+              selected=""
+              onChange={onValueChange}
               name="weekDayClose"
               id="input-schedule-close"
             >
+              <option hidden value=""></option>
               <option value="monday">Monday</option>
               <option value="tuesday">Tuesday</option>
               <option value="wednesday">Wednesday</option>
