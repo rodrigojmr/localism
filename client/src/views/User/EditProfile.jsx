@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-import { signOut } from '../../services/authentication';
-import { loadProfile, editProfile } from './../../services/user';
+import { loadUser } from '../../services/authentication';
+import { editProfile } from './../../services/user';
 import MapSearch from './../../components/Map/MapSearch';
 import UserProfileForm from '../../components/Form/EditProfileForm';
 
@@ -24,6 +24,17 @@ class EditProfileView extends Component {
 
   componentDidMount() {
     this.getLocation();
+    this.getUser();
+  }
+
+  getUser() {
+    loadUser().then(data => {
+      console.log('data: ', data);
+      this.setState({
+        avatarPreview: data.user.avatar,
+        ...data.user
+      });
+    });
   }
 
   getLocation() {

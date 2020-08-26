@@ -6,14 +6,15 @@ const api = axios.create({
   withCredentials: true
 });
 
-export const loadUser = () => api.get('/me/full').then(response => response.data);
-
 // Load profiles here
-export const loadProfile = id => api.get(`/profile/${id}`).then(response => response.data);
+export const loadProfile = id =>
+  api.get(`/profile/${id}`).then(response => response.data);
 
-export const deleteProfile = id => api.delete(`/profile/${id}`).then(response => response.data);
+export const deleteProfile = id =>
+  api.delete(`/profile/${id}`).then(response => response.data);
 
 export const editProfile = async (id, body) => {
+  console.log('body: ', body);
   const formData = jsonToFormData(body);
   try {
     const response = await api.patch(`/profile/${id}`, formData);
