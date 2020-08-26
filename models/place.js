@@ -76,6 +76,9 @@ const placeSchema = new mongoose.Schema(
     about: {
       type: String
     },
+    description: {
+      type: String
+    },
     supports: [
       {
         type: mongoose.Schema.Types.ObjectId,

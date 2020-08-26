@@ -28,13 +28,13 @@ export const PlaceForm = props => {
     }
   };
 
-  const setHours = time => {
-    const hour = time === 'open' ? 9 : 17;
-    let startTime = new Date();
-    startTime.setHours(hour);
-    startTime.setMinutes(0);
-    return startTime;
-  };
+  // const setHours = time => {
+  //   const hour = time === 'open' ? 9 : 17;
+  //   let startTime = new Date();
+  //   startTime.setHours(hour);
+  //   startTime.setMinutes(0);
+  //   return startTime;
+  // };
 
   return (
     <form className="form form-create-place" onSubmit={onFormSubmission}>
@@ -186,7 +186,8 @@ export const PlaceForm = props => {
           </div>
           <div>
             <DatePicker
-              selected={props.openTime || setHours('open')}
+              // selected={props.openTime || setHours('open')}
+              selected={props.openTime}
               onChange={date => props.onValueChange('openTime', date)}
               showTimeSelect
               showTimeSelectOnly
@@ -195,7 +196,8 @@ export const PlaceForm = props => {
               dateFormat="h:mm aa"
             />
             <DatePicker
-              selected={props.closeTime || setHours('close')}
+              // selected={props.closeTime || setHours('close')}
+              selected={props.closeTime}
               onChange={date => props.onValueChange('closeTime', date)}
               showTimeSelect
               showTimeSelectOnly
@@ -210,6 +212,15 @@ export const PlaceForm = props => {
       <h2 className="heading heading--2">
         Let's get relatable, tell locals more about your place!
       </h2>
+      <div className="input-group">
+        <label htmlFor="input-description">Description:</label>
+        <textarea
+          name="description"
+          id="input-description"
+          cols="30"
+          rows="10"
+        ></textarea>
+      </div>
       {/* Separate into another form? */}
       <div className="input-group">
         <label htmlFor="input-openDate">It has been open since:</label>
@@ -225,7 +236,7 @@ export const PlaceForm = props => {
         />
       </div>
       <div className="input-group">
-        <label htmlFor="input-about">What inspired you to open it?</label>
+        <label htmlFor="input-about">Tell us a bit about yourself!</label>
         <textarea name="about" id="input-about" cols="30" rows="10"></textarea>
       </div>
       <div className="input-group input-images">

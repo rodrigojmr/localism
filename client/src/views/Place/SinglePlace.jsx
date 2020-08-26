@@ -32,7 +32,6 @@ class SinglePlace extends Component {
     const { place } = this.state;
     let openTime, closeTime;
     if (place) {
-      console.log('place: ', place);
       openTime = getHours(
         utcToZonedTime(place.schedule.time.openTime, 'Europe/Lisbon')
       );
@@ -56,10 +55,19 @@ class SinglePlace extends Component {
                 </div>
               </div>
             </div>
+            <div className="place-info__row place-info__images-wrapper">
+              {place.images.map(image => (
+                <div className="place-info__image-wrapper">
+                  <img src={image} className="place-info__image" />
+                </div>
+              ))}
+            </div>
             <div className="place-info__row">
               <h2>Meet the owners</h2>
               <div className="place-owner">
-                <img src={place.owner.avatar} />
+                <Link to={`/profile/${place.owner._id}`}>
+                  <img src={place.owner.avatar} alt={place.owner.name} />
+                </Link>
                 <p>{place.owner.name}</p>
               </div>
             </div>
@@ -69,7 +77,7 @@ class SinglePlace extends Component {
                 <>
                   <h2>Supported by:</h2>
                   {place.supports.map(support => (
-                    <div className="support" key={support._id}>
+                    <div className="support-small" key={support._id}>
                       <Link to={`/profile/${support.creator._id}`}>
                         <img
                           src={support.creator.avatar}
@@ -78,6 +86,33 @@ class SinglePlace extends Component {
                       </Link>
                     </div>
                   ))}
+                </>
+              )) || <h2>Not supported by anyone yet!</h2>}
+            </div>
+            <div className="place-info__row">
+              {(place.supports.length && (
+                <>
+                  <h2>What people had to say:</h2>
+                  {place.supports
+                    .filter(support => support.content !== '')
+                    .map(support => (
+                      <div className="support" key={support._id}>
+                        <div className="support__user-img">
+                          <Link to={`/profile/${support.creator._id}`}>
+                            <img
+                              src={support.creator.avatar}
+                              alt={support.creator.name}
+                            />
+                          </Link>
+                        </div>
+                        <div className="support__description">
+                          <h3 className="heading heading--3">
+                            {support.creator.name}
+                          </h3>
+                          <p>{support.content}</p>
+                        </div>
+                      </div>
+                    ))}
                 </>
               )) || <h2>Not supported by anyone yet!</h2>}
             </div>
