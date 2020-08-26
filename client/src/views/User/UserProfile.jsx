@@ -33,17 +33,6 @@ class UserProfile extends Component {
 
   render() {
     const { publicUser } = this.state;
-    console.log({ publicUser });
-    let locality;
-    if (publicUser) {
-      locality = publicUser.privateAddress.find(
-        component =>
-          component.types.includes('locality') ||
-          component.types.includes('administrative_area_level_1')
-      ).short_name;
-    }
-    console.log('locality: ', locality);
-
     return (
       <div className="public-user">
         {this.state.loaded && (
@@ -95,7 +84,7 @@ class UserProfile extends Component {
                 <div className="Address">
                   <p>Address</p>
                   <h4>
-                    <strong> {locality}</strong>
+                    <strong> {this.state.publicUser.locality}</strong>
                   </h4>
                 </div>
               </div>
