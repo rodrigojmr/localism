@@ -17,7 +17,8 @@ import ConfirmEmail from './views/Authentication/ConfirmEmail';
 
 import Spinner from './components/Spinner';
 
-import Navbar from './components/Navbar';
+import Navbar from './components/Navbar.jsx';
+import Header from './components/Header.jsx';
 import UserProfile from './views/User/UserProfile';
 //import ProtectedRoute from './components/ProtectedRoute';
 
@@ -63,7 +64,7 @@ class App extends Component {
   render() {
     return (
       <div className="App">
-        <Navbar user={this.state.user} onSignOut={this.handleSignOut} />
+        <Header />
         {(this.state.loaded && (
           <Switch>
             {/* Home */}
@@ -151,6 +152,7 @@ class App extends Component {
             <Spinner />
           </div>
         )}
+        <Navbar user={this.state.user} onSignOut={this.handleSignOut} />
       </div>
     );
   }

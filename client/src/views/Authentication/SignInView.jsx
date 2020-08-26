@@ -37,7 +37,7 @@ class AuthenticationSignInView extends Component {
 
   render() {
     return (
-      <div>
+      <div className="sign-in-page">
         <form onSubmit={this.handleFormSubmission}>
           <label htmlFor="input-username">Username</label>
           <input

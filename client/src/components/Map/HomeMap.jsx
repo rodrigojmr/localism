@@ -47,8 +47,6 @@ const Map = props => {
     libraries
   });
 
-  const [selected, setSelected] = React.useState(null);
-
   //use this to reference the map without causing re-renders
   const mapRef = React.useRef();
   const onMapLoad = React.useCallback(map => {
@@ -136,26 +134,28 @@ const Map = props => {
                     url: 'http://maps.google.com/mapfiles/ms/icons/pink-dot.png'
                   }}
                   onClick={() => {
-                    setSelected(place);
+                    props.handlePlaceSelection(place);
                   }}
                 />
               );
             })}
           </>
         )}
-        {selected ? (
+        {props.selected ? (
           <InfoWindow
             position={{
-              lat: selected.location.coordinates[0],
-              lng: selected.location.coordinates[1]
+              lat: props.selected.location.coordinates[0],
+              lng: props.selected.location.coordinates[1]
             }}
             onCloseClick={() => {
-              setSelected(null);
+              props.handlePlaceSelection(null);
             }}
           >
             <div>
               <h2>
-                <Link to={`/place/${selected._id}`}>{selected.name}</Link>
+                <Link to={`/place/${props.selected._id}`}>
+                  {props.selected.name}
+                </Link>
               </h2>
             </div>
           </InfoWindow>

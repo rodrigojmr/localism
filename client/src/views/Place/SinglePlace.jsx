@@ -5,8 +5,8 @@ import { loadSupport } from './../../services/support';
 import SinglePlaceMap from './../../components/Map/SinglePlaceMap';
 import getHours from 'date-fns/getHours';
 import SupportCreationView from '../Support/SupportCreationView';
-// import parse from 'date-fns/parse';
 const { zonedTimeToUtc, utcToZonedTime, format } = require('date-fns-tz');
+// import parse from 'date-fns/parse';
 
 class SinglePlace extends Component {
   constructor(props) {
@@ -56,12 +56,12 @@ class SinglePlace extends Component {
     }
 
     return (
-      <div className='home'>
+      <div className="home">
         {this.state.loaded && (
           <>
-            <div className='place-info__row'>
+            <div className="place-info__row">
               <div>
-                <h1>{place.name}</h1>
+                <h1 className="heading heading--1">{place.name}</h1>
                 <h3>{`#${place.category.split(' ').join('_')}`}</h3>
                 {place.schedule.time.openTime &&
                   place.schedule.time.closeTime && (
@@ -71,21 +71,21 @@ class SinglePlace extends Component {
                   )}
               </div>
               <div>
-                <div className='suggestions-num-wrapper'>
+                <div className="suggestions-num-wrapper">
                   {place.supports.length}
                 </div>
               </div>
             </div>
-            <div className='place-info__row place-info__images-wrapper'>
+            <div className="place-info__row place-info__images-wrapper">
               {place.images.map(image => (
-                <div key={image} className='place-info__image-wrapper'>
-                  <img src={image} className='place-info__image' />
+                <div key={image} className="place-info__image-wrapper">
+                  <img src={image} className="place-info__image" />
                 </div>
               ))}
             </div>
-            <div className='place-info__row'>
+            <div className="place-info__row">
               <h2>Meet the owners</h2>
-              <div className='place-owner'>
+              <div className="place-owner">
                 <Link to={`/profile/${place.owner._id}`}>
                   <img src={place.owner.avatar} alt={place.owner.name} />
                 </Link>
@@ -93,12 +93,12 @@ class SinglePlace extends Component {
               </div>
             </div>
             <p>{place.about}</p>
-            <div className='place-info__row'>
+            <div className="place-info__row">
               {(place.supports.length && (
                 <>
                   <h2>Supported by:</h2>
                   {place.supports.map(support => (
-                    <div className='support-small' key={support._id}>
+                    <div className="support-small" key={support._id}>
                       <Link to={`/profile/${support.creator._id}`}>
                         <img
                           src={support.creator.avatar}
@@ -110,7 +110,7 @@ class SinglePlace extends Component {
                 </>
               )) || <h2>Not supported by anyone yet!</h2>}
             </div>
-            <div className='place-info__row'>
+            <div className="place-info__row">
               {place.supports.some(support => support.content !== '')
                 .length && (
                 <>
@@ -118,8 +118,8 @@ class SinglePlace extends Component {
                   {place.supports
                     .filter(support => support.content !== '')
                     .map(support => (
-                      <div className='support' key={support._id}>
-                        <div className='support__user-img'>
+                      <div className="support" key={support._id}>
+                        <div className="support__user-img">
                           <Link to={`/profile/${support.creator._id}`}>
                             <img
                               src={support.creator.avatar}
@@ -127,8 +127,8 @@ class SinglePlace extends Component {
                             />
                           </Link>
                         </div>
-                        <div className='support__description'>
-                          <h3 className='heading heading--3'>
+                        <div className="support__description">
+                          <h3 className="heading heading--3">
                             {support.creator.name}
                           </h3>
                           <p>{support.content}</p>
@@ -138,7 +138,7 @@ class SinglePlace extends Component {
                 </>
               )}
             </div>
-            <div className='place-info__row'></div>
+            <div className="place-info__row"></div>
             <SinglePlaceMap place={this.state.place} />
             {this.props.user && place.owner._id !== this.props.user._id && (
               <>
