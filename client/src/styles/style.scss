@@ -3,9 +3,14 @@
 @import 'abstracts/mixins';
 @import 'abstracts/variables';
 
+//components
 @import 'components/loading';
+@import 'components/signupform';
 
 @import 'base/base';
 @import 'base/typography';
 @import 'base/animations';
 @import 'base/utilities';
+
+//Pages
+@import 'pages/signup';
