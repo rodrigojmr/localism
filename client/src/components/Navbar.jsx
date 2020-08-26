@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 const Navbar = props => {
   const user = props.user;
   return (
-    <nav>
+    <nav className="navbar">
       <Link to="/">Localista</Link>
 
       {(user && (

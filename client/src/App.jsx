@@ -64,94 +64,95 @@ class App extends Component {
   render() {
     return (
       <div className="App">
-        <Header />
-        {(this.state.loaded && (
-          <Switch>
-            {/* Home */}
-            <Route path="/" component={HomeView} exact />
-            {/* Places */}
-            <ProtectedRoute
-              path="/place/create"
-              render={props => <CreatePlace {...props} />}
-              user={this.state.user}
-              redirect="/authentication/sign-in"
-              exact
-            />
-            <Route
-              path="/place/:id"
-              render={props => (
-                <SinglePlace user={this.state.user} {...props} />
-              )}
-              // component={SinglePlace}
-              exact
-            />
-            <ProtectedRoute
-              path="/place/:id/support"
-              render={props => <SupportPlaceView {...props} />}
-              user={this.state.user}
-              redirect="/authentication/sign-in"
-              exact
-            />
-            {/* User Authentication */}
-            <ProtectedRoute
-              path="/me/edit"
-              render={props => (
-                <EditUserProfile
-                  {...props}
-                  onUserUpdate={this.handleUserUpdate}
-                />
-              )}
-              user={this.state.user}
-              redirect="/"
-            />
-            <ProtectedRoute
-              path="/authentication/sign-up"
-              render={props => (
-                <AuthenticationSignUpView
-                  {...props}
-                  onUserUpdate={this.handleUserUpdate}
-                />
-              )}
-              user={!this.state.user}
-              redirect="/"
-            />
-            <ProtectedRoute
-              path="/authentication/sign-in"
-              render={props => (
-                <AuthenticationSignInView
-                  {...props}
-                  onUserUpdate={this.handleUserUpdate}
-                />
-              )}
-              user={!this.state.user}
-              redirect="/"
-            />
-            <Route
-              path="/authentication/confirmation/:token"
-              render={props => (
-                <ConfirmEmail
-                  {...props}
-                  onUserConfirmation={this.handleUserUpdate}
-                />
-              )}
-              redirect="/"
-            />{' '}
-            {/*Profile route */}
-            <Route
-              path="/profile/:id"
-              user={this.state.user}
-              component={UserProfile}
-              exact
-            />
-            <Route path="/error" component={ErrorView} />
-            {/* <Redirect from="/" to="/error" /> */}
-            {/* <Route path="/authentication/sign-in" component={AuthenticationSignInView} /> */}
-          </Switch>
-        )) || (
-          <div className="loading">
-            <Spinner />
-          </div>
-        )}
+        <main className="content">
+          {(this.state.loaded && (
+            <Switch>
+              {/* Home */}
+              <Route path="/" component={HomeView} exact />
+              {/* Places */}
+              <ProtectedRoute
+                path="/place/create"
+                render={props => <CreatePlace {...props} />}
+                user={this.state.user}
+                redirect="/authentication/sign-in"
+                exact
+              />
+              <Route
+                path="/place/:id"
+                render={props => (
+                  <SinglePlace user={this.state.user} {...props} />
+                )}
+                // component={SinglePlace}
+                exact
+              />
+              <ProtectedRoute
+                path="/place/:id/support"
+                render={props => <SupportPlaceView {...props} />}
+                user={this.state.user}
+                redirect="/authentication/sign-in"
+                exact
+              />
+              {/* User Authentication */}
+              <ProtectedRoute
+                path="/me/edit"
+                render={props => (
+                  <EditUserProfile
+                    {...props}
+                    onUserUpdate={this.handleUserUpdate}
+                  />
+                )}
+                user={this.state.user}
+                redirect="/"
+              />
+              <ProtectedRoute
+                path="/authentication/sign-up"
+                render={props => (
+                  <AuthenticationSignUpView
+                    {...props}
+                    onUserUpdate={this.handleUserUpdate}
+                  />
+                )}
+                user={!this.state.user}
+                redirect="/"
+              />
+              <ProtectedRoute
+                path="/authentication/sign-in"
+                render={props => (
+                  <AuthenticationSignInView
+                    {...props}
+                    onUserUpdate={this.handleUserUpdate}
+                  />
+                )}
+                user={!this.state.user}
+                redirect="/"
+              />
+              <Route
+                path="/authentication/confirmation/:token"
+                render={props => (
+                  <ConfirmEmail
+                    {...props}
+                    onUserConfirmation={this.handleUserUpdate}
+                  />
+                )}
+                redirect="/"
+              />{' '}
+              {/*Profile route */}
+              <Route
+                path="/profile/:id"
+                user={this.state.user}
+                component={UserProfile}
+                exact
+              />
+              <Route path="/error" component={ErrorView} />
+              {/* <Redirect from="/" to="/error" /> */}
+              {/* <Route path="/authentication/sign-in" component={AuthenticationSignInView} /> */}
+            </Switch>
+          )) || (
+            <div className="loading">
+              <Spinner />
+            </div>
+          )}
+        </main>
         <Navbar user={this.state.user} onSignOut={this.handleSignOut} />
       </div>
     );
