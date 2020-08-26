@@ -3,7 +3,7 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: 25px;
+    padding: 0 20px 20px;
   }
   .image-cropper,
   .image-input {
@@ -11,6 +11,7 @@
     height: 150px;
     overflow: hidden;
     border-radius: 50%;
+    box-shadow: 0px 5px 5px 0px rgba(52, 49, 45, 0.3);
     .profile-pic {
       display: flex;
       padding: 20px auto;
@@ -25,9 +26,23 @@
   .search {
     display: flex;
     flex-direction: column;
+    margin: 15px;
     > input {
       width: 90%;
+      height: 35px;
+      border: none;
+      border-radius: 5px;
       margin: 0 auto;
+      text-align: center;
+      box-shadow: 0px 5px 5px 0px rgba(52, 49, 45, 0.3);
+    }
+    > label {
+      font-size: larger;
+      font-weight: bolder;
+      margin: 0px 20px 10px;
+      display: flex;
+      justify-content: flex-start;
+      color: #34312d;
     }
   }
 }

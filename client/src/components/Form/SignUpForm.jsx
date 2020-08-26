@@ -46,7 +46,7 @@ const UserProfileForm = props => {
       </div>
 
       <div className='input-group'>
-        <label htmlFor='input-name'>FullName</label>
+        <label htmlFor='input-name'>Full Name</label>
         <input
           id='input-name'
           type='text'

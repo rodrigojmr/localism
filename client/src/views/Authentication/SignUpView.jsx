@@ -70,15 +70,18 @@ class AuthenticationSignUpView extends Component {
 
   render() {
     return (
-      <div className='sign-up-page'>
-        <SignUpForm
-          {...this.state}
-          onDateChange={this.handleDateChange}
-          onValueChange={this.handleValueChange}
-          onAvatarChange={this.handleAvatarInputChange}
-          onFormSubmission={this.handleFormSubmission}
-        />
-      </div>
+      <>
+        <div className='sign-up-page'>
+          <h1>Be local, sign up!</h1>
+          <SignUpForm
+            {...this.state}
+            onDateChange={this.handleDateChange}
+            onValueChange={this.handleValueChange}
+            onAvatarChange={this.handleAvatarInputChange}
+            onFormSubmission={this.handleFormSubmission}
+          />
+        </div>
+      </>
     );
   }
 }

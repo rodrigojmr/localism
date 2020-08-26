@@ -2,4 +2,11 @@
   background-color: #f96e46;
   height: auto;
   min-height: 100vh;
+  h1 {
+    color: #f3f3f4;
+    display: flex;
+    align-content: flex-start;
+    padding-top: 20px;
+    padding-left: 20px;
+  }
 }
