@@ -75,7 +75,7 @@ class AuthenticationSignInView extends Component {
               <p>{this.state.error.message}</p>
             </div>
           )}
-          <button className='sign-button'>Sign In</button>
+          <button className='sign-button'>Get In</button>
         </form>
       </div>
     );
