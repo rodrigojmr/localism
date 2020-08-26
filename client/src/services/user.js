@@ -13,5 +13,12 @@ export const loadProfile = id => api.get(`/profile/${id}`).then(response => resp
 
 export const deleteProfile = id => api.delete(`/profile/${id}`).then(response => response.data);
 
-export const editProfile = (id, body) =>
-  api.patch(`/profile/${id}`, body).then(response => response.data);
+export const editProfile = async (id, body) => {
+  const formData = jsonToFormData(body);
+  try {
+    const response = await api.patch(`/profile/${id}`, formData);
+    return response.data;
+  } catch (error) {
+    console.log(error);
+  }
+};

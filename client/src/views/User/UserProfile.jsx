@@ -1,19 +1,18 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
-import { loadProfile } from './../../services/user';
+import { loadProfile, editProfile } from './../../services/user';
+
 //import SinglePlaceMap from './../../components/Map/SinglePlaceMap';
 import getHours from 'date-fns/getHours';
 
 class UserProfile extends Component {
-  constructor(props) {
-    super(props);
+  constructor() {
+    super();
     this.state = {
       loaded: false,
       publicUser: undefined
     };
   }
-
-  handleContentChange() {}
 
   getUser() {
     const { id } = this.props.match.params;
@@ -89,7 +88,7 @@ class UserProfile extends Component {
                 </div>
               </div>
             </div>
-            <Link to={'/me/edit'}>
+            <Link to={'/profile/edit'}>
               <button> Edit Profile</button>
             </Link>
             <Link to={'/authentication/sign-out'}>

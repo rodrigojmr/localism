@@ -26,12 +26,7 @@ const UserProfileForm = props => {
       <label htmlFor="input-avatar">
         <img src={props.avatarPreview} alt="" />
       </label>
-      <input
-        id="input-avatar"
-        type="file"
-        name="avatar"
-        onChange={handleAvatarInputChange}
-      />
+      <input id="input-avatar" type="file" name="avatar" onChange={handleAvatarInputChange} />
       <div className="input-group">
         <label htmlFor="input-name">FullName</label>
         <input
@@ -83,20 +78,15 @@ const UserProfileForm = props => {
         <label htmlFor="input-openDate">Birthday</label>
         <DatePicker
           id="input-birthday"
-          value={
-            props.birthday
-              ? format(props.birthday, 'dd-MM-yyyy')
-              : props.birthday
-          }
+          value={props.birthday ? format(props.birthday, 'dd-MM-yyyy') : props.birthday}
           dateFormat={'dd/MM/yyyy'}
           onChange={date => props.onValueChange('birthday', date)}
         />
       </div>
       <div className="input-group">
-        <label>Gender</label>
         <div className="gender-inputs-wrapper">
           <div>
-            <label htmlFor="input-gender">From:</label>
+            <label htmlFor="input-gender">Gender</label>
             <select defaultValue="male" name="gender" id="input-gender">
               <option value="male">Male</option>
               <option value="female">Female</option>
@@ -114,7 +104,7 @@ const UserProfileForm = props => {
         />
       </div>
 
-      <button> {props.isEdit ? 'Edit Profile' : 'Sign Up'} </button>
+      <button> {props.isEdit ? 'Save' : 'Sign Up'} </button>
     </form>
   );
 };

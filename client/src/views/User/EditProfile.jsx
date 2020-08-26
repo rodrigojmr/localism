@@ -1,12 +1,14 @@
 import React, { Component } from 'react';
-import { loadUser } from '../../services/user';
-import { signUp } from '../../services/authentication';
-import EditUserProfileForm from '../../components/Form/EditProfileForm';
+import { signOut } from '../../services/authentication';
+import { loadProfile, editProfile } from './../../services/user';
+import MapSearch from './../../components/Map/MapSearch';
+import UserProfileForm from '../../components/Form/EditProfileForm';
 
 class EditProfileView extends Component {
   constructor() {
     super();
     this.state = {
+      loaded: false,
       name: '',
       username: '',
       email: '',
@@ -21,13 +23,7 @@ class EditProfileView extends Component {
   }
 
   componentDidMount() {
-    this.getUser();
-  }
-
-  getUser() {
-    loadUser().then(data => {
-      this.setState({ ...data.user });
-    });
+    this.getLocation();
   }
 
   getLocation() {
@@ -59,11 +55,13 @@ class EditProfileView extends Component {
   };
 
   handleFormSubmission = () => {
+    const id = this.props.user._id;
     const body = { ...this.state };
-    signUp(body)
+    editProfile(id, body)
       .then(data => {
         const { user } = data;
         this.props.onUserUpdate(user);
+        this.props.history.push(`/profile/${id}`);
       })
       .catch(error => {
         console.log(error);
@@ -80,7 +78,7 @@ class EditProfileView extends Component {
   render() {
     return (
       <div>
-        <EditUserProfileForm
+        <UserProfileForm
           {...this.state}
           onDateChange={this.handleDateChange}
           onValueChange={this.handleValueChange}

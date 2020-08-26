@@ -8,6 +8,7 @@
 @import 'components/signupform';
 @import 'components/homeMap';
 
+@import 'pages/signup';
 @import 'pages/sign-in';
 @import 'pages/home';
 
@@ -19,6 +20,3 @@
 @import 'base/typography';
 @import 'base/animations';
 @import 'base/utilities';
-
-//Pages
-@import 'pages/signup';
