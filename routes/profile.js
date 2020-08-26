@@ -9,7 +9,7 @@ const fileUploader = require('../cloudinary-config');
 
 const profileRouter = new express.Router();
 
-profileRouter.get('/:id', fileUploader.single('avatar'), async (req, res, next) => {
+profileRouter.get('/:id', async (req, res, next) => {
   const id = req.params.id;
   try {
     const user = await User.findById(id)
@@ -39,10 +39,19 @@ profileRouter.get('/:id', fileUploader.single('avatar'), async (req, res, next) 
   }
 });
 
-profileRouter.patch('/:id', async (req, res, next) => {
-  const { name, username, password, gender, birthday, privateAddress, email, avatar } = req.body;
-
+profileRouter.patch('/:id', fileUploader.single('avatar'), async (req, res, next) => {
+  const { name, username, password, gender, birthday, privateAddress, email } = req.body;
   const id = req.params.id;
+  let url;
+  if (req.file) {
+    url = req.file.path;
+  }
+
+  const locality = privateAddress.find(
+    component =>
+      component.types.includes('locality') ||
+      component.types.includes('administrative_area_level_1')
+  ).short_name;
   try {
     const user = await User.findOneAndUpdate(
       { _id: id, creator: req.user._id },
@@ -50,12 +59,13 @@ profileRouter.patch('/:id', async (req, res, next) => {
         user: req.user._id,
         name,
         username,
-        password,
+        passwordHashAndSalt: password,
         gender,
         birthday,
         privateAddress,
+        locality,
         email,
-        avatar
+        avatar: url
       },
       { new: true }
     );
@@ -64,22 +74,6 @@ profileRouter.patch('/:id', async (req, res, next) => {
     next(error);
   }
 });
-
-//ostRouter.patch('/:id', routeAuthenticationGuard, (request, response, next) => {
-//const id = request.params.id;
-
-//Post.findOneAndUpdate(
-//  { _id: id, creator: request.user._id },
-//  { content: request.body.content },
-//  { new: true }
-//)
-//  .then(post => {
-//     response.json({ post });
-//   })
-//   .catch(error => {
-//     next(error);
-//   });
-//);
 
 profileRouter.delete('/:id', routeAuthenticationGuard, async (req, res, next) => {
   const id = req.params.id;
