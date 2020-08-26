@@ -55,6 +55,7 @@ class AuthenticationSignUpView extends Component {
       .then(data => {
         const { user } = data;
         this.props.onUserUpdate(user);
+        this.props.history.push(`/profile/${user._id}`);
       })
       .catch(error => {
         console.log(error);
@@ -71,7 +72,7 @@ class AuthenticationSignUpView extends Component {
   render() {
     return (
       <>
-        <div className='sign-up-page'>
+        <div className="sign-up-page">
           <h1>Be local, sign up!</h1>
           <SignUpForm
             {...this.state}
