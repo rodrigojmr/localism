@@ -149,6 +149,11 @@ class App extends Component {
             </Switch>
           )) || (
             <div className="loading">
+              <img
+                className="loading-logo"
+                src="/images/logo.svg"
+                alt="Localista"
+              />
               <Spinner />
             </div>
           )}
