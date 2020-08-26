@@ -88,7 +88,7 @@ const placeSchema = new mongoose.Schema(
     },
     highlights: {
       type: String
-    }
+    },
     images: [
       {
         type: String
