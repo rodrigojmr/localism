@@ -94,7 +94,6 @@ class HomeView extends Component {
 
     return (
       <div className="home">
-        <PlacesList />
         {this.props.user && <Link to="/place/create">Create Place</Link>}
         <HomeMap
           locality={this.state.locality}
