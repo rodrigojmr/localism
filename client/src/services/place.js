@@ -28,6 +28,15 @@ export const nearbyPlaces = async boundaries => {
   }
 };
 
+export const localityPlaces = async locality => {
+  try {
+    const response = await api.get(`/place/${locality}`);
+    return response.data;
+  } catch (error) {
+    console.log(error);
+  }
+};
+
 export const createPlace = async body => {
   const formData = jsonToFormData(body);
   try {

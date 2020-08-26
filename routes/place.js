@@ -41,6 +41,20 @@ placeRouter.get('/nearby', (req, res, next) => {
     });
 });
 
+placeRouter.get('/:locality', async (req, res, next) => {
+  const locality = req.params.locality;
+
+  try {
+    const places = await Place.find({
+      formatted_address: { $regex: `.*${locality}.*` }
+    });
+    console.log('places: ', places);
+    res.json({ places });
+  } catch (error) {
+    next(error);
+  }
+});
+
 placeRouter.get('/:id', async (req, res, next) => {
   const id = req.params.id;
 

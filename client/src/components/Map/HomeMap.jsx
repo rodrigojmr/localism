@@ -119,7 +119,7 @@ const Map = props => {
         zoom={15}
         center={props.center}
         options={options}
-        // onClick={onMapClick}
+        onClick={() => props.handlePlaceSelection(null)}
         onLoad={onMapLoad}
         onIdle={onMapIdle}
       >
@@ -144,25 +144,6 @@ const Map = props => {
             })}
           </>
         )}
-        {props.selected ? (
-          <InfoWindow
-            position={{
-              lat: props.selected.location.coordinates[0],
-              lng: props.selected.location.coordinates[1]
-            }}
-            onCloseClick={() => {
-              props.handlePlaceSelection(null);
-            }}
-          >
-            <div>
-              <h2>
-                <Link to={`/place/${props.selected._id}`}>
-                  {props.selected.name}
-                </Link>
-              </h2>
-            </div>
-          </InfoWindow>
-        ) : null}
       </GoogleMap>
     </div>
   );

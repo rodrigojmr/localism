@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import HomeMap from '../components/Map/HomeMap';
 import PlacesList from '../components/List/PlacesList';
 import SearchName from './../components/Search/SearchName';
-import { nearbyPlaces } from './../services/place';
+import { nearbyPlaces, localityPlaces } from './../services/place';
 import getHours from 'date-fns/getHours';
 
 const { zonedTimeToUtc, utcToZonedTime, format } = require('date-fns-tz');
@@ -21,10 +21,17 @@ class HomeView extends Component {
       selectedPlace: null
     };
     this.searchWrapper = React.createRef();
+    this.placeInfoWrapper = React.createRef();
   }
 
   componentDidMount() {
     this.getLocation();
+  }
+
+  componentDidUpdate(prevProps, prevState) {
+    if (prevState.locality !== this.state.locality) {
+      this.getLocalityPlaces(this.state);
+    }
   }
 
   getLocation() {
@@ -44,13 +51,21 @@ class HomeView extends Component {
     );
   }
 
-  getPlaces(boundaries) {
+  getBoundaryPlaces(boundaries) {
     nearbyPlaces(boundaries).then(data => {
       this.setState({
         places: data.places
       });
     });
     this.handleSearch(this.state.searchQuery);
+  }
+
+  getLocalityPlaces() {
+    localityPlaces(this.state.locality).then(data => {
+      this.setState({
+        places: data.places
+      });
+    });
   }
 
   handleLocalityUpdate(locality) {
@@ -63,6 +78,19 @@ class HomeView extends Component {
     this.setState({
       selectedPlace: place
     });
+
+    const placeInfoWrapper = this.placeInfoWrapper.current;
+    if (place) {
+      placeInfoWrapper.classList.add('place-info-mini--expanded');
+      // this.setState({
+      //   location: {
+      //     lat: place.location.coordinates[0],
+      //     lng: place.location.coordinates[1]
+      //   }
+      // });
+    } else {
+      placeInfoWrapper.classList.remove('place-info-mini--expanded');
+    }
   }
 
   handleSearch = searchQuery => {
@@ -111,7 +139,8 @@ class HomeView extends Component {
           center={this.state.location}
           handlePlaceSelection={place => this.handlePlaceSelection(place)}
           onLocalityUpdate={locality => this.handleLocalityUpdate(locality)}
-          idleMapSearch={boundaries => this.getPlaces(boundaries)}
+          // idleMapSearch={boundaries => this.getBoundaryPlaces(boundaries)}
+          idleMapSearch={() => this.getLocalityPlaces()}
         />
         <div ref={this.searchWrapper} className="search-wrapper">
           <svg
@@ -137,7 +166,7 @@ class HomeView extends Component {
           />
         </div>
 
-        <div className="place-info-mini">
+        <div ref={this.placeInfoWrapper} className="place-info-mini">
           {selected && (
             <>
               <div className="place-info__row">
@@ -158,10 +187,20 @@ class HomeView extends Component {
                 </span>
               </div>
               <div className="place-info__row">
-                <div className="place-info__image-wrapper">
+                <div className="place-info-mini__image-wrapper">
                   <img src={selected.images[0]} className="place-info__image" />
                 </div>
-                <p>{selected.description}</p>
+                <p className="place-info__description">
+                  Lorem ipsum dolor sit, amet consectetur adipisicing elit.
+                  Sapiente, ipsum eveniet amet deleniti quisquam deserunt totam
+                  quasi sit labore placeat voluptas adipisci error voluptate
+                  tempora nostrum facere repellat provident voluptates!
+                  {/* {selected.description} */}
+                </p>
+              </div>
+              <div className="place-info-mini__learn-more">
+                <p>know more about this place</p>{' '}
+                <span className="bounce-animation">&darr;</span>
               </div>
             </>
           )}

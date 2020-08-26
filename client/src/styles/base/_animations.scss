@@ -1,0 +1,16 @@
+.bounce-animation {
+  animation: animationFrames linear 2s infinite;
+  transform-origin: 50% 50%;
+}
+
+@keyframes animationFrames {
+  0% {
+    transform: translate(0px, 0px);
+  }
+  50% {
+    transform: translate(0px, 10px);
+  }
+  100% {
+    transform: translate(0px, 0px);
+  }
+}
