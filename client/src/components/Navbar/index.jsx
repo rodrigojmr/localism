@@ -4,16 +4,17 @@ import { Link } from 'react-router-dom';
 const Navbar = props => {
   return (
     <nav>
-      <Link to='/'>Localista</Link>
+      <Link to="/">Localista</Link>
       {(props.user && (
         <>
-          <span>{props.user.username}</span>
+          {/* <Link to={`/me`}>{props.user.username}</Link> */}
+          {props.user.username}
           <button onClick={props.onSignOut}>Sign Out</button>
         </>
       )) || (
         <>
-          <Link to='/authentication/sign-up'>Sign Up</Link>
-          <Link to='/authentication/sign-in'>Sign In</Link>
+          <Link to="/authentication/sign-up">Sign Up</Link>
+          <Link to="/authentication/sign-in">Sign In</Link>
         </>
       )}
     </nav>
