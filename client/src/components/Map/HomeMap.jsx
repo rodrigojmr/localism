@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
-
-import SearchName from './../Search/SearchName';
+import { Link } from 'react-router-dom';
 
 import {
   GoogleMap,
@@ -62,17 +61,19 @@ const Map = props => {
   }, []);
 
   const getBoundaries = () => {
-    let ne = mapRef.current.getBounds().getNorthEast();
-    let sw = mapRef.current.getBounds().getSouthWest();
+    if (mapRef.current) {
+      let ne = mapRef.current.getBounds().getNorthEast();
+      let sw = mapRef.current.getBounds().getSouthWest();
 
-    const boundaries = {
-      neLat: ne.lat(),
-      neLng: ne.lng(),
-      swLat: sw.lat(),
-      swLng: sw.lng()
-    };
+      const boundaries = {
+        neLat: ne.lat(),
+        neLng: ne.lng(),
+        swLat: sw.lat(),
+        swLng: sw.lng()
+      };
 
-    props.idleMapSearch(boundaries);
+      props.idleMapSearch(boundaries);
+    }
   };
 
   const getLocality = () => {
@@ -153,7 +154,9 @@ const Map = props => {
             }}
           >
             <div>
-              <h2>{selected.name}</h2>
+              <h2>
+                <Link to={`/place/${selected._id}`}>{selected.name}</Link>
+              </h2>
             </div>
           </InfoWindow>
         ) : null}
