@@ -85,7 +85,6 @@ placeRouter.post('/', placeImages, async (req, res, next) => {
     about,
     description
   } = req.body;
-  console.log('req.body: ', req.body);
 
   try {
     let images;
@@ -123,7 +122,12 @@ placeRouter.post('/', placeImages, async (req, res, next) => {
       },
       images
     });
-    await User.findOneAndUpdate({ _id: req.session.user_id }, { owner: true });
+    const user = await User.findByIdAndUpdate(
+      req.session.userId,
+      { owner: true },
+      { new: true }
+    );
+    console.log(user.owner);
     res.json({ place });
   } catch (error) {
     next(error);
@@ -163,7 +167,7 @@ placeRouter.patch('/:id', async (req, res, next) => {
 
   try {
     const place = await Place.findOneAndUpdate(
-      { _id: id, creator: req.user._id },
+      { _id: id, creator: req.session.userId },
       {
         owner: req.user._id,
         name,
