@@ -70,7 +70,7 @@ class AuthenticationSignUpView extends Component {
 
   render() {
     return (
-      <div>
+      <div className="sign-up-page">
         <SignUpForm
           {...this.state}
           onDateChange={this.handleDateChange}
