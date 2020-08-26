@@ -41,6 +41,31 @@ placeRouter.get('/nearby', (req, res, next) => {
     });
 });
 
+placeRouter.get('/:id', async (req, res, next) => {
+  const id = req.params.id;
+
+  try {
+    const place = await Place.findById(id)
+      .populate('owner supports')
+      .populate({
+        path: 'supports',
+        populate: {
+          path: 'creator',
+          model: 'User',
+          select: '_id username name avatar'
+        }
+      });
+    if (place) {
+      console.log(place);
+      res.json({ place });
+    } else {
+      next();
+    }
+  } catch (error) {
+    next(error);
+  }
+});
+
 placeRouter.get('/:locality', async (req, res, next) => {
   const locality = req.params.locality;
 
@@ -50,30 +75,6 @@ placeRouter.get('/:locality', async (req, res, next) => {
     });
     console.log('places: ', places);
     res.json({ places });
-  } catch (error) {
-    next(error);
-  }
-});
-
-placeRouter.get('/:id', async (req, res, next) => {
-  const id = req.params.id;
-
-  try {
-    const place = await Place.findById(id).populate('owner supports');
-    /* .populate({
-        path: 'supports',
-        populate: {
-          path: 'creator',
-          model: 'User',
-          select: { _id: 1, username: 1, name: 1, avatar: 1 }
-        }
-      });*/
-    if (place) {
-      console.log(place);
-      res.json({ place });
-    } else {
-      next();
-    }
   } catch (error) {
     next(error);
   }

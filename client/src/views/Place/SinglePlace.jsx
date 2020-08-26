@@ -24,6 +24,7 @@ class SinglePlace extends Component {
     const { id } = this.props.match.params;
     loadPlace(id).then(data => {
       const { place } = data;
+      console.log('place: ', place);
       this.setState({
         loaded: true,
         place
