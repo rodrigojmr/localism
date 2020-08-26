@@ -50,7 +50,8 @@ const placeSchema = new mongoose.Schema(
     },
     formatted_address: {
       type: String,
-      required: true
+      required: true,
+      unique: true
     },
     address_components: {
       type: Array,
@@ -58,7 +59,8 @@ const placeSchema = new mongoose.Schema(
     },
     place_id: {
       type: String,
-      required: true
+      required: true,
+      unique: true
     },
     location: {
       coordinates: [

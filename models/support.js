@@ -14,7 +14,6 @@ const supportSchema = new mongoose.Schema(
     },
     content: {
       type: String,
-      minlength: 3,
       maxlength: 280
     }
   },

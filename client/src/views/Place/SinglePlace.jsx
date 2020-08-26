@@ -4,6 +4,7 @@ import { loadPlace } from './../../services/place';
 import { loadSupport } from './../../services/support';
 import SinglePlaceMap from './../../components/Map/SinglePlaceMap';
 import getHours from 'date-fns/getHours';
+import SupportCreationView from '../Support/SupportCreationView';
 // import parse from 'date-fns/parse';
 const { zonedTimeToUtc, utcToZonedTime, format } = require('date-fns-tz');
 
@@ -53,6 +54,7 @@ class SinglePlace extends Component {
         );
       }
     }
+
     return (
       <div className='home'>
         {this.state.loaded && (
@@ -76,7 +78,7 @@ class SinglePlace extends Component {
             </div>
             <div className='place-info__row place-info__images-wrapper'>
               {place.images.map(image => (
-                <div className='place-info__image-wrapper'>
+                <div key={image} className='place-info__image-wrapper'>
                   <img src={image} className='place-info__image' />
                 </div>
               ))}
@@ -109,7 +111,8 @@ class SinglePlace extends Component {
               )) || <h2>Not supported by anyone yet!</h2>}
             </div>
             <div className='place-info__row'>
-              {(place.supports.length && (
+              {place.supports.some(support => support.content !== '')
+                .length && (
                 <>
                   <h2>What people had to say:</h2>
                   {place.supports
@@ -133,13 +136,17 @@ class SinglePlace extends Component {
                       </div>
                     ))}
                 </>
-              )) || <h2>Not supported by anyone yet!</h2>}
+              )}
             </div>
             <div className='place-info__row'></div>
             <SinglePlaceMap place={this.state.place} />
-            <Link to={`/place/${this.props.match.params.id}/support`}>
-              Support this place
-            </Link>
+            {this.props.user && place.owner._id !== this.props.user._id && (
+              <>
+                <Link to={`/place/${this.props.match.params.id}/support`}>
+                  Support this place
+                </Link>
+              </>
+            )}
           </>
         )}
       </div>

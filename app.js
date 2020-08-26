@@ -13,6 +13,7 @@ const bodyParser = require('body-parser');
 const indexRouter = require('./routes/index');
 const placeRouter = require('./routes/place');
 const supportRouter = require('./routes/support');
+const profileRouter = require('./routes/profile');
 const authenticationRouter = require('./routes/authentication');
 
 const deserializeUser = require('./middleware/deserializeUser.js');
@@ -58,11 +59,13 @@ app.use(deserializeUser);
 app.use('/', indexRouter);
 app.use('/place', placeRouter);
 app.use('/support', supportRouter);
+app.use('/profile', profileRouter);
 app.use('/authentication', authenticationRouter);
 
 // Catch missing routes and forward to error handler
 app.use((req, res, next) => {
   res.status(404);
+  console.log(req.url);
   const error = new Error('Page not found.');
   next(error);
 });
