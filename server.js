@@ -13,7 +13,7 @@ const terminate = error => {
   if (error) debug(error);
   const exitCode = error && error instanceof Error ? 1 : 0;
   debug('Terminating node app.');
-  l;
+
   mongoose.disconnect().finally(() => {
     debug('Disconnected from database.');
     process.exit(exitCode);
