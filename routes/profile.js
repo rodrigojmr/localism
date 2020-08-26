@@ -9,7 +9,7 @@ const fileUploader = require('../cloudinary-config');
 
 const profileRouter = new express.Router();
 
-profileRouter.get('/:id', async (req, res, next) => {
+profileRouter.get('/', async (req, res, next) => {
   const id = req.params.id;
 
   try {
