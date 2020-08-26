@@ -61,12 +61,12 @@ class SinglePlace extends Component {
               <div>
                 <h1>{place.name}</h1>
                 <h3>{`#${place.category.split(' ').join('_')}`}</h3>
-                {place.schedule.time.openTime && place.schedule.time.closeTime && (
-                  <p>
-                    {`Schedule: ${openTime}h - ${closeTime}h from $
-                    {place.schedule.from} to ${place.schedule.to}`}
-                  </p>
-                )}
+                {place.schedule.time.openTime &&
+                  place.schedule.time.closeTime && (
+                    <p>
+                      {`Schedule: ${openTime}h - ${closeTime}h from ${place.schedule.from} to ${place.schedule.to}`}
+                    </p>
+                  )}
               </div>
               <div>
                 <div className='suggestions-num-wrapper'>
