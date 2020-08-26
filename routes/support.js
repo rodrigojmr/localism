@@ -2,6 +2,8 @@ const express = require('express');
 const Support = require('./../models/support');
 
 const routeAuthenticationGuard = require('./../middleware/route-guard');
+const Place = require('../models/place');
+const User = require('../models/user');
 
 const supportRouter = new express.Router();
 
@@ -31,21 +33,29 @@ supportRouter.get('/:id', async (request, response, next) => {
   }
 });
 
-supportRouter.post('/:id', (req, res, next) => {
+supportRouter.post('/:id', async (req, res, next) => {
   const placeId = req.params.id;
   const { content } = req.body;
-
-  Support.create({
-    creator: req.user._id,
-    place: placeId,
-    content
-  })
-    .then(support => {
-      res.json({ support });
-    })
-    .catch(error => {
-      next(error);
+  try {
+    const support = await Support.create({
+      creator: req.user._id,
+      place: placeId,
+      content
     });
+
+    const user = await User.findById(req.session.userId);
+    user.supports.push(support._id);
+    user.save();
+
+    const place = await Place.findById(placeId);
+    console.log(support._id);
+    place.supports.push(support._id);
+    place.save();
+
+    res.json({ support });
+  } catch (error) {
+    next(error);
+  }
 });
 
 supportRouter.delete(
