@@ -48,6 +48,12 @@ authenticationRouter.post(
       url = req.file.path;
     }
 
+    const locality = address_components.find(
+      component =>
+        component.types.includes('locality') ||
+        component.types.includes('administrative_area_level_1')
+    ).short_name;
+
     try {
       if (password.length < 8) throw new Error('Password is too short.');
       const hashAndSalt = await bcrypt.hash(password, 10);
@@ -58,10 +64,7 @@ authenticationRouter.post(
         email,
         token,
         privateAddress: address_components,
-        // info: {
-        //   birthday,
-        //   gender
-        // },
+        locality,
         avatar: url,
         passwordHashAndSalt: hashAndSalt
       });

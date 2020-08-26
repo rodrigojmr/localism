@@ -2,6 +2,7 @@
 
 const express = require('express');
 const Place = require('../models/place');
+const User = require('../models/user');
 
 const routeAuthenticationGuard = require('../middleware/route-guard');
 
@@ -81,8 +82,10 @@ placeRouter.post('/', placeImages, async (req, res, next) => {
     website,
     instagram,
     location,
-    about
+    about,
+    description
   } = req.body;
+  console.log('req.body: ', req.body);
 
   try {
     let images;
@@ -110,6 +113,7 @@ placeRouter.post('/', placeImages, async (req, res, next) => {
         instagram,
         website
       },
+      description,
       about,
       formatted_address,
       address_components,
@@ -119,6 +123,7 @@ placeRouter.post('/', placeImages, async (req, res, next) => {
       },
       images
     });
+    await User.findOneAndUpdate({ _id: req.session.user_id }, { owner: true });
     res.json({ place });
   } catch (error) {
     next(error);
@@ -137,7 +142,7 @@ placeRouter.delete('/:id', routeAuthenticationGuard, async (req, res, next) => {
     });
 });
 
-placeRouter.patch('/:id', (req, res, next) => {
+placeRouter.patch('/:id', async (req, res, next) => {
   const {
     name,
     category,
@@ -156,39 +161,38 @@ placeRouter.patch('/:id', (req, res, next) => {
 
   const id = req.params.id;
 
-  Place.findOneAndUpdate(
-    { _id: id, creator: req.user._id },
-    {
-      owner: req.user._id,
-      name,
-      category,
-      openDate,
-      schedule: {
-        from: weekDayFrom,
-        to: weekDayTo,
-        time: {
-          openTime,
-          closeTime
+  try {
+    const place = await Place.findOneAndUpdate(
+      { _id: id, creator: req.user._id },
+      {
+        owner: req.user._id,
+        name,
+        category,
+        openDate,
+        schedule: {
+          from: weekDayFrom,
+          to: weekDayTo,
+          time: {
+            openTime,
+            closeTime
+          }
+        },
+        contacts: {
+          phoneNumber,
+          email
+        },
+        address,
+        areaName,
+        location: {
+          coordinates: [latitude, longitude]
         }
       },
-      contacts: {
-        phoneNumber,
-        email
-      },
-      address,
-      areaName,
-      location: {
-        coordinates: [latitude, longitude]
-      }
-    },
-    { new: true }
-  )
-    .then(post => {
-      res.json({ post });
-    })
-    .catch(error => {
-      next(error);
-    });
+      { new: true }
+    );
+    res.json({ place });
+  } catch (error) {
+    next(error);
+  }
 });
 
 module.exports = placeRouter;
