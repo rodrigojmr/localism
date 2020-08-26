@@ -50,8 +50,48 @@
   top: 0%;
 
   display: flex;
+  flex-direction: column;
+
+  background-color: $color-gray;
+  border-radius: 15px;
+  overflow: hidden;
 }
 
 .place-info-mini--expanded {
   top: 100%;
+}
+
+.place-info {
+  &__row {
+    display: flex;
+  }
+  &__overview {
+    flex: 0 0 80%;
+    text-align: left;
+    display: flex;
+    align-items: flex-start;
+    flex-direction: column;
+
+    h1 {
+      font-size: 1.3rem;
+      font-weight: 600;
+    }
+  }
+}
+
+.suggestions-num-wrapper {
+  display: block;
+  height: 1.8em;
+  width: 1.8em;
+  line-height: 1.8em;
+
+  border-radius: 50px; /* or 50% */
+
+  background-color: $color-gray;
+  font-weight: 200;
+  text-align: center;
+  font-size: 1.8rem;
+}
+
+.schedule {
 }
