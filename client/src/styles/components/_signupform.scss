@@ -1,29 +1,37 @@
-form {
-  display: flex;
-  flex-direction: column;
-  max-width: 800px;
-}
-input,
-label {
-  display: block;
+.form {
+  .user-profile-picture {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 25px;
+  }
+  .image-cropper,
+  .image-input {
+    width: 150px;
+    height: 150px;
+    overflow: hidden;
+    border-radius: 50%;
+    .profile-pic {
+      display: flex;
+      padding: 20px auto;
+      height: 100%;
+      width: auto;
+    }
+  }
+
+  .input-group,
+  .input-username,
+  .input-group,
+  .search {
+    display: flex;
+    flex-direction: column;
+    > input {
+      width: 90%;
+      margin: 0 auto;
+    }
+  }
 }
 
-input {
-  align-content: center;
-}
-
-.image-cropper {
-  width: 100px;
-  height: 100px;
-  position: relative;
-  overflow: hidden;
-  border-radius: 50%;
-}
-
-.profile-pic {
-  display: inline;
-  margin: 0 auto;
-  margin-left: -25%; //centers the image
-  height: 100%;
-  width: auto;
+.map-input {
+  background-color: #f96e46;
 }

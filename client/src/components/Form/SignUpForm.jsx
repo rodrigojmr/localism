@@ -19,8 +19,8 @@ const UserProfileForm = props => {
   };
 
   return (
-    <form onSubmit={handleFormSubmission}>
-      <label htmlFor='input-avatar' className='avatar-label'>
+    <form onSubmit={handleFormSubmission} className='form'>
+      <div className='user-profile-picture'>
         <div className='image-cropper'>
           <img src={props.avatarPreview} alt='' className='profile-pic' />
         </div>
@@ -30,8 +30,21 @@ const UserProfileForm = props => {
           type='file'
           name='avatar'
           onChange={handleAvatarInputChange}
+          className='image-input'
         />
-      </label>
+        <div className='input-username'>
+          <label htmlFor='input-username'>Username</label>
+          <input
+            id='input-username'
+            type='text'
+            name='username'
+            placeholder='Enter a Username'
+            value={props.username}
+            onChange={handleValueChange}
+          />
+        </div>
+      </div>
+
       <div className='input-group'>
         <label htmlFor='input-name'>FullName</label>
         <input
@@ -40,17 +53,6 @@ const UserProfileForm = props => {
           name='name'
           placeholder='Enter Full Name'
           value={props.name}
-          onChange={handleValueChange}
-        />
-      </div>
-      <div className='input-group'>
-        <label htmlFor='input-username'>Username</label>
-        <input
-          id='input-username'
-          type='text'
-          name='username'
-          placeholder='Enter a Username'
-          value={props.username}
           onChange={handleValueChange}
         />
       </div>
@@ -82,7 +84,7 @@ const UserProfileForm = props => {
       <div className='map-input'>
         <p>Find Location on Map </p>
         <MapSearch
-          height={'20vh'}
+          height={'40vh'}
           resultInfoHandler={(name, value) => props.onValueChange(name, value)}
           center={props.location}
         />
