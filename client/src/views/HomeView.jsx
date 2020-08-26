@@ -143,19 +143,19 @@ class HomeView extends Component {
               <div className="place-info__row">
                 <div className="place-info__overview">
                   <h1 className="heading heading--1">{selected.name}</h1>
-                  <h3>{`#${selected.category.split(' ').join('_')}`}</h3>
+                  <p className="category">{`#${selected.category
+                    .split(' ')
+                    .join('_')}`}</p>
                   {selected.schedule.time.openTime &&
                     selected.schedule.time.closeTime && (
-                      <p>
+                      <p className="schedule">
                         {`Schedule: ${openTime}h - ${closeTime}h from ${selected.schedule.from} to ${selected.schedule.to}`}
                       </p>
                     )}
                 </div>
-                <div>
-                  <div className="suggestions-num-wrapper">
-                    {selected.supports.length}
-                  </div>
-                </div>
+                <span className="suggestions-num-wrapper">
+                  {selected.supports.length}
+                </span>
               </div>
               <div className="place-info__row">
                 <div className="place-info__image-wrapper">
