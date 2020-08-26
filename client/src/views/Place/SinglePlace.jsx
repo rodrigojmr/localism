@@ -41,12 +41,17 @@ class SinglePlace extends Component {
     const { place } = this.state;
     let openTime, closeTime;
     if (place) {
-      openTime = getHours(
-        utcToZonedTime(place.schedule.time.openTime, 'Europe/Lisbon')
-      );
-      closeTime = getHours(
-        utcToZonedTime(place.schedule.time.closeTime, 'Europe/Lisbon')
-      );
+      console.log('place: ', place);
+      if (place.schedule.time.openTime) {
+        openTime = getHours(
+          utcToZonedTime(place.schedule.time.openTime, 'Europe/Lisbon')
+        );
+      }
+      if (place.schedule.time.closeTime) {
+        closeTime = getHours(
+          utcToZonedTime(place.schedule.time.closeTime, 'Europe/Lisbon')
+        );
+      }
     }
     return (
       <div className='home'>
@@ -56,7 +61,12 @@ class SinglePlace extends Component {
               <div>
                 <h1>{place.name}</h1>
                 <h3>{`#${place.category.split(' ').join('_')}`}</h3>
-                <p>{`Schedule: ${openTime}h - ${closeTime}h from ${place.schedule.from} to ${place.schedule.to}`}</p>
+                {place.schedule.time.openTime && place.schedule.time.closeTime && (
+                  <p>
+                    {`Schedule: ${openTime}h - ${closeTime}h from $
+                    {place.schedule.from} to ${place.schedule.to}`}
+                  </p>
+                )}
               </div>
               <div>
                 <div className='suggestions-num-wrapper'>
