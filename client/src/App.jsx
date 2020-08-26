@@ -76,9 +76,7 @@ class App extends Component {
               {/* Places */}
               <ProtectedRoute
                 path="/place/create"
-                render={props => (
-                  <CreatePlace user={this.state.user} {...props} />
-                )}
+                render={props => <CreatePlace user={this.state.user} {...props} />}
                 user={this.state.user}
                 redirect="/authentication/sign-in"
                 exact
@@ -98,7 +96,7 @@ class App extends Component {
               />
               {/* User Authentication */}
               <ProtectedRoute
-                path="/me/edit"
+                path="/profile/edit"
                 render={props => (
                   <EditUserProfile {...props} onUserUpdate={this.handleUserUpdate} />
                 )}
