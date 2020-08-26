@@ -10,7 +10,7 @@ import SupportPlaceView from './views/Support/SupportPlaceView';
 import SinglePlace from './views/Place/SinglePlace';
 import AuthenticationSignInView from './views/Authentication/SignInView';
 import AuthenticationSignUpView from './views/Authentication/SignUpView';
-import EditUserProfile from './views/User/EditProfile';
+import EditProfile from './views/User/EditProfile';
 import ProtectedRoute from './components/ProtectedRoute';
 import ErrorView from './views/ErrorView';
 import ConfirmEmail from './views/Authentication/ConfirmEmail';
@@ -97,9 +97,7 @@ class App extends Component {
               {/* User Authentication */}
               <ProtectedRoute
                 path="/profile/edit"
-                render={props => (
-                  <EditUserProfile {...props} onUserUpdate={this.handleUserUpdate} />
-                )}
+                render={props => <EditProfile {...props} onUserUpdate={this.handleUserUpdate} />}
                 user={this.state.user}
                 redirect="/"
               />
