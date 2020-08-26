@@ -9,6 +9,7 @@ const Navbar = props => {
         <>
           {/* <Link to={`/me`}>{props.user.username}</Link> */}
           {props.user.username}
+          <Link to="/me/edit">Edit Profile</Link>
           <button onClick={props.onSignOut}>Sign Out</button>
         </>
       )) || (
