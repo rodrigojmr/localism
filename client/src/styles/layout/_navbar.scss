@@ -1,6 +1,17 @@
 .navbar {
+  display: flex;
+  justify-content: space-evenly;
   position: fixed;
   bottom: 0;
   width: 100%;
   background-color: #f45f76;
+  font-size: 0;
+  height: $navbar-height;
+  padding: 1rem 0;
+}
+
+.navbar-icon {
+  width: 30px;
+  height: 30px;
+  stroke: white;
 }

@@ -1,9 +1,8 @@
-@import 'vendors/spinner';
-
 @import 'abstracts/mixins';
 @import 'abstracts/variables';
 
-//components
+@import 'vendors/spinner';
+
 @import 'components/loading';
 @import 'components/signupform';
 

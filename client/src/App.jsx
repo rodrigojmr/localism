@@ -68,7 +68,11 @@ class App extends Component {
           {(this.state.loaded && (
             <Switch>
               {/* Home */}
-              <Route path="/" component={HomeView} exact />
+              <Route
+                path="/"
+                render={props => <HomeView user={this.state.user} {...props} />}
+                exact
+              />
               {/* Places */}
               <ProtectedRoute
                 path="/place/create"
@@ -149,6 +153,11 @@ class App extends Component {
             </Switch>
           )) || (
             <div className="loading">
+              <img
+                className="loading-logo"
+                src="/images/logo.svg"
+                alt="Localista"
+              />
               <Spinner />
             </div>
           )}
