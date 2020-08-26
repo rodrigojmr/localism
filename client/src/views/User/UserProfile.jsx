@@ -101,9 +101,14 @@ class UserProfile extends Component {
                 </div>
               </div>
             </div>
+            <Link to={'/profile/edit'}>
+              <button> Edit Profile</button>
+            </Link>
+            <Link to={'/profile/delete'}>
+              <button> Sign Out</button>
+            </Link>
           </>
         )}
-        <button> Edit Profile</button>
       </div>
     );
   }
