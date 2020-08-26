@@ -79,7 +79,7 @@ const Map = props => {
   if (loadError) return 'Error loading maps';
   if (!isLoaded) return 'Loading Maps';
   return (
-    <div>
+    <div className='map'>
       <Search
         handleResultInfo={handleResultInfo}
         setMarker={setMarker}
@@ -140,8 +140,8 @@ function Search({ handleResultInfo, panTo, setMarker }) {
     }
   });
   return (
-    <div className="search">
-      <label htmlFor="input-address"> Address</label>
+    <div className='search'>
+      <label htmlFor='input-address'> Address</label>
       <Combobox
         onSelect={async address => {
           setValue(address, false);
@@ -160,13 +160,13 @@ function Search({ handleResultInfo, panTo, setMarker }) {
       >
         <ComboboxInput
           required
-          id="input-address"
+          id='input-address'
           value={value}
           onChange={e => {
             setValue(e.target.value);
           }}
           disabled={!ready}
-          placeholder="Enter your address"
+          placeholder='Enter your address'
         />
         <ComboboxPopover>
           <ComboboxList>

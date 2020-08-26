@@ -5,6 +5,7 @@
 @import 'vendors/spinner';
 
 @import 'components/loading';
+@import 'components/signupform';
 @import 'components/homeMap';
 
 @import 'pages/sign-in';
@@ -18,3 +19,6 @@
 @import 'base/typography';
 @import 'base/animations';
 @import 'base/utilities';
+
+//Pages
+@import 'pages/signup';
