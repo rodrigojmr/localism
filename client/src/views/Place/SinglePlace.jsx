@@ -44,14 +44,10 @@ class SinglePlace extends Component {
     let openTime, closeTime;
     if (place) {
       if (place.schedule.time.openTime) {
-        openTime = getHours(
-          utcToZonedTime(place.schedule.time.openTime, 'Europe/Lisbon')
-        );
+        openTime = getHours(utcToZonedTime(place.schedule.time.openTime, 'Europe/Lisbon'));
       }
       if (place.schedule.time.closeTime) {
-        closeTime = getHours(
-          utcToZonedTime(place.schedule.time.closeTime, 'Europe/Lisbon')
-        );
+        closeTime = getHours(utcToZonedTime(place.schedule.time.closeTime, 'Europe/Lisbon'));
       }
     }
 
@@ -62,18 +58,15 @@ class SinglePlace extends Component {
             <div className="place-info__row">
               <div>
                 <h1 className="heading heading--1">{place.name}</h1>
-                <h3>{`#${place.category.split(' ').join('_')}`}</h3>
-                {place.schedule.time.openTime &&
-                  place.schedule.time.closeTime && (
-                    <p>
-                      {`Schedule: ${openTime}h - ${closeTime}h from ${place.schedule.from} to ${place.schedule.to}`}
-                    </p>
-                  )}
+                <h3>{`${place.category.split(' ').join('_')}`}</h3>
+                {place.schedule.time.openTime && place.schedule.time.closeTime && (
+                  <p>
+                    {`Schedule: ${openTime}h - ${closeTime}h from ${place.schedule.from} to ${place.schedule.to}`}
+                  </p>
+                )}
               </div>
               <div>
-                <div className="suggestions-num-wrapper">
-                  {place.supports.length}
-                </div>
+                <div className="suggestions-num-wrapper">{place.supports.length}</div>
               </div>
             </div>
             <div className="place-info__row place-info__images-wrapper">
@@ -100,10 +93,7 @@ class SinglePlace extends Component {
                   {place.supports.map(support => (
                     <div className="support-small" key={support._id}>
                       <Link to={`/profile/${support.creator._id}`}>
-                        <img
-                          src={support.creator.avatar}
-                          alt={support.creator.username}
-                        />
+                        <img src={support.creator.avatar} alt={support.creator.username} />
                       </Link>
                     </div>
                   ))}
@@ -111,8 +101,7 @@ class SinglePlace extends Component {
               )) || <h2>Not supported by anyone yet!</h2>}
             </div>
             <div className="place-info__row">
-              {place.supports.some(support => support.content !== '')
-                .length && (
+              {place.supports.some(support => support.content !== '').length && (
                 <>
                   <h2>What people had to say:</h2>
                   {place.supports
@@ -121,16 +110,11 @@ class SinglePlace extends Component {
                       <div className="support" key={support._id}>
                         <div className="support__user-img">
                           <Link to={`/profile/${support.creator._id}`}>
-                            <img
-                              src={support.creator.avatar}
-                              alt={support.creator.name}
-                            />
+                            <img src={support.creator.avatar} alt={support.creator.name} />
                           </Link>
                         </div>
                         <div className="support__description">
-                          <h3 className="heading heading--3">
-                            {support.creator.name}
-                          </h3>
+                          <h3 className="heading heading--3">{support.creator.name}</h3>
                           <p>{support.content}</p>
                         </div>
                       </div>
@@ -142,9 +126,7 @@ class SinglePlace extends Component {
             <SinglePlaceMap place={this.state.place} />
             {this.props.user && place.owner._id !== this.props.user._id && (
               <>
-                <Link to={`/place/${this.props.match.params.id}/support`}>
-                  Support this place
-                </Link>
+                <Link to={`/place/${this.props.match.params.id}/support`}>Support this place</Link>
               </>
             )}
           </>
