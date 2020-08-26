@@ -9,6 +9,4 @@ const api = axios.create({
 export const loadUser = () =>
   api.get('/me/full').then(response => response.data);
 
-// export const editUser = body => {
-//   api.patch;
-// };
+// Load profiles here
