@@ -1,8 +1,5 @@
 import React from 'react';
 import MapSearch from '../Map/MapSearch';
-import { format } from 'date-fns';
-import DatePicker from 'react-datepicker';
-import 'react-datepicker/dist/react-datepicker.css';
 
 const UserProfileForm = props => {
   const handleFormSubmission = event => {
