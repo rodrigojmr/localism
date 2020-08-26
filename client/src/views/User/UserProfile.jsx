@@ -17,7 +17,6 @@ class UserProfile extends Component {
 
   getUser() {
     const { id } = this.props.match.params;
-    console.log('props match params id:', id);
     loadProfile(id).then(data => {
       const { user } = data;
       this.setState({
@@ -33,16 +32,7 @@ class UserProfile extends Component {
 
   render() {
     const { publicUser } = this.state;
-    console.log({ publicUser });
     let locality;
-    if (publicUser) {
-      locality = publicUser.privateAddress.find(
-        component =>
-          component.types.includes('locality') ||
-          component.types.includes('administrative_area_level_1')
-      ).short_name;
-    }
-    console.log('locality: ', locality);
 
     return (
       <div className="public-user">
@@ -96,7 +86,7 @@ class UserProfile extends Component {
                 <div className="Address">
                   <p>Address</p>
                   <h4>
-                    <strong> {locality}</strong>
+                    <strong> {publicUser.locality}</strong>
                   </h4>
                 </div>
               </div>

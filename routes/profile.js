@@ -13,13 +13,20 @@ profileRouter.get('/:id', fileUploader.single('avatar'), async (req, res, next) 
   const id = req.params.id;
   try {
     const user = await User.findById(id)
+      .select('username name avatar info locality supports')
       .populate('supports')
       .populate({
         path: 'supports',
         populate: {
           path: 'place',
           model: 'Place',
-          select: { _id: 1, name: 1, category: 1, address_components: 1, images: 1 }
+          select: {
+            _id: 1,
+            name: 1,
+            category: 1,
+            address_components: 1,
+            images: 1
+          }
         }
       });
     if (user) {
