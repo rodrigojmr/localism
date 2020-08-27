@@ -16,6 +16,7 @@ class EditProfileView extends Component {
       avatar: '',
       location: null,
       locality: '',
+      gender: '',
       birthday: ''
     };
   }
