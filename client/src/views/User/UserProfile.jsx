@@ -15,8 +15,8 @@ class UserProfile extends Component {
   }
 
   getUser() {
-    const { id } = this.props.match.params;
-    console.log('props match params id:', id);
+    const id = this.props.match.params.id;
+    console.log('this.props.match.params', this.props.match.params);
     loadProfile(id).then(data => {
       const { user } = data;
       this.setState({

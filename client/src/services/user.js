@@ -14,7 +14,6 @@ export const deleteProfile = id =>
   api.delete(`/profile/${id}`).then(response => response.data);
 
 export const editProfile = async (id, body) => {
-  console.log('body: ', body);
   const formData = jsonToFormData(body);
   try {
     const response = await api.patch(`/profile/${id}`, formData);

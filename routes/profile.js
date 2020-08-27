@@ -12,6 +12,7 @@ const profileRouter = new express.Router();
 
 profileRouter.get('/:id', async (req, res, next) => {
   const id = req.params.id;
+  console.log('req.params: ', req.params);
   try {
     const user = await User.findById(id)
       .select('username name avatar locality supports info')
