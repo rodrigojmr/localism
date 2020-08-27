@@ -26,7 +26,14 @@ const UserProfileForm = props => {
       <label htmlFor="input-avatar">
         <img src={props.avatarPreview} alt="" />
       </label>
-      <input id="input-avatar" type="file" name="avatar" onChange={handleAvatarInputChange} />
+      <input
+        style={{ display: 'none' }}
+        id="input-avatar"
+        type="file"
+        name="avatar"
+        onChange={handleAvatarInputChange}
+        className="image-input"
+      />
       <div className="input-group">
         <label htmlFor="input-name">FullName</label>
         <input

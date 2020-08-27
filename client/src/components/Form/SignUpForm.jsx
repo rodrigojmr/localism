@@ -23,7 +23,11 @@ const UserProfileForm = props => {
       <div className="user-profile-picture">
         <label htmlFor="input-avatar">
           <div className="image-cropper">
-            <img src={props.avatarPreview} alt="" className="profile-pic" />
+            <img
+              src={props.avatarPreview}
+              alt={props.username}
+              className="profile-pic"
+            />
           </div>
           <input
             style={{ display: 'none' }}
