@@ -96,7 +96,7 @@ class UserProfile extends Component {
               {publicUser.owner && (
                 <h4>
                   Owns:
-                  <Link to={`/profile/${place._id}`}>
+                  <Link to={`/place/${place._id}`}>
                     {' '}
                     {place.avatar} {place.name}
                   </Link>
