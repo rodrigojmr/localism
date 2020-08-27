@@ -63,6 +63,8 @@ class HomeView extends Component {
   getLocalityPlaces() {
     if (this.state.locality) {
       localityPlaces(this.state.locality).then(data => {
+        console.log('this.state.locality: ', this.state.locality);
+        console.log('places: ', data.places);
         this.setState({
           places: data.places
         });
@@ -145,6 +147,8 @@ class HomeView extends Component {
           idleMapSearch={() => this.getLocalityPlaces()}
         />
         <div ref={this.searchWrapper} className="search-wrapper">
+          <div className="current-locality">{this.state.locality}</div>
+
           <svg
             onClick={() => this.toggleSearch()}
             xmlns="http://www.w3.org/2000/svg"
@@ -166,6 +170,7 @@ class HomeView extends Component {
             onSearchUpdate={searchQuery => this.handleSearch(searchQuery)}
             searchQuery={this.state.searchQuery}
             places={this.state.filteredPlaces}
+            locality={this.state.locality}
           />
         </div>
 
