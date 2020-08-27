@@ -150,7 +150,10 @@ class SinglePlace extends Component {
             <SinglePlaceMap place={this.state.place} />
             {this.props.user && place.owner._id !== this.props.user._id && (
               <>
-                <Link to={`/place/${this.props.match.params.id}/support`}>
+                <Link
+                  className="support-link"
+                  to={`/place/${this.props.match.params.id}/support`}
+                >
                   Support this place
                 </Link>
               </>
