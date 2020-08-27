@@ -1,11 +1,21 @@
+.place-info,
+.place-info-mini {
+  display: flex;
+  flex-direction: column;
+
+  &__image-wrapper {
+    flex: 0 0 30%;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0px 10px 16px 1px rgba(0, 0, 0, 0.2);
+  }
+}
+
 .place-info-mini {
   position: absolute;
   top: 100%;
   width: 100%;
   height: $place-mini-height;
-
-  display: flex;
-  flex-direction: column;
 
   background-color: $color-gray;
   border-radius: 15px;
@@ -14,13 +24,6 @@
   padding-bottom: 15px;
 
   transition: 0.2s all;
-
-  &__image-wrapper {
-    flex: 0 0 30%;
-    border-radius: 10px;
-    overflow: hidden;
-    box-shadow: 0px 10px 16px 1px rgba(0, 0, 0, 0.2);
-  }
 
   &__learn-more {
     margin-top: 25px;

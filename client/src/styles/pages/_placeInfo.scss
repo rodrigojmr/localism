@@ -29,3 +29,67 @@
 .place-info__overview {
   flex: 0 0 80%;
 }
+
+.place-info__row {
+  h3 {
+    color: #f96e46;
+    margin: 40px 20px 10px;
+    text-align: start;
+  }
+  h5 {
+    text-align: start;
+    margin-left: 20px;
+    font-weight: lighter;
+  }
+}
+.suggestions-num-wrapper {
+  align-self: center;
+}
+.place-info__images-wrapper {
+  display: flex;
+  justify-content: space-evenly;
+  height: 100px;
+  img {
+    height: 100%;
+    width: auto;
+    max-width: inherit;
+  }
+  margin-bottom: 20px;
+}
+
+.place {
+  padding: 20px;
+}
+
+.place-owner {
+  display: flex;
+
+  &__img-wrapper {
+    margin-top: 20px;
+    flex: 0 0 30%;
+  }
+}
+
+.place-info__owner {
+  flex-direction: column;
+}
+
+.place-info__supports {
+  h2 {
+    margin-bottom: 10px;
+  }
+  margin-top: 20px;
+  text-align: left;
+  flex-direction: column;
+  margin-bottom: 20px;
+}
+
+.place-supports-wrapper {
+  display: flex;
+  & > div {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    overflow: hidden;
+  }
+}
