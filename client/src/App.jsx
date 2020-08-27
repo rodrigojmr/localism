@@ -85,7 +85,7 @@ class App extends Component {
               <Route
                 path="/places/"
                 render={props => (
-                  <SinglePlace user={this.state.user} {...props} />
+                  <PlacesList user={this.state.user} {...props} />
                 )}
                 exact
               />
