@@ -18,10 +18,11 @@ class UserProfile extends Component {
     const id = this.props.match.params.id;
     console.log('this.props.match.params', this.props.match.params);
     loadProfile(id).then(data => {
-      const { user } = data;
-      console.log({ user });
+      const { user, place } = data;
+      console.log({ user, place });
       this.setState({
         loaded: true,
+        place: { ...place },
         publicUser: { ...user }
       });
     });
@@ -33,6 +34,7 @@ class UserProfile extends Component {
 
   render() {
     const { publicUser } = this.state;
+    const { place } = this.state;
     console.log(publicUser);
     return (
       <div className="form">
@@ -89,7 +91,15 @@ class UserProfile extends Component {
                 <strong> {this.state.publicUser.locality}</strong>
               </h4>
             </div>
-            {/**load supported places and  if owner load places */}
+            <div>
+              {(publicUser.owner && (
+                <h4>
+                  Owns: {place.name}
+                  {/*<Link to={}></Link>*/}
+                </h4>
+              )) || <h4> Supports:{place.name}</h4>}
+            </div>
+
             <Link to={'/profile/edit'}>
               <button> Edit Profile</button>
             </Link>
