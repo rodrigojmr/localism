@@ -48,7 +48,6 @@ supportRouter.post('/:id', async (req, res, next) => {
     user.save();
 
     const place = await Place.findById(placeId);
-    console.log(support._id);
     place.supports.push(support._id);
     place.save();
 
