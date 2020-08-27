@@ -40,11 +40,7 @@ class UserProfile extends Component {
             <div className="user-profile-picture">
               <div className="image-cropper">
                 <Link to={`/profile/${publicUser._id}`}>
-                  <img
-                    src={publicUser.avatar}
-                    alt={publicUser.name}
-                    className="profile-pic"
-                  />
+                  <img src={publicUser.avatar} alt={publicUser.name} className="profile-pic" />
                 </Link>
               </div>
               <div className="input-username">
@@ -104,10 +100,10 @@ class UserProfile extends Component {
               )}
             </div>
             <div>
-              {place.supports.length && (
+              {publicUser.supports.length && (
                 <>
                   <h2> You Support:</h2>
-                  {place.supports.map(support => (
+                  {publicUser.supports.map(support => (
                     <div className="support-small" key={support._id}>
                       <Link to={`/profile/${support.place._id}`}>
                         <img src={support.place.avatar} alt={support.place.name} />

@@ -16,7 +16,7 @@ profileRouter.get('/:id', async (req, res, next) => {
   console.log('req.params: ', req.params);
   try {
     const user = await User.findById(id)
-      .select('username name  owner avatar email locality supports info')
+      .select('username name birthday gender owner avatar email locality supports info')
       .populate('supports')
       .populate({
         path: 'supports',
