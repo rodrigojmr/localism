@@ -91,9 +91,6 @@ class UserProfile extends Component {
             <Link to={'/profile/edit'}>
               <button> Edit Profile</button>
             </Link>
-            <Link to={'/authentication/sign-out'}>
-              <button> Sign Out</button>
-            </Link>
           </>
         )}
       </div>

@@ -106,9 +106,7 @@ export const PlaceForm = props => {
           <PhoneInput
             id="input-phoneNumber"
             value={props.phoneNumber}
-            onChange={phoneNumber =>
-              props.onValueChange('phoneNumber', phoneNumber)
-            }
+            onChange={phoneNumber => props.onValueChange('phoneNumber', phoneNumber)}
           />
         </div>
         <div className="input-group" id="email">
@@ -185,6 +183,7 @@ export const PlaceForm = props => {
             </select>
           </div>
           <div>
+            <label htmlFor="input-time">Opens:</label>
             <DatePicker
               // selected={props.openTime || setHours('open')}
               selected={props.openTime}
@@ -195,6 +194,9 @@ export const PlaceForm = props => {
               timeCaption="Time"
               dateFormat="h:mm aa"
             />
+          </div>
+          <div>
+            <label htmlFor="input-time">Closes:</label>
             <DatePicker
               // selected={props.closeTime || setHours('close')}
               selected={props.closeTime}
@@ -214,23 +216,14 @@ export const PlaceForm = props => {
       </h2>
       <div className="input-group">
         <label htmlFor="input-description">Description:</label>
-        <textarea
-          name="description"
-          id="input-description"
-          cols="30"
-          rows="10"
-        ></textarea>
+        <textarea name="description" id="input-description" cols="30" rows="10"></textarea>
       </div>
       {/* Separate into another form? */}
       <div className="input-group">
         <label htmlFor="input-openDate">It has been open since:</label>
         <DatePicker
           id="input-openDate"
-          value={
-            props.openDate
-              ? format(props.openDate, 'dd-MM-yyyy')
-              : props.openDate
-          }
+          value={props.openDate ? format(props.openDate, 'dd-MM-yyyy') : props.openDate}
           dateFormat={'dd/MM/yyyy'}
           onChange={date => props.onValueChange('openDate', date)}
         />
@@ -240,30 +233,16 @@ export const PlaceForm = props => {
         <textarea name="about" id="input-about" cols="30" rows="10"></textarea>
       </div>
       <div className="input-group input-images">
-        <h4>
-          Add recent photos and some of your important moments of your place!
-        </h4>
+        <h4>Add recent photos and some of your important moments of your place!</h4>
         <div className="input-images__preview">
           <div className="input-image__img-wrapper">
-            <img
-              src={props.imagesPreview[0]}
-              alt=""
-              className="input-image__img"
-            />
+            <img src={props.imagesPreview[0]} alt="" className="input-image__img" />
           </div>
           <div className="input-image__img-wrapper">
-            <img
-              src={props.imagesPreview[1]}
-              alt=""
-              className="input-image__img"
-            />
+            <img src={props.imagesPreview[1]} alt="" className="input-image__img" />
           </div>
           <div className="input-image__img-wrapper">
-            <img
-              src={props.imagesPreview[2]}
-              alt=""
-              className="input-image__img"
-            />
+            <img src={props.imagesPreview[2]} alt="" className="input-image__img" />
           </div>
         </div>
         <input
