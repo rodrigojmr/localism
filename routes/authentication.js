@@ -68,6 +68,7 @@ authenticationRouter.post(
         avatar: url,
         passwordHashAndSalt: hashAndSalt
       });
+      console.log('user: ', user);
       sendMail(user).then(() => {
         req.session.userId = user._id;
         res.json({
