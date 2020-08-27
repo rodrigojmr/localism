@@ -19,7 +19,6 @@
       width: auto;
     }
   }
-
   .input-group,
   .input-username,
   .search {
@@ -43,6 +42,16 @@
       justify-content: flex-start;
       color: #34312d;
     }
+  }
+  .sign-button {
+    padding: 10px 50px;
+    border-radius: 10px;
+    border: 0px;
+    box-shadow: 0px 5px 5px 0px rgba(52, 49, 45, 0.3);
+    background-color: #f3f3f4;
+    color: #34312d;
+    margin-top: 50px;
+    margin-bottom: 30px;
   }
 }
 

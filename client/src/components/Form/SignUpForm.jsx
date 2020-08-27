@@ -82,7 +82,6 @@ const UserProfileForm = props => {
       </div>
 
       <div className='map-input'>
-        <p>Find Location on Map </p>
         <MapSearch
           height={'40vh'}
           resultInfoHandler={(name, value) => props.onValueChange(name, value)}
@@ -90,7 +89,10 @@ const UserProfileForm = props => {
         />
       </div>
 
-      <button> {props.isEdit ? 'Edit Profile' : 'Sign Up'} </button>
+      <button className='sign-button'>
+        {' '}
+        {props.isEdit ? 'Edit Profile' : 'Sign Up'}{' '}
+      </button>
     </form>
   );
 };

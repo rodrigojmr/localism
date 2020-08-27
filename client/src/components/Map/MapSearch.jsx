@@ -141,7 +141,7 @@ function Search({ handleResultInfo, panTo, setMarker }) {
   });
   return (
     <div className='search'>
-      <label htmlFor='input-address'> Address</label>
+      <label htmlFor='input-address'>Address</label>
       <Combobox
         onSelect={async address => {
           setValue(address, false);
