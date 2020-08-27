@@ -21,17 +21,19 @@ const UserProfileForm = props => {
   return (
     <form onSubmit={handleFormSubmission} className='form'>
       <div className='user-profile-picture'>
-        <div className='image-cropper'>
-          <img src={props.avatarPreview} alt='' className='profile-pic' />
-        </div>
-        <input
-          style={{ display: 'none' }}
-          id='input-avatar'
-          type='file'
-          name='avatar'
-          onChange={handleAvatarInputChange}
-          className='image-input'
-        />
+        <label htmlFor='input-avatar'>
+          <div className='image-cropper'>
+            <img src={props.avatarPreview} alt='' className='profile-pic' />
+          </div>
+          <input
+            style={{ display: 'none' }}
+            id='input-avatar'
+            type='file'
+            name='avatar'
+            onChange={handleAvatarInputChange}
+            className='image-input'
+          />
+        </label>
         <div className='input-username'>
           <label htmlFor='input-username'>Username</label>
           <input

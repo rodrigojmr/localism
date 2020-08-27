@@ -61,11 +61,13 @@ class HomeView extends Component {
   }
 
   getLocalityPlaces() {
-    localityPlaces(this.state.locality).then(data => {
-      this.setState({
-        places: data.places
+    if (this.state.locality) {
+      localityPlaces(this.state.locality).then(data => {
+        this.setState({
+          places: data.places
+        });
       });
-    });
+    }
   }
 
   handleLocalityUpdate(locality) {
@@ -82,12 +84,12 @@ class HomeView extends Component {
     const placeInfoWrapper = this.placeInfoWrapper.current;
     if (place) {
       placeInfoWrapper.classList.add('place-info-mini--expanded');
-      // this.setState({
-      //   location: {
-      //     lat: place.location.coordinates[0],
-      //     lng: place.location.coordinates[1]
-      //   }
-      // });
+      this.setState({
+        location: {
+          lat: place.location.coordinates[0],
+          lng: place.location.coordinates[1]
+        }
+      });
     } else {
       placeInfoWrapper.classList.remove('place-info-mini--expanded');
     }
@@ -160,6 +162,7 @@ class HomeView extends Component {
             <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
           </svg>
           <SearchName
+            handlePlaceSelection={place => this.handlePlaceSelection(place)}
             onSearchUpdate={searchQuery => this.handleSearch(searchQuery)}
             searchQuery={this.state.searchQuery}
             places={this.state.filteredPlaces}

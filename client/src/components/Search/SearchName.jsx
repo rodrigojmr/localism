@@ -15,18 +15,14 @@ const SearchName = props => {
       {/* <label htmlFor="input-name"> Search By Name</label> */}
       <Combobox
         onSelect={async name => {
-          // setValue(address, false);
-          // clearSuggestions();
-          // try {
-          //   const results = await getGeocode({ address });
-          //   const result = results[0];
-          //   const { lat, lng } = await getLatLng(result);
-          //   props.panTo({ lat, lng });
-          //   props.setMarker({ lat, lng });
-          //   props.handleResultInfo(result);
-          // } catch (error) {
-          //   console.log('Error!');
-          // }
+          console.log('name: ', name);
+          props.onSearchUpdate(name);
+          try {
+            const place = props.places.find(place => place.name === name);
+            props.handlePlaceSelection(place);
+          } catch (error) {
+            console.log('Error!');
+          }
         }}
       >
         <ComboboxInput
