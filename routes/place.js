@@ -12,8 +12,9 @@ const placeImages = fileUploader.array('images');
 const placeRouter = new express.Router();
 
 placeRouter.get('/all', async (req, res, next) => {
+  console.log('getting all places');
   try {
-    const places = Place.find({}).populate('owner');
+    const places = await Place.find({});
     res.json({ places });
   } catch (error) {
     next(error);

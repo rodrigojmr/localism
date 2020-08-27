@@ -2,25 +2,24 @@ import React, { Component } from 'react';
 import './styles/style.scss';
 import { Redirect, Switch, Route } from 'react-router-dom';
 import { loadMe, signOut } from './services/authentication';
-import HomeView from './views/HomeView';
-import CreatePlace from './views/Place/CreatePlace';
 
-import SupportCreationView from './views/Support/SupportCreationView';
+import HomeView from './views/HomeView';
+import Navbar from './components/Navbar.jsx';
+import CreatePlace from './views/Place/CreatePlace';
 import SupportPlaceView from './views/Support/SupportPlaceView';
 import SinglePlace from './views/Place/SinglePlace';
+import PlacesList from './views/Place/PlacesList';
 import AuthenticationSignInView from './views/Authentication/SignInView';
 import AuthenticationSignUpView from './views/Authentication/SignUpView';
 import EditProfileView from './views/User/EditProfile';
 import ProtectedRoute from './components/ProtectedRoute';
 import ErrorView from './views/ErrorView';
 import ConfirmEmail from './views/Authentication/ConfirmEmail';
+import UserProfile from './views/User/UserProfile';
 
 import Spinner from './components/Spinner';
 
-import Navbar from './components/Navbar.jsx';
-import Header from './components/Header.jsx';
-import UserProfile from './views/User/UserProfile';
-//import ProtectedRoute from './components/ProtectedRoute';
+//import  from './components/ProtectedRoute';
 
 class App extends Component {
   constructor() {
@@ -86,7 +85,7 @@ class App extends Component {
               <Route
                 path="/places/"
                 render={props => (
-                  <SinglePlace user={this.state.user} {...props} />
+                  <PlacesList user={this.state.user} {...props} />
                 )}
                 exact
               />

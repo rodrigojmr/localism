@@ -159,7 +159,7 @@ class HomeView extends Component {
         </div>
 
         <div ref={this.placeInfoWrapper} className="place-info-mini">
-          {selected && <PlaceMini selected={selected} />}
+          {selected && <PlaceMini inMap={true} selected={selected} />}
         </div>
       </div>
     );

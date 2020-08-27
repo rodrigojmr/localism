@@ -21,7 +21,7 @@ const PlaceMini = props => {
   }
 
   return (
-    <>
+    <div className="place-info">
       <div className="place-info__row">
         <div className="place-info__overview">
           <h1 className="heading heading--1">{selected.name}</h1>
@@ -53,9 +53,9 @@ const PlaceMini = props => {
       </div>
       <div className="place-info-mini__learn-more">
         <p>know more about this place</p>{' '}
-        <span className="bounce-animation">&darr;</span>
+        {props.inMap && <span className="bounce-animation">&darr;</span>}
       </div>
-    </>
+    </div>
   );
 };
 

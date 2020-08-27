@@ -2,7 +2,7 @@
   position: absolute;
   top: 100%;
   width: 100%;
-  height: 20rem;
+  height: $place-mini-height;
 
   display: flex;
   flex-direction: column;
@@ -37,7 +37,7 @@
 }
 
 .place-info-mini--expanded {
-  top: 55%;
+  top: calc(100% - #{$place-mini-height});
 }
 
 .place-info {
@@ -82,4 +82,10 @@
 
 .schedule {
   font-size: 0.8rem;
+}
+
+.places .place-info {
+  margin: 20px 0;
+  border-radius: 10px;
+  box-shadow: -2px 14px 55px 0px rgba(0, 0, 0, 0.34);
 }
