@@ -1,25 +1,7 @@
-import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
+import React from 'react';
 
-import {
-  GoogleMap,
-  useLoadScript,
-  Marker,
-  InfoWindow,
-  Autocomplete
-} from '@react-google-maps/api';
-// import { formatRelative } from 'date-fns';
-// import usePlacesAutocomplete, {
-//   getGeocode,
-//   getLatLng
-// } from 'use-places-autocomplete';
-// import {
-//   Combobox,
-//   ComboboxInput,
-//   ComboboxPopover,
-//   ComboboxList,
-//   ComboboxOption
-// } from '@reach/combobox';
+import { GoogleMap, useLoadScript, Marker } from '@react-google-maps/api';
+
 import './../../App.css';
 import '@reach/combobox/styles.css';
 
@@ -57,10 +39,11 @@ const Map = props => {
     mapRef.current = map;
   }, []);
 
-  const panTo = React.useCallback(({ lat, lng }) => {
-    mapRef.current.panTo({ lat, lng });
-    mapRef.current.setZoom(18);
-  }, []);
+  // To implement panning to the place
+  // const panTo = React.useCallback(({ lat, lng }) => {
+  //   mapRef.current.panTo({ lat, lng });
+  //   mapRef.current.setZoom(18);
+  // }, []);
 
   const getBoundaries = () => {
     if (props.center && mapRef.current) {

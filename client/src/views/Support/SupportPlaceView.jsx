@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import SupportForm from './../../components/Form/SupportForm';
 
-import { loadPlace } from './../../services/place';
+// Use to show more information about place in support view
+// import { loadPlace } from './../../services/place';
 import { createSupport } from './../../services/support';
 
 class SupportPlaceView extends Component {

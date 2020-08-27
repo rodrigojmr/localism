@@ -1,11 +1,9 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import { loadPlace } from './../../services/place';
-import { loadSupport } from './../../services/support';
 import SinglePlaceMap from './../../components/Map/SinglePlaceMap';
 import getHours from 'date-fns/getHours';
-import SupportCreationView from '../Support/SupportCreationView';
-const { zonedTimeToUtc, utcToZonedTime, format } = require('date-fns-tz');
+const { utcToZonedTime } = require('date-fns-tz');
 // import parse from 'date-fns/parse';
 
 class SinglePlace extends Component {
@@ -77,7 +75,11 @@ class SinglePlace extends Component {
             <div className="place-info__row place-info__images-wrapper">
               {place.images.map(image => (
                 <div key={image} className="place-info__image-wrapper">
-                  <img src={image} className="place-info__image" />
+                  <img
+                    alt={place.name}
+                    src={image}
+                    className="place-info__image"
+                  />
                 </div>
               ))}
             </div>

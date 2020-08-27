@@ -1,10 +1,8 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
-import { loadProfile, editProfile } from './../../services/user';
+import { loadProfile } from './../../services/user';
 
 //import SinglePlaceMap from './../../components/Map/SinglePlaceMap';
-import getHours from 'date-fns/getHours';
-
 class UserProfile extends Component {
   constructor() {
     super();
@@ -16,7 +14,6 @@ class UserProfile extends Component {
 
   getUser() {
     const id = this.props.match.params.id;
-    console.log('this.props.match.params', this.props.match.params);
     loadProfile(id).then(data => {
       const { user } = data;
       console.log({ user });
@@ -41,7 +38,11 @@ class UserProfile extends Component {
             <div className="user-profile-picture">
               <div className="image-cropper">
                 <Link to={`/profile/${publicUser._id}`}>
-                  <img src={publicUser.avatar} alt={publicUser.name} className="profile-pic" />
+                  <img
+                    src={publicUser.avatar}
+                    alt={publicUser.name}
+                    className="profile-pic"
+                  />
                 </Link>
               </div>
               <div className="input-username">

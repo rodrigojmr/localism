@@ -37,24 +37,12 @@ const Map = props => {
   });
   //setState on marker click and retrieve value when clicked by user
   const [selected, setSelected] = React.useState(null);
-  const [marker, setNewMarker] = React.useState();
 
   //use this to reference the map without causing re-renders
   const mapRef = React.useRef();
   const onMapLoad = React.useCallback(map => {
     mapRef.current = map;
   }, []);
-
-  const panTo = React.useCallback(({ lat, lng }) => {
-    mapRef.current.panTo({ lat, lng });
-    mapRef.current.setZoom(18);
-  }, []);
-
-  const setMarker = React.useCallback(({ lat, lng }) => {
-    setNewMarker(current => {
-      return { lat, lng, time: new Date() };
-    });
-  });
 
   if (loadError) return 'Error loading maps';
   if (!isLoaded) return 'Loading Maps';
