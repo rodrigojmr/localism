@@ -84,11 +84,17 @@ class App extends Component {
                 exact
               />
               <Route
+                path="/places/"
+                render={props => (
+                  <SinglePlace user={this.state.user} {...props} />
+                )}
+                exact
+              />
+              <Route
                 path="/place/:id"
                 render={props => (
                   <SinglePlace user={this.state.user} {...props} />
                 )}
-                // component={SinglePlace}
                 exact
               />
               <ProtectedRoute
