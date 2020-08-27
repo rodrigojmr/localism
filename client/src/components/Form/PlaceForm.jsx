@@ -100,7 +100,7 @@ export const PlaceForm = props => {
         </select>
       </div>
       <div className='input-group'>
-        <h4 className='heading heading--4'>Contacts</h4>
+        <h2 className='heading heading--4'>Contacts</h2>
         <div className='input-group'>
           <label htmlFor='input-phoneNumber'>Phone Number</label>
           <PhoneInput

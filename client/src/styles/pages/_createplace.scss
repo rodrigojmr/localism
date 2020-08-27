@@ -2,13 +2,22 @@
   background-color: #f96e46;
   height: auto;
   min-height: 100vh;
-  h1 {
+  .create-place-title {
     color: #f3f3f4;
-    display: flex;
-    align-content: flex-start;
-    padding-top: 20px;
-    padding-left: 20px;
-    margin-bottom: 20px;
+    margin-top: 30px;
+    margin-bottom: 0px;
+    padding: 30px;
+    > h1 {
+      line-height: 35px;
+      text-align: start;
+    }
+    .create-choice {
+      margin-top: 30px;
+    }
+    > h2 {
+      margin-top: 30px;
+      text-align: start;
+    }
   }
 
   .search input {
