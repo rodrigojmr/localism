@@ -37,6 +37,8 @@ const UserProfileForm = props => {
         <div className="input-username">
           <label htmlFor="input-username">Username</label>
           <input
+            required
+            minLength="3"
             id="input-username"
             type="text"
             name="username"
@@ -74,6 +76,7 @@ const UserProfileForm = props => {
         <label htmlFor="input-password">Password</label>
         <input
           minLength="8"
+          required
           id="input-password"
           type="password"
           name="password"
@@ -90,8 +93,13 @@ const UserProfileForm = props => {
           center={props.location}
         />
       </div>
-
-      <button className="sign-button"> Sign Up </button>
+      {props.error && (
+        <div className="error-block">
+          <p>There was an error submiting the form:</p>
+          <p>{this.state.error.message}</p>
+        </div>
+      )}
+      <button className="sign-button"></button>
     </form>
   );
 };

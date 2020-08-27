@@ -15,7 +15,7 @@ class EditProfileView extends Component {
       password: '',
       avatarPreview: '/images/default-avatar.png',
       avatar: '',
-      location: undefined,
+      location: null,
       locality: '',
       password: '',
       birthday: ''
