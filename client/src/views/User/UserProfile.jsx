@@ -19,6 +19,7 @@ class UserProfile extends Component {
     console.log('this.props.match.params', this.props.match.params);
     loadProfile(id).then(data => {
       const { user } = data;
+      console.log({ user });
       this.setState({
         loaded: true,
         publicUser: { ...user }
@@ -32,62 +33,63 @@ class UserProfile extends Component {
 
   render() {
     const { publicUser } = this.state;
+    console.log(publicUser);
     return (
-      <div className="public-user">
+      <div className="form">
         {this.state.loaded && (
           <>
-            <div className="user-info__row">
-              <div>
-                <h4> {publicUser.username}'s profile</h4>
-              </div>
-            </div>
             <div className="user-profile-picture">
               <div className="image-cropper">
                 <Link to={`/profile/${publicUser._id}`}>
                   <img src={publicUser.avatar} alt={publicUser.name} className="profile-pic" />
                 </Link>
-                <div>
-                  <p>Name and Last Name</p>
+              </div>
+              <div className="input-username">
+                <div className="fullname">
+                  <p>Username</p>
                   <h4>
-                    <strong> {publicUser.name}</strong>
-                  </h4>
-                </div>
-                <div>
-                  <p>Email</p>
-                  <h4>
-                    <strong> {publicUser.email}</strong>
-                  </h4>
-                </div>
-                <div>
-                  <p>Gender</p>
-                  {(publicUser.gender && publicUser.gender.length > 0 && (
-                    <h4>
-                      <strong> {publicUser.gender}</strong>
-                    </h4>
-                  )) || <h4>No Gender Specified.</h4>}
-                </div>
-                <div>
-                  <p>Birthday</p>
-                  {(publicUser.birthday && (
-                    <h4>
-                      <strong> {publicUser.info.birthday}</strong>
-                    </h4>
-                  )) || <h4>No Birthdate Specified.</h4>}
-                </div>
-                <div>
-                  <p>Pasword</p>
-                  <h4>
-                    <strong> {publicUser.passwordHashAndSalt}</strong>
-                  </h4>
-                </div>
-                <div className="Address">
-                  <p>Address</p>
-                  <h4>
-                    <strong> {this.state.publicUser.locality}</strong>
+                    <strong> {publicUser.username}</strong>
                   </h4>
                 </div>
               </div>
             </div>
+
+            <div className="fullname">
+              <p>FullName</p>
+              <h4>
+                <strong> {publicUser.name}</strong>
+              </h4>
+            </div>
+            <div className="fullname">
+              <p>Email</p>
+              <h4>
+                <strong> {publicUser.email}</strong>
+              </h4>
+            </div>
+            <div className="fullname">
+              <p> Gender</p>
+              {(publicUser.gender && publicUser.gender.length > 0 && (
+                <h4 className="">
+                  <strong> {publicUser.gender}</strong>
+                </h4>
+              )) || <h4>No Gender Specified.</h4>}
+            </div>
+            <div className="fullname">
+              <p>Birthday</p>
+              {(publicUser.birthday && (
+                <h4>
+                  <strong> {publicUser.info.birthday}</strong>
+                </h4>
+              )) || <h4>No Birthdate Specified.</h4>}
+            </div>
+
+            <div className="fullname">
+              <p>Address</p>
+              <h4>
+                <strong> {this.state.publicUser.locality}</strong>
+              </h4>
+            </div>
+            {/**load supported places and  if owner load places */}
             <Link to={'/profile/edit'}>
               <button> Edit Profile</button>
             </Link>

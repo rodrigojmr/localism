@@ -85,7 +85,7 @@ class App extends Component {
               <Route
                 path="/places/"
                 render={props => (
-                  <PlacesList user={this.state.user} {...props} />
+                  <SinglePlace user={this.state.user} {...props} />
                 )}
                 exact
               />
@@ -141,12 +141,6 @@ class App extends Component {
                 redirect="/"
               />{' '}
               {/*Profile route */}
-              <Route
-                path="/profile/:id"
-                user={this.state.user}
-                component={UserProfile}
-                exact
-              />
               <ProtectedRoute
                 path="/profile/edit"
                 render={props => (
@@ -158,6 +152,13 @@ class App extends Component {
                 )}
                 user={this.state.user}
                 redirect="/"
+                exact
+              />
+              <Route
+                path="/profile/:id"
+                user={this.state.user}
+                component={UserProfile}
+                exact
               />
               {/* Error */}
               <Route path="/error" component={ErrorView} />

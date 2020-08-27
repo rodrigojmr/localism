@@ -23,11 +23,7 @@ const UserProfileForm = props => {
       <div className="user-profile-picture">
         <label htmlFor="input-avatar">
           <div className="image-cropper">
-            <img
-              src={props.avatarPreview}
-              alt={props.username}
-              className="profile-pic"
-            />
+            <img src={props.avatarPreview} alt={props.username} className="profile-pic" />
           </div>
           <input
             style={{ display: 'none' }}
@@ -103,10 +99,7 @@ const UserProfileForm = props => {
           <p>{this.state.error.message}</p>
         </div>
       )}
-      <button className="sign-button">
-        {' '}
-        {props.isEdit ? 'Edit Profile' : 'Sign Up'}{' '}
-      </button>
+      <button className="sign-button"></button>
     </form>
   );
 };

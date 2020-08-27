@@ -55,6 +55,7 @@
   }
 }
 
-.map-input {
-  background-color: #f96e46;
+.map-inputs {
+  display: flex;
+  flex-direction: column;
 }
