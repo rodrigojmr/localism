@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
 import { signIn } from './../../services/authentication';
 
 class AuthenticationSignInView extends Component {
@@ -50,7 +51,7 @@ class AuthenticationSignInView extends Component {
               id='input-username'
               type='text'
               name='username'
-              placeholder='username'
+              placeholder='write an username'
               value={this.state.username}
               onChange={this.handleInputChange}
               required
@@ -62,7 +63,7 @@ class AuthenticationSignInView extends Component {
               id='input-password'
               type='password'
               name='password'
-              placeholder='Password'
+              placeholder='use a strong password'
               value={this.state.password}
               onChange={this.handleInputChange}
               required
@@ -75,7 +76,13 @@ class AuthenticationSignInView extends Component {
               <p>{this.state.error.message}</p>
             </div>
           )}
-          <button className='sign-button'>Sign In</button>
+          <div className='sign-up-title'>
+            <h2>If you're new here,</h2>
+            <Link to={'/authentication/sign-up'}>
+              <h2>Sign Up!</h2>
+            </Link>
+          </div>
+          <button className='sign-button'>Get In</button>
         </form>
       </div>
     );
