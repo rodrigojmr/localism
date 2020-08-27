@@ -62,7 +62,7 @@ const Map = props => {
   }, []);
 
   const getBoundaries = () => {
-    if (mapRef.current) {
+    if (props.center && mapRef.current) {
       let ne = mapRef.current.getBounds().getNorthEast();
       let sw = mapRef.current.getBounds().getSouthWest();
 
@@ -78,31 +78,33 @@ const Map = props => {
   };
 
   const getLocality = () => {
-    let geocoder = new window.google.maps.Geocoder();
+    if (props.center) {
+      let geocoder = new window.google.maps.Geocoder();
 
-    const center = {
-      lat: mapRef.current.getCenter().lat(),
-      lng: mapRef.current.getCenter().lng()
-    };
+      const center = {
+        lat: mapRef.current.getCenter().lat(),
+        lng: mapRef.current.getCenter().lng()
+      };
 
-    geocoder.geocode({ location: center }, function(results, status) {
-      if (status === 'OK') {
-        if (results[0]) {
-          const result = results[0].address_components.find(
-            component =>
-              component.types.includes('locality') ||
-              component.types.includes('administrative_area_level_1')
-          );
-          if (result) {
-            props.onLocalityUpdate(result.short_name);
+      geocoder.geocode({ location: center }, function(results, status) {
+        if (status === 'OK') {
+          if (results[0]) {
+            const result = results[0].address_components.find(
+              component =>
+                component.types.includes('locality') ||
+                component.types.includes('administrative_area_level_1')
+            );
+            if (result) {
+              props.onLocalityUpdate(result.short_name);
+            }
+          } else {
+            window.alert('No results found');
           }
         } else {
-          window.alert('No results found');
+          window.alert('Geocoder failed due to: ' + status);
         }
-      } else {
-        window.alert('Geocoder failed due to: ' + status);
-      }
-    });
+      });
+    }
   };
 
   const onMapIdle = () => {

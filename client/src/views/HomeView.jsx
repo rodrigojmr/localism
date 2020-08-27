@@ -13,7 +13,7 @@ class HomeView extends Component {
     super(props);
     this.state = {
       loaded: false,
-      location: undefined,
+      location: null,
       locality: undefined,
       places: [],
       filteredPlaces: [],

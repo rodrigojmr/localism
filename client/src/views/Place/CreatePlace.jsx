@@ -21,7 +21,7 @@ class CreatePlace extends Component {
       website: '',
       instagram: '',
       place_id: '',
-      location: undefined,
+      location: null,
       images: [],
       imagesPreview: []
     };
