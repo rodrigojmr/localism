@@ -1,5 +1,5 @@
-.sign-up-page {
-  background-color: #f96e46;
+.profilepage {
+  background-color: #f7f7f7;
   height: auto;
   min-height: 100vh;
   h1 {
@@ -17,6 +17,22 @@
     border: none;
     border-radius: 5px;
     margin: 0 0 20px auto;
+    text-align: center;
+    box-shadow: 0px 5px 5px 0px rgba(52, 49, 45, 0.3);
+  }
+}
+
+.fullname {
+  display: flex;
+  flex-direction: column;
+  margin: 15px;
+
+  h4 {
+    width: 90%;
+    height: 35px;
+    border: none;
+    border-radius: 5px;
+    margin: 0 auto;
     text-align: center;
     box-shadow: 0px 5px 5px 0px rgba(52, 49, 45, 0.3);
   }

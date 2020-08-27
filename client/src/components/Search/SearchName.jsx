@@ -12,6 +12,7 @@ import '@reach/combobox/styles.css';
 const SearchName = props => {
   return (
     <div className="search">
+      <div className="search-locality">{props.locality}</div>
       {/* <label htmlFor="input-name"> Search By Name</label> */}
       <Combobox
         onSelect={async name => {
