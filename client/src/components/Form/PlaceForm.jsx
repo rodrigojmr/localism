@@ -37,151 +37,151 @@ export const PlaceForm = props => {
   // };
 
   return (
-    <form className="form form-create-place" onSubmit={onFormSubmission}>
+    <form className='form form-create-place' onSubmit={onFormSubmission}>
       <MapSearch
         height={'20vh'}
         resultInfoHandler={(name, value) => props.onValueChange(name, value)}
         center={props.location}
       />
-      <div className="input-group">
-        <label htmlFor="input-name">Business Name</label>
+      <div className='input-group'>
+        <label htmlFor='input-name'>Business Name</label>
         <input
           required
-          placeholder="Enter Business Name"
-          type="text"
-          name="name"
-          id="input-name"
+          placeholder='Enter Business Name'
+          type='text'
+          name='name'
+          id='input-name'
           value={props.name}
           onChange={onValueChange}
         />
       </div>
-      <div className="input-group">
+      <div className='input-group'>
         {/* Change to drop down */}
-        <label htmlFor="input-category">Category</label>
+        <label htmlFor='input-category'>Category</label>
         <select
           required
-          placeholder="category"
-          name="category"
-          id="input-category"
+          placeholder='category'
+          name='category'
+          id='input-category'
           value={props.category}
           onChange={onValueChange}
         >
-          <option hidden value=""></option>
-          <option value="restaurant">Restaurant</option>
-          <option value="bar">Bar</option>
-          <option value="shop">Shop</option>
-          <option value="grocery">Grocery Store</option>
-          <option value="drugstore">Drugstore</option>
-          <option value="bakery">Bakery</option>
-          <option value="coffe_shop">Coffee Shop</option>
-          <option value="antique">Antique</option>
-          <option value="hotel">Hotel</option>
-          <option value="hairdresser">Hairdresser</option>
-          <option value="delicatessem">Delicatessen</option>
-          <option value="butcher">Butcher</option>
-          <option value="florist">Florist</option>
-          <option value="car_workshop">Car workshop</option>
-          <option value="atellier">Atellier</option>
-          <option value="co_working">Co-working</option>
-          <option value="ngo">NGO</option>
-          <option value="jewerly">Jewerly</option>
-          <option value="laundry">Laundry</option>
-          <option value="keycutter">Keycutter</option>
-          <option value="haberdasher">Haberdasher</option>
-          <option value="funerary">Funerary</option>
-          <option value="gallery">Gallery</option>
-          <option value="clinic">Clinic</option>
-          <option value="cellphone_suplier">Cellphone supplier</option>
-          <option value="lottery">Lottery</option>
-          <option value="newstand">Newstand</option>
-          <option value="snack_bar">Snack bar</option>
-          <option value="real_estate">Real Estate</option>
-          <option value="other">Other</option>
+          <option hidden value=''></option>
+          <option value='restaurant'>Restaurant</option>
+          <option value='bar'>Bar</option>
+          <option value='shop'>Shop</option>
+          <option value='grocery'>Grocery Store</option>
+          <option value='drugstore'>Drugstore</option>
+          <option value='bakery'>Bakery</option>
+          <option value='coffe_shop'>Coffee Shop</option>
+          <option value='antique'>Antique</option>
+          <option value='hotel'>Hotel</option>
+          <option value='hairdresser'>Hairdresser</option>
+          <option value='delicatessem'>Delicatessen</option>
+          <option value='butcher'>Butcher</option>
+          <option value='florist'>Florist</option>
+          <option value='car_workshop'>Car workshop</option>
+          <option value='atellier'>Atellier</option>
+          <option value='co_working'>Co-working</option>
+          <option value='ngo'>NGO</option>
+          <option value='jewerly'>Jewerly</option>
+          <option value='laundry'>Laundry</option>
+          <option value='keycutter'>Keycutter</option>
+          <option value='haberdasher'>Haberdasher</option>
+          <option value='funerary'>Funerary</option>
+          <option value='gallery'>Gallery</option>
+          <option value='clinic'>Clinic</option>
+          <option value='cellphone_suplier'>Cellphone supplier</option>
+          <option value='lottery'>Lottery</option>
+          <option value='newstand'>Newstand</option>
+          <option value='snack_bar'>Snack bar</option>
+          <option value='real_estate'>Real Estate</option>
+          <option value='other'>Other</option>
         </select>
       </div>
-      <div className="input-group">
-        <h4 className="heading heading--4">Contacts</h4>
-        <div className="input-group">
-          <label htmlFor="input-phoneNumber">Phone Number</label>
+      <div className='input-group'>
+        <h4 className='heading heading--4'>Contacts</h4>
+        <div className='input-group'>
+          <label htmlFor='input-phoneNumber'>Phone Number</label>
           <PhoneInput
-            id="input-phoneNumber"
+            id='input-phoneNumber'
             value={props.phoneNumber}
             onChange={phoneNumber =>
               props.onValueChange('phoneNumber', phoneNumber)
             }
           />
         </div>
-        <div className="input-group" id="email">
-          <label htmlFor="input-email">Email</label>
+        <div className='input-group' id='email'>
+          <label htmlFor='input-email'>Email</label>
           <input
-            placeholder="Email"
-            type="email"
-            name="email"
-            id="input-email"
+            placeholder='Email'
+            type='email'
+            name='email'
+            id='input-email'
             value={props.email}
             onChange={onValueChange}
           />
         </div>
-        <div className="input-group" id="instagram">
-          <label htmlFor="input-instagram">instagram</label>
+        <div className='input-group' id='instagram'>
+          <label htmlFor='input-instagram'>instagram</label>
           <input
-            placeholder="instagram"
-            type="instagram"
-            name="instagram"
-            id="input-instagram"
+            placeholder='instagram'
+            type='instagram'
+            name='instagram'
+            id='input-instagram'
             value={props.instagram}
             onChange={onValueChange}
           />
         </div>
-        <div className="input-group" id="website">
-          <label htmlFor="input-website">website</label>
+        <div className='input-group' id='website'>
+          <label htmlFor='input-website'>website</label>
           <input
-            placeholder="website"
-            type="website"
-            name="website"
-            id="input-website"
+            placeholder='website'
+            type='website'
+            name='website'
+            id='input-website'
             value={props.website}
             onChange={onValueChange}
           />
         </div>
       </div>
-      <div className="input-group">
+      <div className='input-group'>
         <label>Schedule</label>
-        <div className="schedule-inputs-wrapper">
+        <div className='schedule-inputs-wrapper'>
           <div>
-            <label htmlFor="input-schedule-open">From:</label>
+            <label htmlFor='input-schedule-open'>From:</label>
             <select
-              selected=""
+              selected=''
               onChange={onValueChange}
-              name="weekDayOpen"
-              id="input-schedule-open"
+              name='weekDayOpen'
+              id='input-schedule-open'
             >
-              <option hidden value=""></option>
-              <option value="monday">Monday</option>
-              <option value="tuesday">Tuesday</option>
-              <option value="wednesday">Wednesday</option>
-              <option value="thursday">Thursday</option>
-              <option value="friday">Friday</option>
-              <option value="saturday">Saturday</option>
-              <option value="sunday">Sunday</option>
+              <option hidden value=''></option>
+              <option value='monday'>Monday</option>
+              <option value='tuesday'>Tuesday</option>
+              <option value='wednesday'>Wednesday</option>
+              <option value='thursday'>Thursday</option>
+              <option value='friday'>Friday</option>
+              <option value='saturday'>Saturday</option>
+              <option value='sunday'>Sunday</option>
             </select>
           </div>
           <div>
-            <label htmlFor="input-schedule-open">To:</label>
+            <label htmlFor='input-schedule-open'>To:</label>
             <select
-              selected=""
+              selected=''
               onChange={onValueChange}
-              name="weekDayClose"
-              id="input-schedule-close"
+              name='weekDayClose'
+              id='input-schedule-close'
             >
-              <option hidden value=""></option>
-              <option value="monday">Monday</option>
-              <option value="tuesday">Tuesday</option>
-              <option value="wednesday">Wednesday</option>
-              <option value="thursday">Thursday</option>
-              <option value="friday">Friday</option>
-              <option value="saturday">Saturday</option>
-              <option value="sunday">Sunday</option>
+              <option hidden value=''></option>
+              <option value='monday'>Monday</option>
+              <option value='tuesday'>Tuesday</option>
+              <option value='wednesday'>Wednesday</option>
+              <option value='thursday'>Thursday</option>
+              <option value='friday'>Friday</option>
+              <option value='saturday'>Saturday</option>
+              <option value='sunday'>Sunday</option>
             </select>
           </div>
           <div>
@@ -192,8 +192,8 @@ export const PlaceForm = props => {
               showTimeSelect
               showTimeSelectOnly
               timeIntervals={30}
-              timeCaption="Time"
-              dateFormat="h:mm aa"
+              timeCaption='Time'
+              dateFormat='h:mm aa'
             />
             <DatePicker
               // selected={props.closeTime || setHours('close')}
@@ -202,30 +202,30 @@ export const PlaceForm = props => {
               showTimeSelect
               showTimeSelectOnly
               timeIntervals={30}
-              timeCaption="Time"
-              dateFormat="h:mm aa"
+              timeCaption='Time'
+              dateFormat='h:mm aa'
             />
           </div>
         </div>
       </div>
 
-      <h2 className="heading heading--2">
+      <h2 className='heading heading--2'>
         Let's get relatable, tell locals more about your place!
       </h2>
-      <div className="input-group">
-        <label htmlFor="input-description">Description:</label>
+      <div className='input-group'>
+        <label htmlFor='input-description'>Description:</label>
         <textarea
-          name="description"
-          id="input-description"
-          cols="30"
-          rows="10"
+          name='description'
+          id='input-description'
+          cols='30'
+          rows='10'
         ></textarea>
       </div>
       {/* Separate into another form? */}
-      <div className="input-group">
-        <label htmlFor="input-openDate">It has been open since:</label>
+      <div className='input-group'>
+        <label htmlFor='input-openDate'>It has been open since:</label>
         <DatePicker
-          id="input-openDate"
+          id='input-openDate'
           value={
             props.openDate
               ? format(props.openDate, 'dd-MM-yyyy')
@@ -235,46 +235,46 @@ export const PlaceForm = props => {
           onChange={date => props.onValueChange('openDate', date)}
         />
       </div>
-      <div className="input-group">
-        <label htmlFor="input-about">Tell us a bit about yourself!</label>
-        <textarea name="about" id="input-about" cols="30" rows="10"></textarea>
+      <div className='input-group'>
+        <label htmlFor='input-about'>Tell us a bit about yourself!</label>
+        <textarea name='about' id='input-about' cols='30' rows='10'></textarea>
       </div>
-      <div className="input-group input-images">
+      <div className='input-group input-images'>
         <h4>
           Add recent photos and some of your important moments of your place!
         </h4>
-        <div className="input-images__preview">
-          <div className="input-image__img-wrapper">
+        <div className='input-images__preview'>
+          <div className='input-image__img-wrapper'>
             <img
               src={props.imagesPreview[0]}
-              alt=""
-              className="input-image__img"
+              alt=''
+              className='input-image__img'
             />
           </div>
-          <div className="input-image__img-wrapper">
+          <div className='input-image__img-wrapper'>
             <img
               src={props.imagesPreview[1]}
-              alt=""
-              className="input-image__img"
+              alt=''
+              className='input-image__img'
             />
           </div>
-          <div className="input-image__img-wrapper">
+          <div className='input-image__img-wrapper'>
             <img
               src={props.imagesPreview[2]}
-              alt=""
-              className="input-image__img"
+              alt=''
+              className='input-image__img'
             />
           </div>
         </div>
         <input
           onChange={handleImagesInputChange}
-          type="file"
-          name="images"
-          accept="image/*"
+          type='file'
+          name='images'
+          accept='image/*'
           multiple
         />
       </div>
-      <button type="submit">Create Place</button>
+      <button type='submit'>Create Place</button>
     </form>
   );
 };

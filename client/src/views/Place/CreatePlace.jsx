@@ -83,15 +83,16 @@ class CreatePlace extends Component {
 
   render() {
     return (
-      <div className="create-place">
-        <h1 className="heading heading--1">
-          Hey {this.props.user && <>{this.props.user.username}</>}, do you own a
-          place in this area?
+      <div className='create-place'>
+        <h1 className='heading heading--1'>
+          Hey {this.props.user && <>{this.props.user.username}</>},
         </h1>
+        <h1>do you own a place </h1>
+        <h1>in this area?</h1>
         Yes / No
         {/* Make two separate sections for this */}
-        <div className="create-place-form-wrapper">
-          <h2 className="heading heading--2">
+        <div className='create-place-form-wrapper'>
+          <h2 className='heading heading--2'>
             Let locals know better, register your place!
           </h2>
           <PlaceForm
