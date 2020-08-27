@@ -49,16 +49,17 @@
   display: flex;
   justify-content: space-evenly;
   height: 100px;
+  width: auto;
   img {
-    height: 100%;
-    width: auto;
+    height: auto;
+    width: 100%;
     max-width: inherit;
   }
   margin-bottom: 20px;
 }
 
 .place {
-  padding: 20px;
+  padding: 0 10px;
 }
 
 .place-owner {

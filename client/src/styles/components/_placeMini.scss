@@ -8,6 +8,7 @@
     border-radius: 10px;
     overflow: hidden;
     box-shadow: 0px 10px 16px 1px rgba(0, 0, 0, 0.2);
+    align-self: center;
   }
 }
 
@@ -90,5 +91,6 @@
 .places .place-info {
   margin: 20px 0;
   border-radius: 10px;
-  box-shadow: -2px 14px 55px 0px rgba(0, 0, 0, 0.34);
+  box-shadow: -2px 14px 20px 0px rgba(0, 0, 0, 0.2);
+  padding: 20px;
 }
