@@ -55,7 +55,6 @@ class App extends Component {
     signOut()
       .then(() => {
         this.handleUserUpdate(null);
-        this.props.history.push('/');
       })
       .catch(error => {
         console.log(error);
