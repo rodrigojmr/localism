@@ -12,8 +12,9 @@ class AuthenticationSignUpView extends Component {
       password: '',
       avatarPreview: '/images/default-avatar.png',
       avatar: '',
-      location: undefined,
-      address: undefined
+      location: null,
+      address: undefined,
+      error: null
     };
   }
 
@@ -58,7 +59,11 @@ class AuthenticationSignUpView extends Component {
         this.props.history.push(`/profile/${user._id}`);
       })
       .catch(error => {
-        console.log(error);
+        console.log('error.response: ', error);
+        const serverError = error.response.data.error;
+        this.setState({
+          error: serverError
+        });
       });
   };
 

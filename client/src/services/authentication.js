@@ -8,6 +8,7 @@ const api = axios.create({
 
 export const signUp = async body => {
   const formData = jsonToFormData(body);
+
   try {
     const response = await api.post('/sign-up', formData);
     return response.data;
