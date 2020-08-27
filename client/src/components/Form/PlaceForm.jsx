@@ -278,7 +278,9 @@ export const PlaceForm = props => {
           multiple
         />
       </div>
-      <button type='submit'>Create Place</button>
+      <button type='submit' className='sign-button'>
+        Create Place
+      </button>
     </form>
   );
 };
