@@ -145,7 +145,7 @@ export const PlaceForm = props => {
           />
         </div>
       </div>
-      <div className='input-group'>
+      <div className='input-group from-to-section'>
         <label>Schedule</label>
         <div className='schedule-inputs-wrapper'>
           <div>
@@ -278,7 +278,9 @@ export const PlaceForm = props => {
           multiple
         />
       </div>
-      <button type='submit'>Create Place</button>
+      <button type='submit' className='sign-button'>
+        Create Place
+      </button>
     </form>
   );
 };
