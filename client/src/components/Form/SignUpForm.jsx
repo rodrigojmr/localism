@@ -19,71 +19,71 @@ const UserProfileForm = props => {
   };
 
   return (
-    <form onSubmit={handleFormSubmission} className='form'>
-      <div className='user-profile-picture'>
-        <label htmlFor='input-avatar'>
-          <div className='image-cropper'>
-            <img src={props.avatarPreview} alt='' className='profile-pic' />
+    <form onSubmit={handleFormSubmission} className="form">
+      <div className="user-profile-picture">
+        <label htmlFor="input-avatar">
+          <div className="image-cropper">
+            <img src={props.avatarPreview} alt={props.username} className="profile-pic" />
           </div>
           <input
             style={{ display: 'none' }}
-            id='input-avatar'
-            type='file'
-            name='avatar'
+            id="input-avatar"
+            type="file"
+            name="avatar"
             onChange={handleAvatarInputChange}
-            className='image-input'
+            className="image-input"
           />
         </label>
-        <div className='input-username'>
-          <label htmlFor='input-username'>Username</label>
+        <div className="input-username">
+          <label htmlFor="input-username">Username</label>
           <input
-            id='input-username'
-            type='text'
-            name='username'
-            placeholder='Enter a Username'
+            id="input-username"
+            type="text"
+            name="username"
+            placeholder="Enter a Username"
             value={props.username}
             onChange={handleValueChange}
           />
         </div>
       </div>
 
-      <div className='input-group'>
-        <label htmlFor='input-name'>Full Name</label>
+      <div className="input-group">
+        <label htmlFor="input-name">Full Name</label>
         <input
-          id='input-name'
-          type='text'
-          name='name'
-          placeholder='Enter Full Name'
+          id="input-name"
+          type="text"
+          name="name"
+          placeholder="Enter Full Name"
           value={props.name}
           onChange={handleValueChange}
         />
       </div>
-      <div className='input-group'>
-        <label htmlFor='input-email'>Email</label>
+      <div className="input-group">
+        <label htmlFor="input-email">Email</label>
         <input
-          id='input-email'
-          type='email'
-          name='email'
-          placeholder='Email'
+          id="input-email"
+          type="email"
+          name="email"
+          placeholder="Email"
           value={props.email}
           onChange={handleValueChange}
         />
       </div>
 
-      <div className='input-group'>
-        <label htmlFor='input-password'>Password</label>
+      <div className="input-group">
+        <label htmlFor="input-password">Password</label>
         <input
-          minLength='8'
-          id='input-password'
-          type='password'
-          name='password'
-          placeholder='Password'
+          minLength="8"
+          id="input-password"
+          type="password"
+          name="password"
+          placeholder="Password"
           value={props.password}
           onChange={handleValueChange}
         />
       </div>
 
-      <div className='map-input'>
+      <div className="map-input">
         <MapSearch
           height={'40vh'}
           resultInfoHandler={(name, value) => props.onValueChange(name, value)}
@@ -91,10 +91,7 @@ const UserProfileForm = props => {
         />
       </div>
 
-      <button className='sign-button'>
-        {' '}
-        {props.isEdit ? 'Edit Profile' : 'Sign Up'}{' '}
-      </button>
+      <button className="sign-button"> {props.isEdit ? 'Edit Profile' : 'Sign Up'} </button>
     </form>
   );
 };

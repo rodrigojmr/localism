@@ -56,7 +56,6 @@ placeRouter.get('/:id', async (req, res, next) => {
         }
       });
     if (place) {
-      console.log(place);
       res.json({ place });
     } else {
       next();
@@ -73,7 +72,6 @@ placeRouter.get('/locality/:locality', async (req, res, next) => {
     const places = await Place.find({
       formatted_address: { $regex: `.*${locality}.*` }
     });
-    console.log('places: ', places);
     res.json({ places });
   } catch (error) {
     next(error);
@@ -143,7 +141,6 @@ placeRouter.post('/', placeImages, async (req, res, next) => {
       { owner: true },
       { new: true }
     );
-    console.log(user.owner);
     res.json({ place });
   } catch (error) {
     next(error);

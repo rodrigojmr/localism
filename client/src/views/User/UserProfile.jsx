@@ -15,8 +15,8 @@ class UserProfile extends Component {
   }
 
   getUser() {
-    const { id } = this.props.match.params;
-    console.log('props match params id:', id);
+    const id = this.props.match.params.id;
+    console.log('this.props.match.params', this.props.match.params);
     loadProfile(id).then(data => {
       const { user } = data;
       this.setState({
@@ -41,10 +41,10 @@ class UserProfile extends Component {
                 <h4> {publicUser.username}'s profile</h4>
               </div>
             </div>
-            <div className="user-info__row">
-              <div className="user-name">
+            <div className="user-profile-picture">
+              <div className="image-cropper">
                 <Link to={`/profile/${publicUser._id}`}>
-                  <img src={publicUser.avatar} alt={publicUser.name} />
+                  <img src={publicUser.avatar} alt={publicUser.name} className="profile-pic" />
                 </Link>
                 <div>
                   <p>Name and Last Name</p>
@@ -64,7 +64,7 @@ class UserProfile extends Component {
                     <h4>
                       <strong> {publicUser.gender}</strong>
                     </h4>
-                  )) || <h4>User did not state their gender.</h4>}
+                  )) || <h4>No Gender Specified.</h4>}
                 </div>
                 <div>
                   <p>Birthday</p>
@@ -90,9 +90,6 @@ class UserProfile extends Component {
             </div>
             <Link to={'/profile/edit'}>
               <button> Edit Profile</button>
-            </Link>
-            <Link to={'/authentication/sign-out'}>
-              <button> Sign Out</button>
             </Link>
           </>
         )}

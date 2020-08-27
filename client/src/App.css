@@ -46,27 +46,3 @@
   margin: 0;
   padding: 0;
 }
-
-/* .search {
-  position: absolute;
-  top: 0.7rem;
-  left: 82%;
-  transform: translateX(-50%);
-  width: 100%;
-  max-width: 200px;
-  z-index: 10;
-}
-
-.locate {
-  position: absolute;
-  top: 0.8rem;
-  right: 4rem;
-  background: none;
-  border: none;
-  z-index: 10;
-}
-
-.locate img {
-  width: 38px;
-  cursor: pointer;
-} */
