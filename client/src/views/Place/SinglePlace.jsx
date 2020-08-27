@@ -99,20 +99,22 @@ class SinglePlace extends Component {
                 </div>
               </div>
             </div>
-            <div className="place-info__row">
+            <div className="place-info__row place-info__supports">
               {(place.supports.length && (
                 <>
                   <h2>Supported by:</h2>
-                  {place.supports.map(support => (
-                    <div className="support-small" key={support._id}>
-                      <Link to={`/profile/${support.creator._id}`}>
-                        <img
-                          src={support.creator.avatar}
-                          alt={support.creator.username}
-                        />
-                      </Link>
-                    </div>
-                  ))}
+                  <div className="place-supports-wrapper">
+                    {place.supports.map(support => (
+                      <div className="support-small" key={support._id}>
+                        <Link to={`/profile/${support.creator._id}`}>
+                          <img
+                            src={support.creator.avatar}
+                            alt={support.creator.username}
+                          />
+                        </Link>
+                      </div>
+                    ))}
+                  </div>
                 </>
               )) || <h2>Not supported by anyone yet!</h2>}
             </div>
