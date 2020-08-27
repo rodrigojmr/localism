@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { loadUser } from '../../services/authentication';
 import { editProfile } from './../../services/user';
-import MapSearch from './../../components/Map/MapSearch';
 import UserProfileForm from '../../components/Form/EditProfileForm';
 
 class EditProfileView extends Component {
@@ -17,7 +16,6 @@ class EditProfileView extends Component {
       avatar: '',
       location: null,
       locality: '',
-      password: '',
       birthday: ''
     };
   }
@@ -61,7 +59,7 @@ class EditProfileView extends Component {
   };
 
   emailValidation = email => {
-    const regex = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+    const regex = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
     return regex.test(email);
   };
 

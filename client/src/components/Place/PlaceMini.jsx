@@ -1,7 +1,8 @@
 import React from 'react';
 import getHours from 'date-fns/getHours';
+import { Link } from 'react-router-dom';
 
-const { zonedTimeToUtc, utcToZonedTime, format } = require('date-fns-tz');
+const { utcToZonedTime } = require('date-fns-tz');
 
 const PlaceMini = props => {
   const selected = props.selected;
@@ -41,7 +42,11 @@ const PlaceMini = props => {
       </div>
       <div className="place-info__row">
         <div className="place-info-mini__image-wrapper">
-          <img src={selected.images[0]} className="place-info__image" />
+          <img
+            alt={selected.name}
+            src={selected.images[0]}
+            className="place-info__image"
+          />
         </div>
         <p className="place-info__description">
           Lorem ipsum dolor sit, amet consectetur adipisicing elit. Sapiente,
@@ -51,10 +56,12 @@ const PlaceMini = props => {
           {/* {selected.description} */}
         </p>
       </div>
-      <div className="place-info-mini__learn-more">
-        <p>know more about this place</p>{' '}
-        {props.inMap && <span className="bounce-animation">&darr;</span>}
-      </div>
+      <Link to={`/place/${selected._id}`}>
+        <div className="place-info-mini__learn-more">
+          <p>know more about this place</p>{' '}
+          {props.inMap && <span className="bounce-animation">&darr;</span>}
+        </div>
+      </Link>
     </div>
   );
 };

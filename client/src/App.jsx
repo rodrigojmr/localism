@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import './styles/style.scss';
-import { Redirect, Switch, Route } from 'react-router-dom';
+import { Switch, Route } from 'react-router-dom';
 import { loadMe, signOut } from './services/authentication';
 
 import HomeView from './views/HomeView';

@@ -4,8 +4,6 @@ import SearchName from './../components/Search/SearchName';
 import PlaceMini from './../components/Place/PlaceMini';
 import { nearbyPlaces, localityPlaces } from './../services/place';
 
-const { zonedTimeToUtc, utcToZonedTime, format } = require('date-fns-tz');
-
 class HomeView extends Component {
   constructor(props) {
     super(props);
