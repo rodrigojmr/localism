@@ -183,7 +183,7 @@ export const PlaceForm = props => {
             </select>
           </div>
           <div>
-            <label htmlFor="input-time">Time:</label>
+            <label htmlFor="input-time">Opens:</label>
             <DatePicker
               // selected={props.openTime || setHours('open')}
               selected={props.openTime}
@@ -194,7 +194,9 @@ export const PlaceForm = props => {
               timeCaption="Time"
               dateFormat="h:mm aa"
             />
-
+          </div>
+          <div>
+            <label htmlFor="input-time">Closes:</label>
             <DatePicker
               // selected={props.closeTime || setHours('close')}
               selected={props.closeTime}
