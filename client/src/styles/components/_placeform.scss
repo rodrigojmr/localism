@@ -31,6 +31,25 @@
   text-align: center;
   box-shadow: 0px 5px 5px 0px rgba(52, 49, 45, 0.3);
 }
+.input-group {
+  label {
+    font-size: larger;
+    font-weight: bolder;
+    margin: 0px 20px 10px;
+    display: flex;
+    justify-content: flex-start;
+    color: #34312d;
+  }
+  textarea {
+    width: 90%;
+    height: 150px;
+    border: none;
+    border-radius: 5px;
+    margin: 0 auto;
+    text-align: center;
+    box-shadow: 0px 5px 5px 0px rgba(52, 49, 45, 0.3);
+  }
+}
 .schedule-inputs-wrapper {
   > div {
     display: flex;
