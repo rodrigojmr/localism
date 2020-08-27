@@ -1,0 +1,38 @@
+.create-support {
+  height: 100vh;
+  // display: flex;
+  // align-content: center;
+  // justify-content: center;
+  position: relative;
+  background-color: #f96e46;
+
+  form {
+    padding: 50px 30px;
+    background-color: white;
+    border-radius: 30px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    box-shadow: 2px 10px 31px -2px rgba(0, 0, 0, 0.51);
+  }
+  label {
+    font-size: 16px;
+    font-weight: bolder;
+    margin: 0px 20px 10px;
+    display: flex;
+    justify-content: flex-start;
+    color: #34312d;
+  }
+  textarea {
+    padding: 10px;
+    border-radius: 10px;
+    height: 200px;
+  }
+  button {
+    color: $color-primary;
+    padding: 10px;
+    border-radius: 10px;
+    border: 1px solid black;
+  }
+}

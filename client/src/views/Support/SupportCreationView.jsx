@@ -37,7 +37,7 @@ class SupportCreationView extends Component {
 
   render() {
     return (
-      <div>
+      <div className="create-support">
         <SupportForm
           content={this.state.content}
           onContentChange={this.handleContentChange}
