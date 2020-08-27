@@ -99,7 +99,7 @@ const UserProfileForm = props => {
           <p>{this.state.error.message}</p>
         </div>
       )}
-      <button className="sign-button"></button>
+      <button className="sign-button"> Sign Up</button>
     </form>
   );
 };
