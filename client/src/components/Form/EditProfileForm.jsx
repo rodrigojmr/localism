@@ -22,18 +22,33 @@ const UserProfileForm = props => {
   };
 
   return (
-    <form onSubmit={handleFormSubmission}>
-      <label htmlFor="input-avatar">
-        <img src={props.avatarPreview} alt="" />
-      </label>
-      <input
-        style={{ display: 'none' }}
-        id="input-avatar"
-        type="file"
-        name="avatar"
-        onChange={handleAvatarInputChange}
-        className="image-input"
-      />
+    <form className="form" onSubmit={handleFormSubmission}>
+      <div className="user-profile-picture">
+        <label htmlFor="input-avatar">
+          <div className="image-cropper">
+            <img src={props.avatarPreview} alt="" />
+          </div>
+        </label>
+        <input
+          style={{ display: 'none' }}
+          id="input-avatar"
+          type="file"
+          name="avatar"
+          onChange={handleAvatarInputChange}
+          className="image-input"
+        />
+        <div className="input-username">
+          <label htmlFor="input-username">Username</label>
+          <input
+            id="input-username"
+            type="text"
+            name="username"
+            placeholder="Enter a Username"
+            value={props.username}
+            onChange={handleValueChange}
+          />
+        </div>
+      </div>
       <div className="input-group">
         <label htmlFor="input-name">FullName</label>
         <input
@@ -42,17 +57,6 @@ const UserProfileForm = props => {
           name="name"
           placeholder="Enter Full Name"
           value={props.name}
-          onChange={handleValueChange}
-        />
-      </div>
-      <div className="input-group">
-        <label htmlFor="input-username">Username</label>
-        <input
-          id="input-username"
-          type="text"
-          name="username"
-          placeholder="Enter a Username"
-          value={props.username}
           onChange={handleValueChange}
         />
       </div>
@@ -88,30 +92,26 @@ const UserProfileForm = props => {
           value={props.birthday ? format(props.birthday, 'dd-MM-yyyy') : props.birthday}
           dateFormat={'dd/MM/yyyy'}
           onChange={date => props.onValueChange('birthday', date)}
+          className="input-group"
         />
       </div>
       <div className="input-group">
-        <div className="gender-inputs-wrapper">
-          <div>
-            <label htmlFor="input-gender">Gender</label>
-            <select defaultValue="male" name="gender" id="input-gender">
-              <option value="male">Male</option>
-              <option value="female">Female</option>
-              <option value="other">Other</option>
-            </select>
-          </div>
-        </div>
+        <label htmlFor="input-gender">Gender</label>
+        <select defaultValue="male" name="gender" id="input-gender">
+          <option value="male">Male</option>
+          <option value="female">Female</option>
+          <option value="other">Other</option>
+        </select>
       </div>
-      <div className="map-input">
-        <p>Find Location on Map </p>
+      <div className="map-inputs">
         <MapSearch
-          width={'20vh'}
+          height={'30vh'}
           resultInfoHandler={(name, value) => props.onValueChange(name, value)}
           center={props.location}
         />
       </div>
 
-      <button> {props.isEdit ? 'Save' : 'Sign Up'} </button>
+      <button className="sign-button"> {props.isEdit ? 'Save' : 'Sign Up'} </button>
     </form>
   );
 };

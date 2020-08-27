@@ -91,7 +91,7 @@ const UserProfileForm = props => {
         />
       </div>
 
-      <button className="sign-button"> {props.isEdit ? 'Edit Profile' : 'Sign Up'} </button>
+      <button className="sign-button"> Sign Up </button>
     </form>
   );
 };
