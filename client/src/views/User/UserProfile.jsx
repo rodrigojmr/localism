@@ -71,7 +71,7 @@ class UserProfile extends Component {
             <div className="fullname">
               <p> Gender</p>
               {(publicUser.gender && publicUser.gender.length > 0 && (
-                <h4 className="">
+                <h4>
                   <strong> {publicUser.gender}</strong>
                 </h4>
               )) || <h4>No Gender Specified.</h4>}
@@ -86,22 +86,39 @@ class UserProfile extends Component {
             </div>
 
             <div className="fullname">
-              <p>Address</p>
+              <p>You are based at:</p>
               <h4>
                 <strong> {this.state.publicUser.locality}</strong>
               </h4>
             </div>
             <div>
-              {(publicUser.owner && (
+              {publicUser.owner && (
                 <h4>
-                  Owns: {place.name}
-                  {/*<Link to={}></Link>*/}
+                  Owns:
+                  <Link to={`/profile/${place._id}`}>
+                    {' '}
+                    {place.avatar} {place.name}
+                  </Link>
                 </h4>
-              )) || <h4> Supports:{place.name}</h4>}
+              )}
+            </div>
+            <div>
+              {place.supports.length && (
+                <>
+                  <h2> You Support:</h2>
+                  {place.supports.map(support => (
+                    <div className="support-small" key={support._id}>
+                      <Link to={`/profile/${support.place._id}`}>
+                        <img src={support.place.avatar} alt={support.place.name} />
+                      </Link>
+                    </div>
+                  ))}
+                </>
+              )}
             </div>
 
             <Link to={'/profile/edit'}>
-              <button> Edit Profile</button>
+              <button className="sign-button"> Edit Profile</button>
             </Link>
           </>
         )}
