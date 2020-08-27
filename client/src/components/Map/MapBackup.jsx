@@ -43,6 +43,7 @@ const options = {
 const Map = () => {
   const { isLoaded, loadError } = useLoadScript({
     googleMapsApiKey: process.env.REACT_APP_GOOGLE_MAPS_API_KEY,
+    language: 'pt',
     libraries
   });
   const [markers, setMarkers] = React.useState([]);

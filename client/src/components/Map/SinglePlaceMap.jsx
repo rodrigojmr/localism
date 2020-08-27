@@ -3,8 +3,7 @@ import {
   GoogleMap,
   useLoadScript,
   Marker,
-  InfoWindow,
-  Autocomplete
+  InfoWindow
 } from '@react-google-maps/api';
 
 import './../../App.css';
@@ -33,6 +32,7 @@ const Map = props => {
 
   const { isLoaded, loadError } = useLoadScript({
     googleMapsApiKey: process.env.REACT_APP_GOOGLE_MAPS_API_KEY,
+    language: 'pt',
     libraries
   });
   //setState on marker click and retrieve value when clicked by user

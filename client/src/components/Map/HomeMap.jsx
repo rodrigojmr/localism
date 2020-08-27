@@ -47,6 +47,7 @@ const Map = props => {
 
   const { isLoaded, loadError } = useLoadScript({
     googleMapsApiKey: process.env.REACT_APP_GOOGLE_MAPS_API_KEY,
+    language: 'pt',
     libraries
   });
 
@@ -89,6 +90,7 @@ const Map = props => {
       geocoder.geocode({ location: center }, function(results, status) {
         if (status === 'OK') {
           if (results[0]) {
+            console.log('results[0]: ', results[0]);
             const result = results[0].address_components.find(
               component =>
                 component.types.includes('locality') ||

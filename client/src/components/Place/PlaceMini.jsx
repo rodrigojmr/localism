@@ -1,5 +1,6 @@
 import React from 'react';
 import getHours from 'date-fns/getHours';
+import { Link } from 'react-router-dom';
 
 const { zonedTimeToUtc, utcToZonedTime, format } = require('date-fns-tz');
 
@@ -51,10 +52,12 @@ const PlaceMini = props => {
           {/* {selected.description} */}
         </p>
       </div>
-      <div className="place-info-mini__learn-more">
-        <p>know more about this place</p>{' '}
-        {props.inMap && <span className="bounce-animation">&darr;</span>}
-      </div>
+      <Link to={`/place/${selected._id}`}>
+        <div className="place-info-mini__learn-more">
+          <p>know more about this place</p>{' '}
+          {props.inMap && <span className="bounce-animation">&darr;</span>}
+        </div>
+      </Link>
     </div>
   );
 };

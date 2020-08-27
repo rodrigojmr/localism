@@ -3,10 +3,8 @@ import {
   GoogleMap,
   useLoadScript,
   Marker,
-  InfoWindow,
-  Autocomplete
+  InfoWindow
 } from '@react-google-maps/api';
-import { formatRelative } from 'date-fns';
 import usePlacesAutocomplete, {
   getGeocode,
   getLatLng
@@ -38,6 +36,7 @@ const Map = props => {
 
   const { isLoaded, loadError } = useLoadScript({
     googleMapsApiKey: process.env.REACT_APP_GOOGLE_MAPS_API_KEY,
+    language: 'pt',
     libraries
   });
   //setState on marker click and retrieve value when clicked by user
@@ -55,11 +54,11 @@ const Map = props => {
     mapRef.current.setZoom(18);
   }, []);
 
-  const setMarker = React.useCallback(({ lat, lng }) => {
+  const setMarker = ({ lat, lng }) => {
     setNewMarker(current => {
       return { lat, lng, time: new Date() };
     });
-  });
+  };
 
   const handleResultInfo = result => {
     console.log('result: ', result);
@@ -79,7 +78,7 @@ const Map = props => {
   if (loadError) return 'Error loading maps';
   if (!isLoaded) return 'Loading Maps';
   return (
-    <div className='map'>
+    <div className="map">
       <Search
         handleResultInfo={handleResultInfo}
         setMarker={setMarker}
@@ -140,8 +139,8 @@ function Search({ handleResultInfo, panTo, setMarker }) {
     }
   });
   return (
-    <div className='search'>
-      <label htmlFor='input-address'>Address</label>
+    <div className="search">
+      <label htmlFor="input-address">Address</label>
       <Combobox
         onSelect={async address => {
           setValue(address, false);
@@ -160,13 +159,13 @@ function Search({ handleResultInfo, panTo, setMarker }) {
       >
         <ComboboxInput
           required
-          id='input-address'
+          id="input-address"
           value={value}
           onChange={e => {
             setValue(e.target.value);
           }}
           disabled={!ready}
-          placeholder='Enter your address'
+          placeholder="Enter your address"
         />
         <ComboboxPopover>
           <ComboboxList>
