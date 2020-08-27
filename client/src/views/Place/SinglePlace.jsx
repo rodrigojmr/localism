@@ -52,7 +52,7 @@ class SinglePlace extends Component {
     }
 
     return (
-      <div className="place">
+      <div className="place-page">
         {this.state.loaded && (
           <>
             <div className="place-info__row">
