@@ -2,6 +2,7 @@
 
 const express = require('express');
 const User = require('../models/user');
+const Place = require('../models/place');
 
 const routeAuthenticationGuard = require('../middleware/route-guard');
 
@@ -15,7 +16,7 @@ profileRouter.get('/:id', async (req, res, next) => {
   console.log('req.params: ', req.params);
   try {
     const user = await User.findById(id)
-      .select('username name avatar email locality supports info')
+      .select('username name  owner avatar email locality supports info')
       .populate('supports')
       .populate({
         path: 'supports',
@@ -25,9 +26,10 @@ profileRouter.get('/:id', async (req, res, next) => {
           select: '_id name category address_components images'
         }
       });
+    const place = await Place.findOne({ owner: id });
     if (user) {
       console.log('user: ', user);
-      res.json({ user });
+      res.json({ user, place });
     } else {
       next();
     }
@@ -37,7 +39,7 @@ profileRouter.get('/:id', async (req, res, next) => {
 });
 
 profileRouter.patch('/:id', fileUploader.single('avatar'), async (req, res, next) => {
-  const { name, username, password, gender, birthday, privateAddress, email } = req.body;
+  const { name, username, password, gender, owner, birthday, privateAddress, email } = req.body;
   console.log('req.body: ', req.body);
   const id = req.params.id;
   let url;
@@ -75,6 +77,7 @@ profileRouter.patch('/:id', fileUploader.single('avatar'), async (req, res, next
         privateAddress,
         locality,
         email,
+        owner,
         avatar: url
       },
       { new: true }
