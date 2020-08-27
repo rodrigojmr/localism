@@ -115,7 +115,7 @@ class HomeView extends Component {
     const selected = this.state.selectedPlace;
 
     return (
-      <div className="home">
+      <div className='home'>
         <HomeMap
           locality={this.state.locality}
           places={
@@ -130,24 +130,24 @@ class HomeView extends Component {
           // idleMapSearch={boundaries => this.getBoundaryPlaces(boundaries)}
           idleMapSearch={() => this.getLocalityPlaces()}
         />
-        <div ref={this.searchWrapper} className="search-wrapper">
-          <div className="current-locality">{this.state.locality}</div>
+        <div ref={this.searchWrapper} className='search-wrapper'>
+          <div className='current-locality'>{this.state.locality}</div>
 
           <svg
             onClick={() => this.toggleSearch()}
-            xmlns="http://www.w3.org/2000/svg"
-            width="24"
-            height="24"
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-            stroke-width="2"
-            stroke-linecap="round"
-            stroke-linejoin="round"
-            class="search-icon feather feather-search"
+            xmlns='http://www.w3.org/2000/svg'
+            width='24'
+            height='24'
+            viewBox='0 0 24 24'
+            fill='none'
+            stroke='currentColor'
+            stroke-width='2'
+            stroke-linecap='round'
+            stroke-linejoin='round'
+            class='search-icon feather feather-search'
           >
-            <circle cx="11" cy="11" r="8"></circle>
-            <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+            <circle cx='11' cy='11' r='8'></circle>
+            <line x1='21' y1='21' x2='16.65' y2='16.65'></line>
           </svg>
           <SearchName
             handlePlaceSelection={place => this.handlePlaceSelection(place)}
@@ -158,8 +158,8 @@ class HomeView extends Component {
           />
         </div>
 
-        <div ref={this.placeInfoWrapper} className="place-info-mini">
-          {selected && <PlaceMini selected={selected} />}
+        <div ref={this.placeInfoWrapper} className='place-info-mini'>
+          {selected && <PlaceMini inMap={true} selected={selected} />}
         </div>
       </div>
     );

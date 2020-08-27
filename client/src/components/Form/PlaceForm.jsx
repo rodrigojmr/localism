@@ -100,7 +100,9 @@ export const PlaceForm = props => {
         </select>
       </div>
       <div className='input-group'>
-        <h2 className='heading heading--4'>Contacts</h2>
+        <div className='create-place-title'>
+          <h1>Contacts</h1>
+        </div>
         <div className='input-group'>
           <label htmlFor='input-phoneNumber'>Phone Number</label>
           <PhoneInput
@@ -212,10 +214,9 @@ export const PlaceForm = props => {
           </div>
         </div>
       </div>
-
-      <h2 className='heading heading--2'>
-        Let's get relatable, tell locals more about your place!
-      </h2>
+      <div className='create-place-title'>
+        <h1>Let's get relatable, tell locals more about your place!</h1>
+      </div>
       <div className='input-group'>
         <label htmlFor='input-description'>Description:</label>
         <textarea
@@ -243,10 +244,8 @@ export const PlaceForm = props => {
         <label htmlFor='input-about'>Tell us a bit about yourself!</label>
         <textarea name='about' id='input-about' cols='30' rows='10'></textarea>
       </div>
-      <div className='input-group input-images'>
-        <h4>
-          Add recent photos and some of your important moments of your place!
-        </h4>
+      <div className='create-place-title'>
+        <h1>Add recent photos and some important moments of your place!</h1>
         <div className='input-images__preview'>
           <div className='input-image__img-wrapper'>
             <img

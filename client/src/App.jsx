@@ -2,25 +2,24 @@ import React, { Component } from 'react';
 import './styles/style.scss';
 import { Redirect, Switch, Route } from 'react-router-dom';
 import { loadMe, signOut } from './services/authentication';
-import HomeView from './views/HomeView';
-import CreatePlace from './views/Place/CreatePlace';
 
-import SupportCreationView from './views/Support/SupportCreationView';
+import HomeView from './views/HomeView';
+import Navbar from './components/Navbar.jsx';
+import CreatePlace from './views/Place/CreatePlace';
 import SupportPlaceView from './views/Support/SupportPlaceView';
 import SinglePlace from './views/Place/SinglePlace';
+import PlacesList from './views/Place/PlacesList';
 import AuthenticationSignInView from './views/Authentication/SignInView';
 import AuthenticationSignUpView from './views/Authentication/SignUpView';
 import EditProfileView from './views/User/EditProfile';
 import ProtectedRoute from './components/ProtectedRoute';
 import ErrorView from './views/ErrorView';
 import ConfirmEmail from './views/Authentication/ConfirmEmail';
+import UserProfile from './views/User/UserProfile';
 
 import Spinner from './components/Spinner';
 
-import Navbar from './components/Navbar.jsx';
-import Header from './components/Header.jsx';
-import UserProfile from './views/User/UserProfile';
-//import ProtectedRoute from './components/ProtectedRoute';
+//import  from './components/ProtectedRoute';
 
 class App extends Component {
   constructor() {
@@ -76,24 +75,32 @@ class App extends Component {
               {/* Places */}
               <ProtectedRoute
                 path="/place/create"
-                render={props => <CreatePlace user={this.state.user} {...props} />}
+                render={props => (
+                  <CreatePlace user={this.state.user} {...props} />
+                )}
                 user={this.state.user}
                 redirect="/authentication/sign-in"
                 exact
               />
               <Route
                 path="/places/"
-                render={props => <SinglePlace user={this.state.user} {...props} />}
+                render={props => (
+                  <PlacesList user={this.state.user} {...props} />
+                )}
                 exact
               />
               <Route
                 path="/place/:id"
-                render={props => <SinglePlace user={this.state.user} {...props} />}
+                render={props => (
+                  <SinglePlace user={this.state.user} {...props} />
+                )}
                 exact
               />
               <ProtectedRoute
                 path="/place/:id/support"
-                render={props => <SupportPlaceView user={this.state.user} {...props} />}
+                render={props => (
+                  <SupportPlaceView user={this.state.user} {...props} />
+                )}
                 user={this.state.user}
                 redirect="/authentication/sign-in"
                 exact
@@ -102,15 +109,23 @@ class App extends Component {
               <ProtectedRoute
                 path="/authentication/sign-up"
                 render={props => (
-                  <AuthenticationSignUpView {...props} onUserUpdate={this.handleUserUpdate} />
+                  <AuthenticationSignUpView
+                    {...props}
+                    onUserUpdate={this.handleUserUpdate}
+                  />
                 )}
                 user={!this.state.user}
-                redirect={this.state.user ? `/profile/${this.state.user._id}` : `/`}
+                redirect={
+                  this.state.user ? `/profile/${this.state.user._id}` : `/`
+                }
               />
               <ProtectedRoute
                 path="/authentication/sign-in"
                 render={props => (
-                  <AuthenticationSignInView {...props} onUserUpdate={this.handleUserUpdate} />
+                  <AuthenticationSignInView
+                    {...props}
+                    onUserUpdate={this.handleUserUpdate}
+                  />
                 )}
                 user={!this.state.user}
                 redirect="/"
@@ -118,7 +133,10 @@ class App extends Component {
               <Route
                 path="/authentication/confirmation/:token"
                 render={props => (
-                  <ConfirmEmail {...props} onUserConfirmation={this.handleUserUpdate} />
+                  <ConfirmEmail
+                    {...props}
+                    onUserConfirmation={this.handleUserUpdate}
+                  />
                 )}
                 redirect="/"
               />{' '}
@@ -136,7 +154,12 @@ class App extends Component {
                 redirect="/"
                 exact
               />
-              <Route path="/profile/:id" user={this.state.user} component={UserProfile} exact />
+              <Route
+                path="/profile/:id"
+                user={this.state.user}
+                component={UserProfile}
+                exact
+              />
               {/* Error */}
               <Route path="/error" component={ErrorView} />
               {/* <Redirect from="/" to="/error" /> */}
@@ -144,7 +167,11 @@ class App extends Component {
             </Switch>
           )) || (
             <div className="loading">
-              <img className="loading-logo" src="/images/logo.svg" alt="Localista" />
+              <img
+                className="loading-logo"
+                src="/images/logo.svg"
+                alt="Localista"
+              />
               <Spinner />
             </div>
           )}
