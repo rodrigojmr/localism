@@ -145,7 +145,7 @@ export const PlaceForm = props => {
           />
         </div>
       </div>
-      <div className='input-group'>
+      <div className='input-group from-to-section'>
         <label>Schedule</label>
         <div className='schedule-inputs-wrapper'>
           <div>
