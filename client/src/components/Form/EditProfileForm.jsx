@@ -22,7 +22,7 @@ const UserProfileForm = props => {
   };
 
   return (
-    <form className="form" onSubmit={handleFormSubmission}>
+    <form className="form form-profile" onSubmit={handleFormSubmission}>
       <div className="user-profile-picture">
         <label htmlFor="input-avatar">
           <div className="image-cropper">
@@ -89,7 +89,11 @@ const UserProfileForm = props => {
         <label htmlFor="input-openDate">Birthday</label>
         <DatePicker
           id="input-birthday"
-          value={props.birthday ? format(props.birthday, 'dd-MM-yyyy') : props.birthday}
+          value={
+            props.birthday
+              ? format(props.birthday, 'dd-MM-yyyy')
+              : props.birthday
+          }
           dateFormat={'dd/MM/yyyy'}
           onChange={date => props.onValueChange('birthday', date)}
           className="input-group"
@@ -111,7 +115,10 @@ const UserProfileForm = props => {
         />
       </div>
 
-      <button className="sign-button"> {props.isEdit ? 'Save' : 'Sign Up'} </button>
+      <button className="sign-button">
+        {' '}
+        {props.isEdit ? 'Save' : 'Sign Up'}{' '}
+      </button>
     </form>
   );
 };

@@ -99,128 +99,135 @@ export const PlaceForm = props => {
           <option value="other">Other</option>
         </select>
       </div>
+      <div className="form-section-title">
+        <h1>Contacts</h1>
+      </div>
       <div className="input-group">
-        <div className="create-place-title">
-          <h1>Contacts</h1>
-        </div>
-        <div className="input-group">
-          <label htmlFor="input-phoneNumber">Phone Number</label>
-          <PhoneInput
-            id="input-phoneNumber"
-            value={props.phoneNumber}
-            onChange={phoneNumber =>
-              props.onValueChange('phoneNumber', phoneNumber)
-            }
-          />
-        </div>
-        <div className="input-group" id="email">
-          <label htmlFor="input-email">Email</label>
-          <input
-            placeholder="Email"
-            type="email"
-            name="email"
-            id="input-email"
-            value={props.email}
-            onChange={onValueChange}
-          />
-        </div>
-        <div className="input-group" id="instagram">
-          <label htmlFor="input-instagram">instagram</label>
-          <input
-            placeholder="instagram"
-            type="instagram"
-            name="instagram"
-            id="input-instagram"
-            value={props.instagram}
-            onChange={onValueChange}
-          />
-        </div>
-        <div className="input-group" id="website">
-          <label htmlFor="input-website">website</label>
-          <input
-            placeholder="website"
-            type="website"
-            name="website"
-            id="input-website"
-            value={props.website}
-            onChange={onValueChange}
-          />
-        </div>
+        <label htmlFor="input-phoneNumber">Phone Number</label>
+        <PhoneInput
+          id="input-phoneNumber"
+          value={props.phoneNumber}
+          onChange={phoneNumber =>
+            props.onValueChange('phoneNumber', phoneNumber)
+          }
+        />
+      </div>
+      <div className="input-group" id="email">
+        <label htmlFor="input-email">Email</label>
+        <input
+          placeholder="Email"
+          type="email"
+          name="email"
+          id="input-email"
+          value={props.email}
+          onChange={onValueChange}
+        />
+      </div>
+      <div className="input-group" id="instagram">
+        <label htmlFor="input-instagram">instagram</label>
+        <input
+          placeholder="instagram"
+          type="instagram"
+          name="instagram"
+          id="input-instagram"
+          value={props.instagram}
+          onChange={onValueChange}
+        />
+      </div>
+      <div className="input-group" id="website">
+        <label htmlFor="input-website">website</label>
+        <input
+          placeholder="website"
+          type="website"
+          name="website"
+          id="input-website"
+          value={props.website}
+          onChange={onValueChange}
+        />
+      </div>
+      <div className="form-section-title">
+        <h1>Schedule</h1>
       </div>
       <div className="input-group from-to-section">
-        <label>Schedule</label>
         <div className="schedule-inputs-wrapper">
-          <div>
-            <label htmlFor="input-schedule-open">From:</label>
-            <select
-              selected=""
-              onChange={onValueChange}
-              name="weekDayOpen"
-              id="input-schedule-open"
-            >
-              <option hidden value=""></option>
-              <option value="monday">Monday</option>
-              <option value="tuesday">Tuesday</option>
-              <option value="wednesday">Wednesday</option>
-              <option value="thursday">Thursday</option>
-              <option value="friday">Friday</option>
-              <option value="saturday">Saturday</option>
-              <option value="sunday">Sunday</option>
-            </select>
+          <div className="schedule-inputs-wrapper__section">
+            <div>
+              <label htmlFor="input-schedule-open">From:</label>
+              <select
+                selected=""
+                onChange={onValueChange}
+                name="weekDayOpen"
+                id="input-schedule-open"
+              >
+                <option hidden value=""></option>
+                <option value="monday">Monday</option>
+                <option value="tuesday">Tuesday</option>
+                <option value="wednesday">Wednesday</option>
+                <option value="thursday">Thursday</option>
+                <option value="friday">Friday</option>
+                <option value="saturday">Saturday</option>
+                <option value="sunday">Sunday</option>
+              </select>
+            </div>
+            <div>
+              <label htmlFor="input-schedule-open">To:</label>
+              <select
+                selected=""
+                onChange={onValueChange}
+                name="weekDayClose"
+                id="input-schedule-close"
+              >
+                <option hidden value=""></option>
+                <option value="monday">Monday</option>
+                <option value="tuesday">Tuesday</option>
+                <option value="wednesday">Wednesday</option>
+                <option value="thursday">Thursday</option>
+                <option value="friday">Friday</option>
+                <option value="saturday">Saturday</option>
+                <option value="sunday">Sunday</option>
+              </select>
+            </div>
           </div>
-          <div>
-            <label htmlFor="input-schedule-open">To:</label>
-            <select
-              selected=""
-              onChange={onValueChange}
-              name="weekDayClose"
-              id="input-schedule-close"
-            >
-              <option hidden value=""></option>
-              <option value="monday">Monday</option>
-              <option value="tuesday">Tuesday</option>
-              <option value="wednesday">Wednesday</option>
-              <option value="thursday">Thursday</option>
-              <option value="friday">Friday</option>
-              <option value="saturday">Saturday</option>
-              <option value="sunday">Sunday</option>
-            </select>
-          </div>
-          <div>
-            <label htmlFor="input-time">Opens:</label>
-            <DatePicker
-              // selected={props.openTime || setHours('open')}
-              selected={props.openTime}
-              onChange={date => props.onValueChange('openTime', date)}
-              showTimeSelect
-              showTimeSelectOnly
-              timeIntervals={30}
-              timeCaption="Time"
-              dateFormat="h:mm aa"
-            />
-          </div>
-          <div>
-            <label htmlFor="input-time">Closes:</label>
-            <DatePicker
-              // selected={props.closeTime || setHours('close')}
-              selected={props.closeTime}
-              onChange={date => props.onValueChange('closeTime', date)}
-              showTimeSelect
-              showTimeSelectOnly
-              timeIntervals={30}
-              timeCaption="Time"
-              dateFormat="h:mm aa"
-            />
+          <div className="schedule-inputs-wrapper__section">
+            <div>
+              <label htmlFor="input-time">Opens:</label>
+              <DatePicker
+                popperPlacement="auto"
+                // selected={props.openTime || setHours('open')}
+                selected={props.openTime}
+                onChange={date => props.onValueChange('openTime', date)}
+                showTimeSelect
+                showTimeSelectOnly
+                timeIntervals={30}
+                timeCaption="Time"
+                dateFormat="h:mm aa"
+              />
+            </div>
+            <div>
+              <label htmlFor="input-time">Closes:</label>
+              <DatePicker
+                popperPlacement="auto"
+                // selected={props.closeTime || setHours('close')}
+                selected={props.closeTime}
+                onChange={date => props.onValueChange('closeTime', date)}
+                showTimeSelect
+                showTimeSelectOnly
+                timeIntervals={30}
+                timeCaption="Time"
+                dateFormat="h:mm aa"
+              />
+            </div>
           </div>
         </div>
       </div>
+
       <div className="create-place-title">
         <h1>Let's get relatable, tell locals more about your place!</h1>
       </div>
       <div className="input-group">
         <label htmlFor="input-description">Description:</label>
         <textarea
-          onchange={onValueChange}
+          onChange={onValueChange}
           name="description"
           id="input-description"
           cols="30"
@@ -231,6 +238,7 @@ export const PlaceForm = props => {
       <div className="input-group">
         <label htmlFor="input-openDate">It has been open since:</label>
         <DatePicker
+          popperPlacement="auto"
           id="input-openDate"
           value={
             props.openDate

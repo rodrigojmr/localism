@@ -87,7 +87,7 @@ class EditProfileView extends Component {
 
   render() {
     return (
-      <div>
+      <div className="edit-profile-view">
         <UserProfileForm
           {...this.state}
           onDateChange={this.handleDateChange}
