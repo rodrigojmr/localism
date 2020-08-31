@@ -102,6 +102,7 @@ placeRouter.post('/', placeImages, async (req, res, next) => {
   } = req.body;
 
   try {
+    console.log('req user', req.user);
     let images;
     if (!req.files) {
       images = '';
