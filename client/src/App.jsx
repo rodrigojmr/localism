@@ -63,6 +63,10 @@ class App extends Component {
   render() {
     return (
       <div className="App">
+        <div className="desktop-blocker">
+          This app was developed mobile-first. Please view this app on your
+          mobile browser.
+        </div>
         <main className="content">
           {(this.state.loaded && (
             <Switch>

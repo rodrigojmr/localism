@@ -10,55 +10,58 @@
 
 .home .search-icon {
   stroke: $color-primary;
-  width: 50px;
-  height: 50px;
+  width: 33px;
+  height: 33px;
   margin-right: 20px;
-}
-
-.search-wrapper {
-  display: flex;
-  align-items: center;
-  position: absolute;
-  bottom: 0rem;
-  width: 185vw;
-
-  left: 0vw;
-  padding: 0;
-  background-color: white;
-
-  transition: all 0.4s ease;
-}
-
-.search-expanded {
-  padding: 10px 20px;
-  left: -85%;
-  border-radius: 5px;
-  padding: 1rem 1.5rem;
-}
-
-.home .search,
-.home .search input {
-  width: 100%;
-}
-
-.home .search div[data-reach-combobox] {
-  padding-bottom: 5px;
-}
-
-.home .search input {
-  padding: 5px 10px 5px 10px;
-}
-
-.current-locality {
-  width: 80%;
-  padding-left: 15%;
-  padding-right: 5%;
 }
 
 .current-locality,
 .search-locality {
   color: $color-primary;
   font-weight: 600;
+}
+
+.search-wrapper {
+  display: flex;
+  align-items: center;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+
+  padding: 0;
+  background-color: white;
+
+  transition: all 0.4s ease;
+
+  .current-locality {
+    width: 91vw;
+  }
+
+  &__first-view {
+    width: 100vw;
+  }
+}
+
+.search-expanded {
+  padding: 10px 20px;
+  left: -91vw;
+  border-radius: 5px;
+  padding: 1rem 1.5rem;
+}
+
+.home .search {
+  width: 83vw;
+}
+
+.home .search input {
+  width: 100%;
+}
+.home .search div[data-reach-combobox] {
+  padding-bottom: 5px;
+}
+
+.home .search input {
+  padding: 5px 10px 5px 10px;
 }
 
 .search-locality {
