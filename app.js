@@ -39,14 +39,14 @@ app.use(
 app.use(bodyParser.json());
 app.use(
   expressSession({
+    proxy: true,
     secret: process.env.COOKIE_SECRET,
     resave: true,
     saveUninitialized: false,
     cookie: {
       maxAge: 1000 * 60 * 60 * 24 * 15,
-      sameSite: 'lax',
-      httpOnly: true,
-      secure: process.env.NODE_ENV === 'production'
+      sameSite: 'none',
+      secure: true
     },
     store: new mongoStore({
       mongooseConnection: mongoose.connection,
