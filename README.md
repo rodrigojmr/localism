@@ -1,6 +1,6 @@
 # Localista
 
-![Logo](./../../client/public/images/logos.png)
+![Logo](./client/public/images/logos.png?raw=true)
 
 ## About
 
