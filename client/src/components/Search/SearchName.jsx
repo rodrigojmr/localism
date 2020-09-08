@@ -9,12 +9,11 @@ import {
 import './../../App.css';
 import '@reach/combobox/styles.css';
 
-const SearchName = props => {
+const SearchName = React.forwardRef((props, ref) => {
   return (
-    <div className="search">
-      <div className="search-locality">{props.locality}</div>
-      {/* <label htmlFor="input-name"> Search By Name</label> */}
+    <div className="search-bar__input-wrapper">
       <Combobox
+        style={{ display: 'flex' }}
         onSelect={async name => {
           console.log('name: ', name);
           props.onSearchUpdate(name);
@@ -27,6 +26,8 @@ const SearchName = props => {
         }}
       >
         <ComboboxInput
+          className="input-hidden"
+          ref={ref}
           id="input-name"
           value={props.searchQuery}
           onChange={e => {
@@ -46,6 +47,6 @@ const SearchName = props => {
       </Combobox>
     </div>
   );
-};
+});
 
 export default SearchName;

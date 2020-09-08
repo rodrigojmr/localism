@@ -54,11 +54,11 @@ const Map = props => {
     mapRef.current.setZoom(18);
   }, []);
 
-  const setMarker = ({ lat, lng }) => {
+  const setMarker = React.useCallback(({ lat, lng }) => {
     setNewMarker(current => {
       return { lat, lng, time: new Date() };
     });
-  };
+  }, []);
 
   const handleResultInfo = result => {
     console.log('result: ', result);

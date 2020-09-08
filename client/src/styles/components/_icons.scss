@@ -1,0 +1,20 @@
+.icon {
+  &--s {
+    width: 33px;
+    height: 33px;
+    margin-right: 20px;
+  }
+
+  &--primary {
+    stroke: $color-primary;
+  }
+
+  &--w {
+    stroke: white;
+  }
+}
+
+.navbar-icon {
+  width: 30px;
+  height: 30px;
+}

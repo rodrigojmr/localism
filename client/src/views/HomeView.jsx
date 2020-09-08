@@ -30,7 +30,7 @@ class HomeView extends Component {
     }
   }
 
-  getLocation() {
+  getLocation = () => {
     navigator.geolocation.getCurrentPosition(
       position => {
         this.setState({
@@ -45,18 +45,18 @@ class HomeView extends Component {
       },
       { maximumAge: 10000, timeout: 5000, enableHighAccuracy: true }
     );
-  }
+  };
 
-  getBoundaryPlaces(boundaries) {
+  getBoundaryPlaces = boundaries => {
     nearbyPlaces(boundaries).then(data => {
       this.setState({
         places: data.places
       });
     });
     this.handleSearch(this.state.searchQuery);
-  }
+  };
 
-  getLocalityPlaces() {
+  getLocalityPlaces = () => {
     if (this.state.locality) {
       localityPlaces(this.state.locality).then(data => {
         console.log('this.state.locality: ', this.state.locality);
@@ -66,15 +66,15 @@ class HomeView extends Component {
         });
       });
     }
-  }
+  };
 
-  handleLocalityUpdate(locality) {
+  handleLocalityUpdate = locality => {
     this.setState({
       locality
     });
-  }
+  };
 
-  handlePlaceSelection(place) {
+  handlePlaceSelection = place => {
     this.setState({
       selectedPlace: place
     });
@@ -91,7 +91,7 @@ class HomeView extends Component {
     } else {
       placeInfoWrapper.classList.remove('place-info-mini--expanded');
     }
-  }
+  };
 
   handleSearch = searchQuery => {
     const filteredPlaces = this.state.places.filter(place =>
@@ -104,10 +104,10 @@ class HomeView extends Component {
     });
   };
 
-  toggleSearch() {
+  toggleSearch = () => {
     const searchWrapper = this.searchWrapper.current;
-    searchWrapper.classList.toggle('search-expanded');
-  }
+    searchWrapper.classList.toggle('input-expanded');
+  };
 
   render() {
     const selected = this.state.selectedPlace;
@@ -115,24 +115,32 @@ class HomeView extends Component {
     return (
       <div className="home">
         <HomeMap
+          selected={this.state.selectedPlace}
+          center={this.state.location}
           locality={this.state.locality}
           places={
             this.state.searchQuery
               ? this.state.filteredPlaces
               : this.state.places
           }
-          selected={this.state.selectedPlace}
-          center={this.state.location}
           handlePlaceSelection={place => this.handlePlaceSelection(place)}
           onLocalityUpdate={locality => this.handleLocalityUpdate(locality)}
           // idleMapSearch={boundaries => this.getBoundaryPlaces(boundaries)}
-          idleMapSearch={() => this.getLocalityPlaces()}
+          idleMapSearch={this.getLocalityPlaces}
         />
-        <div ref={this.searchWrapper} className="search-wrapper">
-          <div className="current-locality">{this.state.locality}</div>
+        <div className="search-bar">
+          <h2 className="search-bar__title">{this.state.locality}</h2>
+          <SearchName
+            ref={this.searchWrapper}
+            handlePlaceSelection={place => this.handlePlaceSelection(place)}
+            onSearchUpdate={searchQuery => this.handleSearch(searchQuery)}
+            searchQuery={this.state.searchQuery}
+            places={this.state.filteredPlaces}
+            locality={this.state.locality}
+          />
 
           <svg
-            onClick={() => this.toggleSearch()}
+            onClick={this.toggleSearch}
             xmlns="http://www.w3.org/2000/svg"
             width="24"
             height="24"
@@ -142,18 +150,11 @@ class HomeView extends Component {
             strokeWidth="2"
             strokeLinecap="round"
             strokeLinejoin="round"
-            className="search-icon feather feather-search"
+            className="icon icon--s icon--primary search-bar__icon feather feather-search"
           >
             <circle cx="11" cy="11" r="8"></circle>
             <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
           </svg>
-          <SearchName
-            handlePlaceSelection={place => this.handlePlaceSelection(place)}
-            onSearchUpdate={searchQuery => this.handleSearch(searchQuery)}
-            searchQuery={this.state.searchQuery}
-            places={this.state.filteredPlaces}
-            locality={this.state.locality}
-          />
         </div>
 
         <div ref={this.placeInfoWrapper} className="place-info-mini">

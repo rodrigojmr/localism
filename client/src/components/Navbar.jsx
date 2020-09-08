@@ -20,7 +20,7 @@ const Navbar = props => {
             strokeWidth="2"
             strokeLinecap="round"
             strokeLinejoin="round"
-            className="navbar-icon feather feather-list"
+            className="icon--w navbar-icon feather feather-list"
           >
             <line x1="8" y1="6" x2="21" y2="6"></line>
             <line x1="8" y1="12" x2="21" y2="12"></line>
@@ -43,7 +43,7 @@ const Navbar = props => {
             strokeWidth="2"
             strokeLinecap="round"
             strokeLinejoin="round"
-            className="navbar-icon feather feather-map"
+            className="icon--w navbar-icon feather feather-map"
           >
             <polygon points="1 6 1 22 8 18 16 22 23 18 23 2 16 6 8 2 1 6"></polygon>
             <line x1="8" y1="2" x2="8" y2="18"></line>
@@ -63,7 +63,7 @@ const Navbar = props => {
             strokeWidth="2"
             strokeLinecap="round"
             strokeLinejoin="round"
-            className="navbar-icon feather feather-user"
+            className="icon--w navbar-icon feather feather-user"
           >
             <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
             <circle cx="12" cy="7" r="4"></circle>
@@ -84,7 +84,7 @@ const Navbar = props => {
                 strokeWidth="2"
                 strokeLinecap="round"
                 strokeLinejoin="round"
-                className="navbar-icon feather feather-plus-circle"
+                className="icon--w navbar-icon feather feather-plus-circle"
               >
                 <circle cx="12" cy="12" r="10"></circle>
                 <line x1="12" y1="8" x2="12" y2="16"></line>
@@ -105,7 +105,7 @@ const Navbar = props => {
                 strokeWidth="2"
                 strokeLinecap="round"
                 strokeLinejoin="round"
-                className="navbar-icon feather feather-log-out"
+                className="icon--w navbar-icon feather feather-log-out"
               >
                 <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path>
                 <polyline points="16 17 21 12 16 7"></polyline>
