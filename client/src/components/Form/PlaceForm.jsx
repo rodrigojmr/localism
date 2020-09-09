@@ -13,6 +13,17 @@ export const PlaceForm = props => {
     props.onFormSubmission();
   };
 
+  const onCategoryChange = event => {
+    const value = event.target.value;
+    const otherInput = document.querySelector('#input-category-other');
+    if (value === 'other') {
+      otherInput.style.display = 'block';
+    } else {
+      otherInput.style.display = 'none';
+      onValueChange(event);
+    }
+  };
+
   const onValueChange = event => {
     const name = event.target.name;
     const value = event.target.value;
@@ -64,40 +75,46 @@ export const PlaceForm = props => {
           name="category"
           id="input-category"
           value={props.category}
-          onChange={onValueChange}
+          onChange={onCategoryChange}
         >
           <option hidden value=""></option>
-          <option value="restaurant">Restaurant</option>
-          <option value="bar">Bar</option>
-          <option value="shop">Shop</option>
-          <option value="grocery">Grocery Store</option>
-          <option value="drugstore">Drugstore</option>
-          <option value="bakery">Bakery</option>
-          <option value="coffe_shop">Coffee Shop</option>
-          <option value="antique">Antique</option>
-          <option value="hotel">Hotel</option>
-          <option value="hairdresser">Hairdresser</option>
-          <option value="delicatessem">Delicatessen</option>
-          <option value="butcher">Butcher</option>
-          <option value="florist">Florist</option>
-          <option value="car_workshop">Car workshop</option>
+          <option value="antique_shop">Antique Shop</option>
           <option value="atellier">Atellier</option>
-          <option value="co_working">Co-working</option>
-          <option value="ngo">NGO</option>
-          <option value="jewerly">Jewerly</option>
-          <option value="laundry">Laundry</option>
-          <option value="keycutter">Keycutter</option>
-          <option value="haberdasher">Haberdasher</option>
-          <option value="funerary">Funerary</option>
-          <option value="gallery">Gallery</option>
+          <option value="bakery">Bakery</option>
+          <option value="bar">Bar</option>
+          <option value="butcher">Butcher</option>
+          <option value="car_workshop">Car Workshop</option>
           <option value="clinic">Clinic</option>
-          <option value="cellphone_suplier">Cellphone supplier</option>
+          <option value="co_working">Co-working</option>
+          <option value="coffe_shop">Coffee Shop</option>
+          <option value="computer_store">Computer Store</option>
+          <option value="delicatessem">Delicatessen</option>
+          <option value="drugstore">Drugstore</option>
+          <option value="florist">Florist</option>
+          <option value="gallery">Gallery</option>
+          <option value="grocery">Grocery Store</option>
+          <option value="haberdasher">Haberdasher</option>
+          <option value="hairdresser">Hairdresser</option>
+          <option value="hotel">Hotel</option>
+          <option value="jewerly">Jewerly</option>
+          <option value="keycutter">Keycutter</option>
+          <option value="laundry">Laundry</option>
           <option value="lottery">Lottery</option>
           <option value="newstand">Newstand</option>
-          <option value="snack_bar">Snack bar</option>
+          <option value="ngo">NGO</option>
           <option value="real_estate">Real Estate</option>
+          <option value="restaurant">Restaurant</option>
+          <option value="shop">Shop</option>
+          <option value="snack_bar">Snack bar</option>
+          <option value="venue">Venue</option>
           <option value="other">Other</option>
         </select>
+        <input
+          onChange={onValueChange}
+          type="text"
+          name="category"
+          id="input-category-other"
+        />
       </div>
       <div className="form-section-title">
         <h1>Contacts</h1>

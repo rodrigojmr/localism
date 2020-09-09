@@ -23,7 +23,11 @@ const UserProfileForm = props => {
       <div className="user-profile-picture">
         <label htmlFor="input-avatar">
           <div className="image-cropper">
-            <img src={props.avatarPreview} alt={props.username} className="profile-pic" />
+            <img
+              src={props.avatarPreview}
+              alt={props.username}
+              className="profile-pic"
+            />
           </div>
           <input
             style={{ display: 'none' }}
@@ -86,7 +90,7 @@ const UserProfileForm = props => {
         />
       </div>
 
-      <div className="map-input">
+      <div className="input-group">
         <MapSearch
           height={'40vh'}
           resultInfoHandler={(name, value) => props.onValueChange(name, value)}
@@ -96,7 +100,7 @@ const UserProfileForm = props => {
       {props.error && (
         <div className="error-block">
           <p>There was an error submiting the form:</p>
-          <p>{this.state.error.message}</p>
+          <p>{props.error.message}</p>
         </div>
       )}
       <button className="sign-button"> Sign Up</button>
