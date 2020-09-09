@@ -43,18 +43,22 @@ authenticationRouter.post(
   fileUploader.single('avatar'),
   async (req, res, next) => {
     const { name, username, email, password, address_components } = req.body;
-    let url;
-    if (req.file) {
-      url = req.file.path;
-    }
-
-    const locality = address_components.find(
-      component =>
-        component.types.includes('locality') ||
-        component.types.includes('administrative_area_level_1')
-    ).short_name;
 
     try {
+      const userExists = await User.findOne({ $or: [{ username }, { email }] });
+      if (userExists) throw new Error('User already exists.');
+
+      let url;
+      if (req.file) {
+        url = req.file.path;
+      }
+
+      const locality = address_components.find(
+        component =>
+          component.types.includes('locality') ||
+          component.types.includes('administrative_area_level_1')
+      ).short_name;
+
       if (password.length < 8) throw new Error('Password is too short.');
       const hashAndSalt = await bcrypt.hash(password, 10);
       const token = generateId(10);
@@ -85,6 +89,31 @@ authenticationRouter.post(
   }
 );
 
+authenticationRouter.post('/sign-in', async (req, res, next) => {
+  const { username, password } = req.body;
+  try {
+    const user = await User.findOne({ username });
+    if (!user) throw new Error('No user with that username.');
+    const passwordHashAndSalt = user.passwordHashAndSalt;
+    const comparison = await bcrypt.compare(password, passwordHashAndSalt);
+    if (!comparison) throw new Error('Password did not match.');
+
+    req.session.userId = user._id;
+    res.json({
+      user: {
+        _id: user._id,
+        name: user.name,
+        username: user.username,
+        email: user.email,
+        avatar: user.avatar,
+        locality: user.locality
+      }
+    });
+  } catch (error) {
+    next(error);
+  }
+});
+
 authenticationRouter.get(`/confirmation/:token`, async (req, res, next) => {
   const token = req.params.token;
   try {
@@ -107,31 +136,6 @@ authenticationRouter.get(`/confirmation/:token`, async (req, res, next) => {
         }
       });
     }
-  } catch (error) {
-    next(error);
-  }
-});
-
-authenticationRouter.post('/sign-in', async (req, res, next) => {
-  const { username, password } = req.body;
-  try {
-    const user = await User.findOne({ username });
-    if (!user) throw new Error('No user with that username.');
-    const passwordHashAndSalt = user.passwordHashAndSalt;
-    const comparison = await bcrypt.compare(password, passwordHashAndSalt);
-    if (!comparison) throw new Error('Password did not match.');
-
-    req.session.userId = user._id;
-    res.json({
-      user: {
-        _id: user._id,
-        name: user.name,
-        username: user.username,
-        email: user.email,
-        avatar: user.avatar,
-        locality: user.locality
-      }
-    });
   } catch (error) {
     next(error);
   }
