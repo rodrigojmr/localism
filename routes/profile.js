@@ -13,10 +13,11 @@ const profileRouter = new express.Router();
 
 profileRouter.get('/:id', async (req, res, next) => {
   const id = req.params.id;
-  console.log('req.params: ', req.params);
   try {
     const user = await User.findById(id)
-      .select('username name birthday gender owner avatar email locality supports info')
+      .select(
+        'username name birthday gender owner avatar email locality supports info'
+      )
       .populate('supports')
       .populate({
         path: 'supports',
@@ -28,7 +29,6 @@ profileRouter.get('/:id', async (req, res, next) => {
       });
     const place = await Place.findOne({ owner: id });
     if (user) {
-      console.log('user: ', user);
       res.json({ user, place });
     } else {
       next();
@@ -38,66 +38,82 @@ profileRouter.get('/:id', async (req, res, next) => {
   }
 });
 
-profileRouter.patch('/:id', fileUploader.single('avatar'), async (req, res, next) => {
-  const { name, username, password, gender, owner, birthday, privateAddress, email } = req.body;
-  console.log('req.body: ', req.body);
-  const id = req.params.id;
-  let url;
-  if (req.file) {
-    url = req.file.path;
-  }
+profileRouter.patch(
+  '/:id',
+  fileUploader.single('avatar'),
+  async (req, res, next) => {
+    const {
+      name,
+      username,
+      password,
+      gender,
+      owner,
+      birthday,
+      privateAddress,
+      email
+    } = req.body;
+    const id = req.params.id;
+    let url;
+    if (req.file) {
+      url = req.file.path;
+    }
 
-  const locality = privateAddress.find(
-    component =>
-      component.types.includes('locality') ||
-      component.types.includes('administrative_area_level_1')
-  ).short_name;
-  try {
-    if (password.length > 1 && password.length < 8) {
-      throw new Error('Password is too short.');
-    } else if (password.length >= 8) {
-      const hashAndSalt = await bcrypt.hash(password, 10);
+    const locality = privateAddress.find(
+      component =>
+        component.types.includes('locality') ||
+        component.types.includes('administrative_area_level_1')
+    ).short_name;
+    try {
+      if (password.length > 1 && password.length < 8) {
+        throw new Error('Password is too short.');
+      } else if (password.length >= 8) {
+        const hashAndSalt = await bcrypt.hash(password, 10);
+        const user = await User.findByIdAndUpdate(
+          id,
+          {
+            passwordHashAndSalt: hashAndSalt
+          },
+          { new: true }
+        );
+        user.save();
+      }
       const user = await User.findByIdAndUpdate(
         id,
         {
-          passwordHashAndSalt: hashAndSalt
+          user: req.user._id,
+          name,
+          username,
+          gender,
+          birthday,
+          privateAddress,
+          locality,
+          email,
+          owner,
+          avatar: url
         },
         { new: true }
       );
-      user.save();
-    }
-    const user = await User.findByIdAndUpdate(
-      id,
-      {
-        user: req.user._id,
-        name,
-        username,
-        gender,
-        birthday,
-        privateAddress,
-        locality,
-        email,
-        owner,
-        avatar: url
-      },
-      { new: true }
-    );
-    res.json({ user });
-  } catch (error) {
-    next(error);
-  }
-});
-
-profileRouter.delete('/:id', routeAuthenticationGuard, async (req, res, next) => {
-  const id = req.params.id;
-
-  User.findOneAndDelete({ _id: id, creator: req.user._id })
-    .then(() => {
-      res.json({});
-    })
-    .catch(error => {
+      res.json({ user });
+    } catch (error) {
       next(error);
-    });
-});
+    }
+  }
+);
+
+profileRouter.delete(
+  '/:id',
+  routeAuthenticationGuard,
+  async (req, res, next) => {
+    const id = req.params.id;
+
+    User.findOneAndDelete({ _id: id, creator: req.user._id })
+      .then(() => {
+        res.json({});
+      })
+      .catch(error => {
+        next(error);
+      });
+  }
+);
 
 module.exports = profileRouter;

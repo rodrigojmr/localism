@@ -73,7 +73,6 @@ const Map = props => {
       geocoder.geocode({ location: center }, function(results, status) {
         if (status === 'OK') {
           if (results[0]) {
-            console.log('results[0]: ', results[0]);
             const result = results[0].address_components.find(
               component =>
                 component.types.includes('locality') ||

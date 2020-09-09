@@ -12,7 +12,6 @@ const placeImages = fileUploader.array('images');
 const placeRouter = new express.Router();
 
 placeRouter.get('/all', async (req, res, next) => {
-  console.log('getting all places');
   try {
     const places = await Place.find({});
     res.json({ places });
@@ -102,7 +101,6 @@ placeRouter.post('/', placeImages, async (req, res, next) => {
   } = req.body;
 
   try {
-    console.log('req user', req.user);
     let images;
     if (!req.files) {
       images = '';
