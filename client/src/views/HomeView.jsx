@@ -33,6 +33,7 @@ class HomeView extends Component {
   getLocation = () => {
     navigator.geolocation.getCurrentPosition(
       position => {
+        console.log('position: ', position);
         this.setState({
           location: {
             lat: position.coords.latitude,
@@ -59,8 +60,6 @@ class HomeView extends Component {
   getLocalityPlaces = () => {
     if (this.state.locality) {
       localityPlaces(this.state.locality).then(data => {
-        console.log('this.state.locality: ', this.state.locality);
-        console.log('places: ', data.places);
         this.setState({
           places: data.places
         });
