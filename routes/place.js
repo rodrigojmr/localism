@@ -46,7 +46,8 @@ placeRouter.get('/:id', async (req, res, next) => {
 
   try {
     const place = await Place.findById(id)
-      .populate('owner supports')
+      .populate('owner', 'avatar name username ')
+      .populate('supports')
       .populate({
         path: 'supports',
         populate: {
