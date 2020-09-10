@@ -99,6 +99,7 @@ authenticationRouter.post('/sign-in', async (req, res, next) => {
     if (!comparison) throw new Error('Password did not match.');
 
     req.session.userId = user._id;
+    console.log('sign in session userid:', req.session.userId);
     res.json({
       user: {
         _id: user._id,
