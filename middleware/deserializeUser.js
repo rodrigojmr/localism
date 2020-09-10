@@ -2,16 +2,18 @@
 
 const User = require('../models/user');
 
-const deserializeUser = async (request, response, next) => {
+const deserializeUser = async (req, res, next) => {
   // Make the user object available to any route handler or middleware
   // after this
-  const id = request.session.userId;
+  const id = req.session.userId;
+  console.log('req.session: ', req.session);
+  console.log('deserialize req session userId:', req.session.userId);
 
   try {
     const user = await User.findById(id).select(
       '_id name email username avatar'
     );
-    request.user = user;
+    req.user = user;
     next();
   } catch (error) {
     next(error);
