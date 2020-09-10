@@ -59,7 +59,6 @@ class AuthenticationSignUpView extends Component {
         this.props.history.push(`/profile/${user._id}`);
       })
       .catch(error => {
-        console.log('error.response: ', error);
         const serverError = error.response.data.error;
         this.setState({
           error: serverError

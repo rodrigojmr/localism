@@ -15,7 +15,6 @@ const SearchName = React.forwardRef((props, ref) => {
       <Combobox
         style={{ display: 'flex' }}
         onSelect={async name => {
-          console.log('name: ', name);
           props.onSearchUpdate(name);
           try {
             const place = props.places.find(place => place.name === name);
