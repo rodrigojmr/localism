@@ -126,7 +126,7 @@ authenticationRouter.get(`/confirmation/:token`, async (req, res, next) => {
     } else {
       user.active = true;
       user.save();
-      req.session.user = user._id;
+      req.session.userId = user._id;
       res.json({
         message: "You've confirmed your e-mail!",
         user: {

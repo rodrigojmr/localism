@@ -32,7 +32,7 @@ app.use(express.json());
 app.use(
   cors({
     credentials: true,
-    origin: [process.env.CLIENT_APP_URL]
+    origin: [process.env.CLIENT_APP_URL, 'http://127.0.0.1:3000']
   })
 );
 
@@ -45,8 +45,8 @@ app.use(
     saveUninitialized: false,
     cookie: {
       maxAge: 1000 * 60 * 60 * 24 * 15,
-      sameSite: 'none',
-      secure: true
+      sameSite: process.env.NODE_ENV === 'development' ? 'lax' : 'none',
+      secure: process.env.NODE_ENV === 'production'
     },
     store: new mongoStore({
       mongooseConnection: mongoose.connection,
