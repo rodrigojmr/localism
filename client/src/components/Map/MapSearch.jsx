@@ -61,7 +61,6 @@ const Map = props => {
   }, []);
 
   const handleResultInfo = result => {
-    console.log('result: ', result);
     const obj = {
       place_id: result.place_id,
       formatted_address: result.formatted_address,
