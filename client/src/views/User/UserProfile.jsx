@@ -16,7 +16,6 @@ class UserProfile extends Component {
     const id = this.props.match.params.id;
     loadProfile(id).then(data => {
       const { user, place } = data;
-      console.log({ user, place });
       this.setState({
         loaded: true,
         place: { ...place },
@@ -32,7 +31,6 @@ class UserProfile extends Component {
   render() {
     const { publicUser } = this.state;
     const { place } = this.state;
-    console.log(publicUser);
     return (
       <div className="form">
         {this.state.loaded && (

@@ -28,7 +28,6 @@ class EditProfileView extends Component {
 
   getUser() {
     loadUser().then(data => {
-      console.log('data: ', data);
       this.setState({
         avatarPreview: data.user.avatar,
         ...data.user
