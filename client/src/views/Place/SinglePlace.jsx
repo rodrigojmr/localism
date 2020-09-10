@@ -17,23 +17,19 @@ class SinglePlace extends Component {
   }
 
   componentDidMount() {
+    this.loadPlace();
+  }
+
+  loadPlace = () => {
     const { id } = this.props.match.params;
     loadPlace(id).then(data => {
       const { place } = data;
-      console.log('place: ', place);
       this.setState({
         loaded: true,
         place
       });
     });
-    /*loadSupport(id).then(data => {
-      const { support } = data;
-      this.setState({
-        loaded: true,
-        support
-      });
-    });*/
-  }
+  };
 
   render() {
     const { place } = this.state;
@@ -58,15 +54,17 @@ class SinglePlace extends Component {
             <div className="place-info__row">
               <div className="place-info__overview">
                 <h1 className="heading heading--1">{place.name}</h1>
-                <p className="category">{`${place.category
+                <p className="category">{`#${place.category
                   .split(' ')
                   .join('_')}`}</p>
-                {place.schedule.time.openTime &&
-                  place.schedule.time.closeTime && (
-                    <p className="schedule">
-                      {`Schedule: ${openTime}h - ${closeTime}h from ${place.schedule.from} to ${place.schedule.to}`}
-                    </p>
-                  )}
+                {place.schedule.time.openTime && place.schedule.time.closeTime && (
+                  <p className="schedule">
+                    {`Schedule: ${openTime}h - ${closeTime}h` + ' from '}
+                    <span className="capitalize">{`${place.schedule.from}`}</span>
+                    {' to '}
+                    <span className="capitalize">{`${place.schedule.to}`}</span>
+                  </p>
+                )}
               </div>
               <div>
                 <div className="suggestions-num-wrapper">
@@ -85,15 +83,18 @@ class SinglePlace extends Component {
                 </div>
               ))}
             </div>
-            <div className="place-info__row place-info__owner">
+            <div className="place-info__row">
+              <p className="place-info__description">{place.description}</p>
+            </div>
+            <div className="place-info__row place-info__row--v">
               <h2>Meet the owners</h2>
-              <div className="place-owner">
-                <div className="place-owner__img-wrapper">
+              <div className="place-info__owner">
+                <div className="place-info__owner-img-wrapper">
                   <Link to={`/profile/${place.owner._id}`}>
                     <img src={place.owner.avatar} alt={place.owner.name} />
                   </Link>
                 </div>
-                <div className="place-owner__description">
+                <div className="place-info__owner-about">
                   <p>{place.owner.name}</p>
                   <p>{place.about}</p>
                 </div>

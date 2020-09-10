@@ -2,5 +2,6 @@
   position: relative;
   background-color: #eee;
   overflow: hidden;
-  padding-bottom: $navbar-height;
+  overflow-y: scroll;
+  height: calc(100vh - #{$navbar-height});
 }

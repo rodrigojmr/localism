@@ -14,8 +14,12 @@ body {
 .category {
   line-height: 1.5;
   font-size: 0.9rem;
-  padding: 0px 5px;
+  padding: 0px 8px;
   border-radius: 10px;
   background-color: $color-complement;
   margin-bottom: 10px;
+}
+
+.capitalize {
+  text-transform: capitalize;
 }
