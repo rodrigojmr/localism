@@ -4,12 +4,14 @@
 
 @import 'vendors/spinner';
 
+@import 'components/buttons';
 @import 'components/icons';
 @import 'components/forms';
 @import 'components/loading';
 @import 'components/homeMap';
-@import 'components/placeMini';
+@import 'components/place';
 @import 'components/profileform';
+@import 'components/maps';
 
 @import 'pages/placeInfo';
 @import 'pages/profilepage';

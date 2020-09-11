@@ -36,9 +36,7 @@ export class PlacesList extends Component {
         {this.state.loaded && (
           <div className="places-list">
             {this.state.places.map(place => (
-              <div className="place">
-                <PlaceMini selected={place} />
-              </div>
+              <PlaceMini selected={place} />
             ))}
           </div>
         )}

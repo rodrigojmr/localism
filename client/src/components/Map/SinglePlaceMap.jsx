@@ -14,7 +14,7 @@ import MapStyles from '../../MapStyles';
 const libraries = ['places'];
 const mapContainerStyle = {
   width: '100vw',
-  height: '30vh'
+  height: '20vh'
 };
 
 const options = {
@@ -47,7 +47,7 @@ const Map = props => {
   if (loadError) return 'Error loading maps';
   if (!isLoaded) return 'Loading Maps';
   return (
-    <div>
+    <div className="map map--single-place">
       <GoogleMap
         mapContainerStyle={mapContainerStyle}
         zoom={15}
@@ -69,7 +69,7 @@ const Map = props => {
         )}
         {selected ? (
           <InfoWindow
-            position={{ lat: center.lat, lng: center.lng }}
+            position={{ lat: center.lat + 0.0005, lng: center.lng }}
             onCloseClick={() => {
               setSelected(null);
             }}

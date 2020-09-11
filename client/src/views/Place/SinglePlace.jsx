@@ -51,8 +51,8 @@ class SinglePlace extends Component {
       <div className="place-page">
         {this.state.loaded && (
           <>
-            <div className="place-info__row">
-              <div className="place-info__overview">
+            <div className="place__row">
+              <div className="place__overview">
                 <h1 className="heading heading--1">{place.name}</h1>
                 <p className="category">{`#${place.category
                   .split(' ')
@@ -72,39 +72,36 @@ class SinglePlace extends Component {
                 </div>
               </div>
             </div>
-            <div className="place-info__row place-info__images-wrapper">
+            <div className="place__row place__images-wrapper u-margin-bottom-xsmall">
               {place.images.map(image => (
-                <div key={image} className="place-info__image-wrapper">
-                  <img
-                    alt={place.name}
-                    src={image}
-                    className="place-info__image"
-                  />
+                <div key={image} className="place__image-wrapper">
+                  <img alt={place.name} src={image} className="place__image" />
                 </div>
               ))}
             </div>
-            <div className="place-info__row">
-              <p className="place-info__description">{place.description}</p>
+            <div className="place__row">
+              <p className="place__description">{place.description}</p>
             </div>
-            <div className="place-info__row place-info__row--v">
-              <h2>Meet the owners</h2>
-              <div className="place-info__owner">
-                <div className="place-info__owner-img-wrapper">
+            <div className="place__row place__row--v">
+              <h2 class="u-align-l u-margin-bottom-xsmall">Meet the owners</h2>
+              <div className="place__owner">
+                <div className="place__owner-img-wrapper">
                   <Link to={`/profile/${place.owner._id}`}>
                     <img src={place.owner.avatar} alt={place.owner.name} />
                   </Link>
-                </div>
-                <div className="place-info__owner-about">
                   <p>{place.owner.name}</p>
+                </div>
+                <div className="place__owner-about">
                   <p>{place.about}</p>
                 </div>
               </div>
             </div>
-            <div className="place-info__row place-info__supports">
+            <SinglePlaceMap place={this.state.place} />
+            <div className="place__row place__supports">
               {(place.supports.length && (
                 <>
                   <h2>Supported by:</h2>
-                  <div className="place-supports-wrapper">
+                  <div className="place__supports-wrapper">
                     {place.supports.map(support => (
                       <div className="support-small" key={support._id}>
                         <Link to={`/profile/${support.creator._id}`}>
@@ -119,7 +116,7 @@ class SinglePlace extends Component {
                 </>
               )) || <h2>Not supported by anyone yet!</h2>}
             </div>
-            <div className="place-info__row">
+            <div className="place__row">
               {place.supports.some(support => support.content !== '')
                 .length && (
                 <>
@@ -147,12 +144,15 @@ class SinglePlace extends Component {
                 </>
               )}
             </div>
-            <div className="place-info__row"></div>
-            <SinglePlaceMap place={this.state.place} />
             {this.props.user && place.owner._id !== this.props.user._id && (
               <>
+                <h3 className="heading heading--3 u-align-l u-margin-bottom-small">
+                  Do you want to support it?
+                  <br />
+                  Show some love.
+                </h3>
                 <Link
-                  className="support-link"
+                  className="btn btn--primary"
                   to={`/place/${this.props.match.params.id}/support`}
                 >
                   Support this place
