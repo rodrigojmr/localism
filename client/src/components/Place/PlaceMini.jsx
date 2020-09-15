@@ -25,10 +25,12 @@ const PlaceMini = props => {
     <div className="place">
       <div className="place__row">
         <div className="place__overview">
-          <h1 className="heading heading--1">{selected.name}</h1>
-          <p className="category">{`#${selected.category
-            .split(' ')
-            .join('_')}`}</p>
+          <div className="place__title u-margin-bottom-xsmall">
+            <h1 className="heading heading--1">{selected.name}</h1>
+            <p className="category ">{`#${selected.category
+              .split(' ')
+              .join('_')}`}</p>
+          </div>
           {selected.schedule.time.openTime &&
             selected.schedule.time.closeTime && (
               <p className="schedule">
@@ -41,7 +43,7 @@ const PlaceMini = props => {
         </span>
       </div>
       <div className="place__row">
-        <div className="place-mini__image-wrapper">
+        <div className="place__image-wrapper">
           <img
             alt={selected.name}
             src={selected.images[0]}
@@ -57,7 +59,7 @@ const PlaceMini = props => {
         </p>
       </div>
       <Link to={`/place/${selected._id}`}>
-        <div className="place-mini__learn-more">
+        <div className="place-info-mini__learn-more">
           <p>know more about this place</p>{' '}
           {props.inMap && <span className="bounce-animation">&darr;</span>}
         </div>
