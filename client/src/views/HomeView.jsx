@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import HomeMap from '../components/Map/HomeMap';
 import SearchName from './../components/Search/SearchName';
-import PlaceMini from './../components/Place/PlaceMini';
+import PlacePreviewWithCarousel from './../components/Place/PlacePreviewWithCarousel';
 import { nearbyPlaces, localityPlaces } from './../services/place';
 
 class HomeView extends Component {
@@ -156,7 +156,7 @@ class HomeView extends Component {
         </div>
 
         <div ref={this.placeInfoWrapper} className="place-info-mini">
-          {selected && <PlaceMini inMap={true} selected={selected} />}
+          {selected && <PlacePreviewWithCarousel place={selected} />}
         </div>
       </div>
     );

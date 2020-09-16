@@ -53,9 +53,16 @@
   flex-direction: column;
 }
 
-.user-supports-wrapper {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: flex-start;
-  padding: 20px 40px;
+.user-supports {
+  &__wrapper {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    justify-content: center;
+    padding: 20px 0px;
+  }
+
+  &__item-img {
+    border-radius: 5px;
+  }
 }
