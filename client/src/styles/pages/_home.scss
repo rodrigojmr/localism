@@ -1,3 +1,9 @@
 .home {
   position: relative;
+
+  .embla {
+    &__slide__inner {
+      height: 100px;
+    }
+  }
 }
