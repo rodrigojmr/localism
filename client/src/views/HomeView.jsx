@@ -91,10 +91,6 @@ class HomeView extends Component {
     }
   };
 
-  // togglePlacePreview = () => {
-
-  // }
-
   handleSearch = searchQuery => {
     const filteredPlaces = this.state.places.filter(place =>
       place.name.toLowerCase().includes(searchQuery.toLowerCase())

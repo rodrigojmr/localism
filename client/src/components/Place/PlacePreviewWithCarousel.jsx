@@ -25,39 +25,36 @@ const PlaceMini = props => {
   return (
     <article className="place place-preview">
       <EmblaCarousel name={place.name} slides={place.images} />
-      <div className="place__row">
-        <div className="place__overview">
-          <div className="place__title u-margin-bottom-xsmall">
-            <h1 className="heading heading--1">{place.name}</h1>
-            <p className="category ">{`#${place.category
-              .split(' ')
-              .join('_')}`}</p>
-          </div>
-          {place.schedule.time.openTime && place.schedule.time.closeTime && (
-            <p className="schedule">
-              {`Schedule: ${openTime}h - ${closeTime}h from ${place.schedule.from} to ${place.schedule.to}`}
+      <Link to={`/place/${place._id}`}>
+        <div className="place-preview__body">
+          <div className="row place-preview__info">
+            <div className="place-preview__title">
+              <h1 className="heading heading--1">{place.name}</h1>
+              <p className="category u-margin-left-xsmall">{`#${place.category
+                .split(' ')
+                .join('_')}`}</p>
+            </div>
+            {place.schedule.time.openTime && place.schedule.time.closeTime && (
+              <p className="schedule">
+                Open:{' '}
+                <span className="schedule__time">
+                  {`${openTime}h - ${closeTime}h from ${place.schedule.from} to ${place.schedule.to}`}
+                </span>
+              </p>
+            )}
+            <p className="place-preview__supports">
+              {`${place.supports.length} ${
+                place.supports.length > 1
+                  ? `locals support this place`
+                  : `local supports this place`
+              }`}
             </p>
-          )}
+            {place.description && (
+              <p className="place-preview__description">{place.description}</p>
+            )}
+          </div>
         </div>
-        <span className="suggestions-num-wrapper">{place.supports.length}</span>
-      </div>
-      <div className="place__row">
-        <div className="place__image-wrapper">
-          <img
-            alt={place.name}
-            src={place.images[0]}
-            className="place__image"
-          />
-        </div>
-        <p className="place__description">
-          Lorem ipsum dolor sit, amet consectetur adipisicing elit. Sapiente,
-          ipsum eveniet amet deleniti quisquam deserunt totam quasi sit labore
-          placeat voluptas adipisci error voluptate tempora nostrum facere
-          repellat provident voluptates!
-          {/* {place.description} */}
-        </p>
-      </div>
-      <Link to={`/place/${place._id}`}></Link>
+      </Link>
     </article>
   );
 };
