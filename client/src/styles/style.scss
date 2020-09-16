@@ -2,15 +2,18 @@
 @import 'abstracts/mixins';
 @import 'abstracts/variables';
 
+@import 'vendors/emblema';
 @import 'vendors/spinner';
 
+@import 'components/placePreview';
+@import 'components/support';
 @import 'components/buttons';
 @import 'components/icons';
 @import 'components/forms';
 @import 'components/loading';
 @import 'components/homeMap';
 @import 'components/place';
-@import 'components/profileform';
+@import 'components/profileForm';
 @import 'components/maps';
 
 @import 'pages/placeInfo';
