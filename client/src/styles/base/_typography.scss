@@ -12,14 +12,18 @@ body {
 }
 
 .category {
-  line-height: 1.5;
-  font-size: 0.9rem;
-  padding: 0px 8px;
-  border-radius: 10px;
-  background-color: $color-complement;
-  margin-bottom: 10px;
+  color: $color-gray-dark-2;
 }
 
 .capitalize {
   text-transform: capitalize;
+}
+
+.place,
+.place-preview {
+  .heading {
+    color: $color-gray-dark-3;
+    font-size: 1.4rem;
+    font-weight: 600;
+  }
 }
