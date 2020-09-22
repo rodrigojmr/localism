@@ -1,11 +1,26 @@
 .places {
   min-height: 95vh;
-  padding: 0 10px;
 }
 
-.places-list .place {
-  margin: 20px 0;
-  border-radius: 10px;
-  box-shadow: -2px 14px 20px 0px rgba(0, 0, 0, 0.2);
-  padding: 20px;
+.places-list {
+  .place {
+    margin: 10px 0;
+    border-radius: 10px;
+    padding: 20px;
+    background-color: white;
+    box-shadow: -2px 14px 20px 0px rgba(0, 0, 0, 0.1);
+  }
+
+  .embla {
+    border-radius: 5px;
+    overflow: hidden;
+  }
+  .embla__slide__inner {
+    height: 7rem;
+  }
+
+  .place-preview__body {
+    margin: 0;
+    margin-top: 10px;
+  }
 }

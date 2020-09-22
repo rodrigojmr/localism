@@ -27,7 +27,7 @@ const PlaceMini = props => {
         <div className="place__overview">
           <div className="place__title u-margin-bottom-xsmall">
             <h1 className="heading heading--1">{selected.name}</h1>
-            <p className="category ">{`#${selected.category
+            <p className="category u-margin-left-xsmall">{`#${selected.category
               .split(' ')
               .join('_')}`}</p>
           </div>
