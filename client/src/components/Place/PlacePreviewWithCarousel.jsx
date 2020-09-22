@@ -5,7 +5,7 @@ import EmblaCarousel from '../EmblaCarousel';
 
 const { utcToZonedTime } = require('date-fns-tz');
 
-const PlaceMini = props => {
+const PlacePreviewWithCarousel = props => {
   const place = props.place;
 
   let openTime, closeTime;
@@ -59,4 +59,4 @@ const PlaceMini = props => {
   );
 };
 
-export default PlaceMini;
+export default PlacePreviewWithCarousel;
