@@ -78,12 +78,13 @@
   }
 
   &__owner-img-wrapper {
-    flex: 0 0 30%;
     overflow: hidden;
+  }
 
-    img {
-      border-radius: 50%;
-    }
+  &__owner-img {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
   }
 
   &__supports-wrapper {

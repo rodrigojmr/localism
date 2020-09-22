@@ -87,7 +87,11 @@ class SinglePlace extends Component {
               <div className="place__owner">
                 <div className="place__owner-img-wrapper">
                   <Link to={`/profile/${place.owner._id}`}>
-                    <img src={place.owner.avatar} alt={place.owner.name} />
+                    <img
+                      className="place__owner-img"
+                      src={place.owner.avatar}
+                      alt={place.owner.name}
+                    />
                   </Link>
                   <p>{place.owner.name}</p>
                 </div>
