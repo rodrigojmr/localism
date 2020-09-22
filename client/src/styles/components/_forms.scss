@@ -135,3 +135,13 @@
   border: 1px solid black;
   padding: 5px 10px;
 }
+
+.map-inputs {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+
+  .search {
+    margin-bottom: 10px;
+  }
+}
