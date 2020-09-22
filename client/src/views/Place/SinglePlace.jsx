@@ -77,13 +77,6 @@ class SinglePlace extends Component {
                 </div>
               </div>
             </div>
-            <div className="place__row place__images-wrapper u-margin-bottom-xsmall">
-              {place.images.map(image => (
-                <div key={image} className="place__image-wrapper">
-                  <img alt={place.name} src={image} className="place__image" />
-                </div>
-              ))}
-            </div>
             <div className="place__row">
               <p className="place__description">{place.description}</p>
             </div>
