@@ -3,6 +3,8 @@ import { Link } from 'react-router-dom';
 import { loadPlace } from './../../services/place';
 import SinglePlaceMap from './../../components/Map/SinglePlaceMap';
 import getHours from 'date-fns/getHours';
+import EmblaCarousel from './../../components/EmblaCarousel';
+
 const { utcToZonedTime } = require('date-fns-tz');
 // import parse from 'date-fns/parse';
 
@@ -51,6 +53,9 @@ class SinglePlace extends Component {
       <div className="place-page">
         {this.state.loaded && (
           <>
+            <div className="u-margin-bottom-xsmall">
+              <EmblaCarousel name={place.name} slides={place.images} />
+            </div>
             <div className="place__row">
               <div className="place__overview">
                 <h1 className="heading heading--1">{place.name}</h1>
@@ -83,7 +88,9 @@ class SinglePlace extends Component {
               <p className="place__description">{place.description}</p>
             </div>
             <div className="place__row place__row--v">
-              <h2 class="u-align-l u-margin-bottom-xsmall">Meet the owners</h2>
+              <h2 class="heading heading--2 u-align-l u-margin-bottom-xsmall">
+                Meet the owners
+              </h2>
               <div className="place__owner">
                 <div className="place__owner-img-wrapper">
                   <Link to={`/profile/${place.owner._id}`}>
@@ -100,7 +107,7 @@ class SinglePlace extends Component {
             <div className="place__row place__supports">
               {(place.supports.length && (
                 <>
-                  <h2>Supported by:</h2>
+                  <h2 className="heading heading--2">Supported by:</h2>
                   <div className="place__supports-wrapper">
                     {place.supports.map(support => (
                       <div className="support-small" key={support._id}>
@@ -114,13 +121,19 @@ class SinglePlace extends Component {
                     ))}
                   </div>
                 </>
-              )) || <h2>Not supported by anyone yet!</h2>}
+              )) || (
+                <h2 className="heading heading--2">
+                  >Not supported by anyone yet!
+                </h2>
+              )}
             </div>
             <div className="place__row">
               {place.supports.some(support => support.content !== '')
                 .length && (
                 <>
-                  <h2>What people had to say:</h2>
+                  <h2 className="heading heading--2">
+                    >What people had to say:
+                  </h2>
                   {place.supports
                     .filter(support => support.content !== '')
                     .map(support => (
