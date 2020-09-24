@@ -51,49 +51,50 @@ profileRouter.patch(
       email
     } = req.body;
     const id = req.params.id;
-    let url;
+
+    let avatar;
     if (req.file) {
-      url = req.file.path;
+      avatar = req.file.path;
     }
 
-    const locality = privateAddress.find(
-      component =>
-        component.types.includes('locality') ||
-        component.types.includes('administrative_area_level_1')
-    ).short_name;
+    let locality;
+    if (privateAddress) {
+      locality = privateAddress.find(
+        component =>
+          component.types.includes('locality') ||
+          component.types.includes('administrative_area_level_1')
+      ).short_name;
+    }
+
     try {
+      let hashAndSalt;
       if (password.length > 1 && password.length < 8) {
         throw new Error('Password is too short.');
       } else if (password.length >= 8) {
-        const hashAndSalt = await bcrypt.hash(password, 10);
-        const user = await User.findByIdAndUpdate(
-          id,
-          {
-            passwordHashAndSalt: hashAndSalt
-          },
-          { new: true }
-        );
-        user.save();
+        hashAndSalt = await bcrypt.hash(password, 10);
       }
-      const user = await User.findByIdAndUpdate(
-        id,
-        {
-          user: req.user._id,
-          name,
-          username,
+      const obj = {
+        user: req.user._id,
+        name,
+        username,
+        gender,
+        info: {
+          birthday,
           gender,
-          info: {
-            birthday,
-            gender,
-            about
-          },
-          privateAddress,
-          locality,
-          email,
-          avatar: url
+          about
         },
-        { new: true }
-      );
+        privateAddress,
+        locality,
+        email,
+        avatar,
+        passwordHashAndSalt: hashAndSalt || password
+      };
+
+      for (let prop in obj) {
+        if (!obj[prop]) delete obj[prop];
+      }
+
+      const user = await User.findByIdAndUpdate(id, obj, { new: true });
       res.json({ user });
     } catch (error) {
       next(error);
