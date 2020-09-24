@@ -5,14 +5,14 @@
 @import 'vendors/emblema';
 @import 'vendors/spinner';
 
-@import 'components/placePreview';
+@import 'components/Places/placePreview';
+@import 'components/Places/place';
 @import 'components/support';
 @import 'components/buttons';
 @import 'components/icons';
 @import 'components/forms';
 @import 'components/loading';
 @import 'components/homeMap';
-@import 'components/place';
 @import 'components/maps';
 
 @import 'pages/placeInfo';
