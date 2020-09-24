@@ -9,8 +9,8 @@ const SupportsProfileList = ({ user, supports }) => {
     supportsWithDescription = supports.filter(
       support => support.content !== ''
     );
-    supportsWithDescription = supports.filter(
-      support => support.content === '' || supports.content === undefined
+    supportsWithoutDescription = supports.filter(
+      support => support.content === '' || support.content === undefined
     );
   }
 
@@ -27,7 +27,7 @@ const SupportsProfileList = ({ user, supports }) => {
         </div>
       )}
       <div className="supports-row">
-        {supportsWithDescription.map(({ place }) => (
+        {supportsWithoutDescription.map(({ place }) => (
           <PlacePreviewSimple place={place} />
         ))}
       </div>

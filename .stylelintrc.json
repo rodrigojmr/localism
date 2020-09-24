@@ -1,7 +1,0 @@
-{
-  "extends": [
-    "stylelint-config-sass-guidelines",
-    "stylelint-config-idiomatic-order"
-  ],
-  "plugins": ["stylelint-order"]
-}
