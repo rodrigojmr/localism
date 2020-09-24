@@ -92,6 +92,7 @@ const UserProfileForm = props => {
 
       <div className="input-group">
         <MapSearch
+          required
           height={'40vh'}
           resultInfoHandler={(name, value) => props.onValueChange(name, value)}
           center={props.location}

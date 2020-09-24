@@ -121,7 +121,7 @@ const Map = props => {
   );
 };
 
-function Search({ handleResultInfo, panTo, setMarker }) {
+function Search({ required, handleResultInfo, panTo, setMarker }) {
   const {
     ready,
     value,
@@ -157,7 +157,7 @@ function Search({ handleResultInfo, panTo, setMarker }) {
         }}
       >
         <ComboboxInput
-          required
+          required={required}
           id="input-address"
           value={value}
           onChange={e => {
