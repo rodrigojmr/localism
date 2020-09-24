@@ -23,12 +23,24 @@ body {
   text-transform: capitalize;
 }
 
-.place,
-.place-preview,
-.place-page {
-  .heading {
-    color: $color-gray-dark-3;
+.heading {
+  color: $color-gray-dark-3;
+  &--1 {
     font-size: 1.4rem;
     font-weight: 600;
+  }
+  &--2 {
+  }
+  &--3 {
+  }
+  &--4 {
+  }
+  &--5 {
+  }
+}
+
+section > .heading {
+  &--1 {
+    font-size: 1.2rem;
   }
 }

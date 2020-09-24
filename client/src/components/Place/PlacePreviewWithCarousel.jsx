@@ -29,7 +29,7 @@ const PlacePreviewWithCarousel = props => {
         <div className="place-preview__body">
           <div className="row place-preview__info">
             <div className="place-preview__title">
-              <h1 className="heading heading--1">{place.name}</h1>
+              <h3 className="heading heading--1">{place.name}</h3>
               <p className="category u-margin-left-xsmall">{`#${place.category
                 .split(' ')
                 .join('_')}`}</p>
