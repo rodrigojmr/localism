@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 
 import { loadAllPlaces } from './../../services/place';
 
-import PlaceMini from './../../components/Place/PlaceMini';
 import PlacePreviewWithCarousel from './../../components/Place/PlacePreviewWithCarousel';
 
 export class PlacesList extends Component {
