@@ -2,7 +2,7 @@
 @import 'abstracts/mixins';
 @import 'abstracts/variables';
 
-@import 'vendors/emblema';
+@import 'vendors/embla';
 @import 'vendors/spinner';
 
 @import 'components/Places/placePreview';
@@ -15,10 +15,10 @@
 @import 'components/homeMap';
 @import 'components/maps';
 
-@import 'pages/placeInfo';
-@import 'pages/profilepage';
-@import 'pages/signup';
-@import 'pages/sign-in';
+@import 'pages/placePage';
+@import 'pages/profilePage';
+@import 'pages/signUp';
+@import 'pages/signIn';
 @import 'pages/createplace';
 @import 'pages/createSupport';
 @import 'pages/placesList';
