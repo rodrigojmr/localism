@@ -1,34 +1,34 @@
-@import 'abstracts/normalize';
-@import 'abstracts/mixins';
-@import 'abstracts/variables';
+@import './abstracts/normalize';
+@import './abstracts/mixins';
+@import './abstracts/variables';
 
-@import 'vendors/embla';
-@import 'vendors/spinner';
+@import './vendors/embla';
+@import './vendors/spinner';
 
-@import 'components/Places/placePreview';
-@import 'components/Places/place';
-@import 'components/support';
-@import 'components/buttons';
-@import 'components/icons';
-@import 'components/forms';
-@import 'components/loading';
-@import 'components/homeMap';
-@import 'components/maps';
+@import './components/Places/placePreview';
+@import './components/Places/place';
+@import './components/support';
+@import './components/buttons';
+@import './components/icons';
+@import './components/forms';
+@import './components/loading';
+@import './components/homeMap';
+@import './components/maps';
 
-@import 'pages/placePage';
-@import 'pages/profile';
-@import 'pages/signUp';
-@import 'pages/signIn';
-@import 'pages/createPlace';
-@import 'pages/createSupport';
-@import 'pages/placesList';
-@import 'pages/home';
+@import './pages/placePage';
+@import './pages/profile';
+@import './pages/signUp';
+@import './pages/signIn';
+@import './pages/createPlace';
+@import './pages/createSupport';
+@import './pages/placesList';
+@import './pages/home';
 
-@import 'layout/header';
-@import 'layout/content';
-@import 'layout/navbar';
+@import './layout/header';
+@import './layout/content';
+@import './layout/navbar';
 
-@import 'base/base';
-@import 'base/typography';
-@import 'base/animations';
-@import 'base/utilities';
+@import './base/base';
+@import './base/typography';
+@import './base/animations';
+@import './base/utilities';
