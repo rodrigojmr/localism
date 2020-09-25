@@ -13,6 +13,7 @@ class HomeView extends Component {
       locality: undefined,
       places: [],
       filteredPlaces: [],
+      isSearching: false,
       searchQuery: '',
       selectedPlace: null
     };
@@ -102,9 +103,9 @@ class HomeView extends Component {
     });
   };
 
-  toggleSearch = () => {
+  removeSearch = () => {
     const searchWrapper = this.searchWrapper.current;
-    searchWrapper.classList.toggle('input-expanded');
+    searchWrapper.classList.remove('search-box--active');
   };
 
   render() {
@@ -112,6 +113,11 @@ class HomeView extends Component {
 
     return (
       <div className="home">
+        <div className="home-info">
+          <h1 className="heading heading--1">
+            You are in {this.state.locality}
+          </h1>
+        </div>
         <HomeMap
           selected={this.state.selectedPlace}
           center={this.state.location}
@@ -123,38 +129,19 @@ class HomeView extends Component {
           }
           handlePlaceSelection={place => this.handlePlaceSelection(place)}
           onLocalityUpdate={locality => this.handleLocalityUpdate(locality)}
-          // idleMapSearch={boundaries => this.getBoundaryPlaces(boundaries)}
-          idleMapSearch={this.getLocalityPlaces}
+          idleAddressMap={this.getLocalityPlaces}
         />
-        <div className="search-bar">
-          <h2 className="search-bar__title">{this.state.locality}</h2>
-          <SearchName
-            ref={this.searchWrapper}
-            handlePlaceSelection={place => this.handlePlaceSelection(place)}
-            onSearchUpdate={searchQuery => this.handleSearch(searchQuery)}
-            searchQuery={this.state.searchQuery}
-            places={this.state.filteredPlaces}
-            locality={this.state.locality}
-          />
 
-          <svg
-            onClick={this.toggleSearch}
-            xmlns="http://www.w3.org/2000/svg"
-            width="24"
-            height="24"
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-            strokeWidth="2"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            className="icon icon--s icon--primary search-bar__icon feather feather-search"
-          >
-            <circle cx="11" cy="11" r="8"></circle>
-            <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
-          </svg>
-        </div>
-
+        <SearchName
+          ref={this.searchWrapper}
+          toggleSearch={this.toggleSearch}
+          handlePlaceSelection={place => this.handlePlaceSelection(place)}
+          onSearchUpdate={searchQuery => this.handleSearch(searchQuery)}
+          searchQuery={this.state.searchQuery}
+          places={this.state.filteredPlaces}
+          locality={this.state.locality}
+          isSearching={this.state.isSearching}
+        />
         <div ref={this.placeInfoWrapper} className="place-info-mini">
           {selected && <PlacePreviewWithCarousel place={selected} />}
         </div>

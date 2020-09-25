@@ -10,8 +10,7 @@ import MapStyles from '../../MapStyles';
 const libraries = ['places'];
 const mapContainerStyle = {
   width: '100vw',
-  height: '90vh'
-  // height: 'calc(100vh - #{$navbar-height})'
+  height: '100%'
 };
 
 const options = {
@@ -57,7 +56,7 @@ const Map = props => {
         swLng: sw.lng()
       };
 
-      props.idleMapSearch(boundaries);
+      props.idleAddressMap(boundaries);
     }
   };
 

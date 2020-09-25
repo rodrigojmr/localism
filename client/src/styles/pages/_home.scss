@@ -1,9 +1,28 @@
 .home {
   position: relative;
+  display: flex;
+  flex-direction: column;
+  height: calc(100vh - #{$navbar-height});
 
   .embla {
     &__slide__inner {
       height: 7rem;
     }
+  }
+}
+
+.home-info {
+  // position: absolute;
+  // top: 0;
+  // left: 0;
+  // right: 0;
+  // z-index: 1;
+  background-color: $color-primary-2;
+  // background-color: $color-white;
+  padding: 10px 0;
+
+  .heading {
+    // color: $color-primary;
+    color: $color-white;
   }
 }

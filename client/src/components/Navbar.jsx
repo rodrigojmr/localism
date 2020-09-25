@@ -29,6 +29,7 @@ const Navbar = props => {
             <line x1="3" y1="12" x2="3.01" y2="12"></line>
             <line x1="3" y1="18" x2="3.01" y2="18"></line>
           </svg>
+          <p>Places</p>
         </Link>
       </div>
       <div className="navbar-col">
@@ -49,6 +50,7 @@ const Navbar = props => {
             <line x1="8" y1="2" x2="8" y2="18"></line>
             <line x1="16" y1="6" x2="16" y2="22"></line>
           </svg>
+          <p>Map</p>
         </Link>
       </div>
       <div className="navbar-col">
@@ -68,6 +70,7 @@ const Navbar = props => {
             <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
             <circle cx="12" cy="7" r="4"></circle>
           </svg>
+          <p>Profile</p>
         </Link>
       </div>
       {props.user && (
@@ -90,6 +93,7 @@ const Navbar = props => {
                 <line x1="12" y1="8" x2="12" y2="16"></line>
                 <line x1="8" y1="12" x2="16" y2="12"></line>
               </svg>
+              <p>Add place</p>
             </Link>
           </div>
           <div className="navbar-col">
@@ -111,6 +115,7 @@ const Navbar = props => {
                 <polyline points="16 17 21 12 16 7"></polyline>
                 <line x1="21" y1="12" x2="9" y2="12"></line>
               </svg>
+              <p>Logout</p>
             </Link>
           </div>
         </>

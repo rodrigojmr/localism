@@ -122,19 +122,19 @@
   display: block !important;
 }
 
-.input-hidden {
-  height: 0;
-  border: 1px solid transparent;
-  transition: all 0.2s;
-  padding: 0;
-  width: 100%;
-}
+// .input-hidden {
+//   height: 0;
+//   border: 1px solid transparent;
+//   transition: all 0.2s;
+//   padding: 0;
+//   width: 100%;
+// }
 
-.input-expanded {
-  height: 25px;
-  border: 1px solid black;
-  padding: 5px 10px;
-}
+// .input-expanded {
+//   height: 25px;
+//   border: 1px solid black;
+//   padding: 5px 10px;
+// }
 
 .map-inputs {
   display: flex;
