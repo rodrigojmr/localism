@@ -1,5 +1,5 @@
 import React from 'react';
-import MapSearch from '../Map/MapSearch';
+import AddressMap from '../Map/AddressMap';
 
 const UserProfileForm = props => {
   const handleFormSubmission = event => {
@@ -91,7 +91,7 @@ const UserProfileForm = props => {
       </div>
 
       <div className="input-group">
-        <MapSearch
+        <AddressMap
           required
           height={'40vh'}
           resultInfoHandler={(name, value) => props.onValueChange(name, value)}

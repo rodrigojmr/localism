@@ -1,5 +1,5 @@
 import React from 'react';
-import MapSearch from '../Map/MapSearch';
+import AddressMap from '../Map/AddressMap';
 import { format } from 'date-fns';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
@@ -108,7 +108,7 @@ const UserProfileForm = props => {
         </select>
       </div>
       <div className="map-inputs">
-        <MapSearch
+        <AddressMap
           height={'30vh'}
           resultInfoHandler={(name, value) => props.onValueChange(name, value)}
           center={props.location}

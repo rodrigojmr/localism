@@ -1,5 +1,5 @@
 import React from 'react';
-import MapSearch from '../Map/MapSearch';
+import AddressMap from '../Map/AddressMap';
 import { format } from 'date-fns';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
@@ -49,7 +49,7 @@ export const PlaceForm = props => {
 
   return (
     <form className="form form-create-place" onSubmit={onFormSubmission}>
-      <MapSearch
+      <AddressMap
         height={'20vh'}
         resultInfoHandler={(name, value) => props.onValueChange(name, value)}
         center={props.location}
