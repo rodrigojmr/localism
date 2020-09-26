@@ -9,13 +9,15 @@ const SupportWithContent = ({ place, content }) => {
   };
 
   return (
-    <div className="support-item">
+    <div className="place-support">
       <Link to={`/place/${place._id}`}>
-        <article className="support-item__place-container">
-          <div className="support-item__place-img-wrapper" style={style}></div>
-          <div className="support-item__details">
-            <h3 className="heading heading--3">{place.name}</h3>
-            <p className="support-item__content">&ldquo;{content}&rdquo;</p>
+        <article className="place-support__place-container">
+          <div className="place-support__place-img-wrapper" style={style}></div>
+          <div className="place-support__details">
+            <h3 className="heading heading--3 u-margin-bottom-xxsmall">
+              {place.name}
+            </h3>
+            <p className="place-support__content">&ldquo;{content}&rdquo;</p>
           </div>
         </article>
       </Link>

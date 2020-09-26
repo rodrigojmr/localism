@@ -3,12 +3,15 @@
 }
 
 .places-list {
-  .place {
+  .place-info {
     margin: 10px 0;
-    border-radius: 10px;
     padding: 20px;
-    background-color: white;
     box-shadow: -2px 14px 20px 0px rgba(0, 0, 0, 0.1);
+
+    &__body {
+      padding: 0;
+      padding-top: 10px;
+    }
   }
 
   .embla {
@@ -17,10 +20,5 @@
   }
   .embla__slide__inner {
     height: 7rem;
-  }
-
-  .place-preview__body {
-    margin: 0;
-    margin-top: 10px;
   }
 }

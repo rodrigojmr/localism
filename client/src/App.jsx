@@ -161,7 +161,9 @@ class App extends Component {
               <Route
                 path="/profile/:id"
                 user={this.state.user}
-                component={UserProfile}
+                render={props => (
+                  <UserProfile user={this.state.user} {...props} />
+                )}
                 exact
               />
               {/* Error */}

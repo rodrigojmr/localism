@@ -2,6 +2,9 @@
   text-align: center !important;
 }
 
+.u-margin-bottom-xxsmall {
+  margin-bottom: 0.5rem !important;
+}
 .u-margin-bottom-xsmall {
   margin-bottom: 1rem !important;
 }
@@ -78,14 +81,25 @@
   margin-top: 10rem !important;
 }
 
+.flex {
+  display: flex;
+}
+
 .flex-center-both {
   display: flex;
   justify-content: center;
   align-items: center;
 }
 
+.flex-v {
+  flex-direction: column;
+}
+
 .u-align-l {
   text-align: left;
+}
+.u-align-c {
+  text-align: center;
 }
 
 .u-border-radius-50 {

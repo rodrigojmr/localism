@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 
 import { loadAllPlaces } from './../../services/place';
 
-import PlacePreviewWithCarousel from './../../components/Place/PlacePreviewWithCarousel';
+import PlaceInfoWithCarousel from './../../components/Place/PlaceInfoWithCarousel';
 
 export class PlacesList extends Component {
   constructor(props) {
@@ -36,7 +36,7 @@ export class PlacesList extends Component {
         {this.state.loaded && (
           <div className="places-list">
             {this.state.places.map(place => (
-              <PlacePreviewWithCarousel key={place.id} place={place} />
+              <PlaceInfoWithCarousel key={place.id} place={place} support />
             ))}
           </div>
         )}

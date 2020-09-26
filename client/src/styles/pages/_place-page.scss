@@ -1,13 +1,40 @@
 .place-page {
-  padding: 2rem 1rem;
-
   .embla {
     border-radius: 5px;
     overflow: hidden;
+
+    &__slide__inner {
+      height: 250px;
+    }
   }
 
-  .heading {
+  .heading--1 {
     font-size: 1.4rem;
     font-weight: 600;
+  }
+
+  .place-info {
+    box-shadow: 0 10px 30px 10px rgba(0, 0, 0, 0.1);
+  }
+
+  .supports {
+    margin: 20px 0;
+  }
+
+  .user-support {
+    width: 100%;
+  }
+}
+
+.support-section {
+  padding: 20px 0;
+}
+
+.owner-section {
+  padding: 30px 0;
+  // background-color: #bac2ca;
+
+  .owner .heading {
+    font-size: 1.2rem;
   }
 }

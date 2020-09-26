@@ -26,11 +26,13 @@ const SupportsProfileList = ({ user, supports }) => {
           ))}
         </div>
       )}
-      <div className="supports-row">
-        {supportsWithoutDescription.map(({ place }) => (
-          <PlacePreviewSimple place={place} />
-        ))}
-      </div>
+      {supportsWithoutDescription.length > 0 && (
+        <div className="supports-row">
+          {supportsWithoutDescription.map(({ place }) => (
+            <PlacePreviewSimple place={place} />
+          ))}
+        </div>
+      )}
     </div>
   );
 };

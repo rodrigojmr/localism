@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import { loadProfile } from './../../services/user';
 import ProfileHeader from './../../components/Profile/ProfileHeader';
-import PlacePreviewWithCarousel from './../../components/Place/PlacePreviewWithCarousel';
+import PlaceInfoWithCarousel from './../../components/Place/PlaceInfoWithCarousel';
 import SupportsProfileList from './../../components/Support/SupportsProfileList';
 
 //import SinglePlaceMap from './../../components/Map/SinglePlaceMap';
@@ -47,20 +47,28 @@ class UserProfile extends Component {
                     {publicUser.name} owns this place. <br />
                     Consider supporting it!
                   </h1>
-                  <PlacePreviewWithCarousel place={place} />
+                  <PlaceInfoWithCarousel place={place} />
                 </section>
               )}
               <section className="user-support-section">
-                <h1 className="heading heading--1">
-                  Places supported by {publicUser.name}:
-                </h1>
-                {publicUser.supports.length && (
-                  <SupportsProfileList supports={publicUser.supports} />
+                {(publicUser.supports.length > 0 && (
+                  <>
+                    <h1 className="heading heading--1">
+                      Places supported by {publicUser.name}:
+                    </h1>
+                    <SupportsProfileList supports={publicUser.supports} />
+                  </>
+                )) || (
+                  <h1 className="heading heading--1">
+                    {publicUser.name} doesn't support any places yet.
+                  </h1>
                 )}
               </section>
-              <Link to={'/profile/edit'}>
-                <button className="sign-button"> Edit Profile</button>
-              </Link>
+              {this.props.user && publicUser._id === this.props.user._id && (
+                <Link to={'/profile/edit'}>
+                  <button className="sign-button"> Edit Profile</button>
+                </Link>
+              )}
             </main>
           </>
         )}

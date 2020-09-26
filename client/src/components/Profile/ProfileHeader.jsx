@@ -9,7 +9,7 @@ const ProfileHeader = ({ user }) => {
         className="profile-info__avatar u-border-radius-50"
       />
       <h1 className="heading heading--1 u-margin-bottom-xsmall">{user.name}</h1>
-      <p>{user.info?.about}</p>
+      {user.info?.about && <p>{user.info?.about}</p>}
       <p>{user.locality}</p>
     </section>
   );

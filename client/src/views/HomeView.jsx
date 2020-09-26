@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import HomeMap from '../components/Map/HomeMap';
 import SearchName from './../components/Search/SearchName';
-import PlacePreviewWithCarousel from './../components/Place/PlacePreviewWithCarousel';
+import PlaceInfoWithCarousel from './../components/Place/PlaceInfoWithCarousel';
 import { nearbyPlaces, localityPlaces } from './../services/place';
 
 class HomeView extends Component {
@@ -137,7 +137,7 @@ class HomeView extends Component {
           onLocalityUpdate={locality => this.handleLocalityUpdate(locality)}
           idleAddressMap={this.getLocalityPlaces}
         />
-
+        {/* Unsure whether to have SearchName here in preparation for a search expansion feature or inside HomeMap for refactoring and DRY */}
         <SearchName
           ref={this.searchWrapper}
           toggleSearch={search => this.toggleSearch(search)}
@@ -149,7 +149,7 @@ class HomeView extends Component {
           isSearching={this.state.isSearching}
         />
         <div ref={this.placeInfoWrapper} className="place-info-mini">
-          {selected && <PlacePreviewWithCarousel place={selected} />}
+          {selected && <PlaceInfoWithCarousel place={selected} />}
         </div>
       </div>
     );
