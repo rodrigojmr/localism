@@ -103,6 +103,12 @@ class HomeView extends Component {
     });
   };
 
+  toggleSearch = search => {
+    this.setState({
+      isSearching: search
+    });
+  };
+
   removeSearch = () => {
     const searchWrapper = this.searchWrapper.current;
     searchWrapper.classList.remove('search-box--active');
@@ -134,7 +140,7 @@ class HomeView extends Component {
 
         <SearchName
           ref={this.searchWrapper}
-          toggleSearch={this.toggleSearch}
+          toggleSearch={search => this.toggleSearch(search)}
           handlePlaceSelection={place => this.handlePlaceSelection(place)}
           onSearchUpdate={searchQuery => this.handleSearch(searchQuery)}
           searchQuery={this.state.searchQuery}
