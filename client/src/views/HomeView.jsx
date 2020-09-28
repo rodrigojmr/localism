@@ -79,17 +79,9 @@ class HomeView extends Component {
     });
 
     const placeInfoWrapper = this.placeInfoWrapper.current;
-    if (place) {
-      placeInfoWrapper.classList.add('place-info-mini--expanded');
-      this.setState({
-        location: {
-          lat: place.location.coordinates[0],
-          lng: place.location.coordinates[1]
-        }
-      });
-    } else {
-      placeInfoWrapper.classList.remove('place-info-mini--expanded');
-    }
+    place
+      ? placeInfoWrapper.classList.add('place-info-mini--expanded')
+      : placeInfoWrapper.classList.remove('place-info-mini--expanded');
   };
 
   handleSearch = searchQuery => {

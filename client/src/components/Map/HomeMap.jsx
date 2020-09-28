@@ -38,11 +38,10 @@ const Map = props => {
     mapRef.current = map;
   }, []);
 
-  // To implement panning to the place
-  // const panTo = React.useCallback(({ lat, lng }) => {
-  //   mapRef.current.panTo({ lat, lng });
-  //   mapRef.current.setZoom(18);
-  // }, []);
+  const panTo = React.useCallback(({ lat, lng }) => {
+    mapRef.current.setZoom(15);
+    mapRef.current.panTo({ lat, lng });
+  }, []);
 
   const getBoundaries = () => {
     if (props.center && mapRef.current) {
@@ -95,6 +94,14 @@ const Map = props => {
     getLocality();
   };
 
+  const onPlaceClick = place => {
+    props.handlePlaceSelection(place);
+    panTo({
+      lat: place.location.coordinates[0],
+      lng: place.location.coordinates[1]
+    });
+  };
+
   if (loadError) return 'Error loading maps';
   if (!isLoaded) return 'Loading Maps';
   return (
@@ -122,7 +129,7 @@ const Map = props => {
                     url: 'http://maps.google.com/mapfiles/ms/icons/pink-dot.png'
                   }}
                   onClick={() => {
-                    props.handlePlaceSelection(place);
+                    onPlaceClick(place);
                   }}
                 />
               );
