@@ -75,7 +75,8 @@ class HomeView extends Component {
 
   handlePlaceSelection = place => {
     this.setState({
-      selectedPlace: place
+      selectedPlace: place,
+      isSearching: false
     });
 
     const placeInfoWrapper = this.placeInfoWrapper.current;
@@ -83,7 +84,6 @@ class HomeView extends Component {
     if (place) {
       placeInfoWrapper.classList.add('place-info-mini--expanded');
     } else {
-      this.toggleSearch(false);
       placeInfoWrapper.classList.remove('place-info-mini--expanded');
     }
   };
@@ -130,7 +130,6 @@ class HomeView extends Component {
         />
         {/* Unsure whether to have SearchName here in preparation for a search expansion feature or inside HomeMap for refactoring and DRY */}
         <SearchName
-          ref={this.searchWrapper}
           toggleSearch={search => this.toggleSearch(search)}
           handlePlaceSelection={place => this.handlePlaceSelection(place)}
           onSearchUpdate={searchQuery => this.handleSearch(searchQuery)}
