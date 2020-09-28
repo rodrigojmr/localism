@@ -10,20 +10,30 @@ import './../../App.css';
 import '@reach/combobox/styles.css';
 
 const SearchName = props => {
-  const handleToggleSearch = isSearching => {
-    const input = document.querySelector('.search-box input');
-    props.toggleSearch(isSearching);
-    if (isSearching) {
-      input.focus();
-    } else {
-      input.blur();
-      props.onSearchUpdate('');
+  const input = document.querySelector('.search-box input');
+  useEffect(() => {
+    if (input) {
+      if (props.isSearching) {
+        input.focus();
+      } else {
+        input.blur();
+        props.onSearchUpdate('');
+      }
     }
-  };
+  });
+
+  // const handleToggleSearch = isSearching => {
+  //   props.toggleSearch(isSearching);
+  //   if (isSearching) {
+  //     input.focus();
+  //   } else {
+  //     input.blur();
+  //   }
+  // };
 
   const onPlaceSelection = place => {
     props.handlePlaceSelection(place);
-    handleToggleSearch(false);
+    props.toggleSearch(false);
   };
 
   return (
@@ -63,7 +73,7 @@ const SearchName = props => {
         </ComboboxPopover>
       </Combobox>
       <svg
-        onClick={() => handleToggleSearch(!props.isSearching)}
+        onClick={() => props.toggleSearch(!props.isSearching)}
         xmlns="http://www.w3.org/2000/svg"
         width="24"
         height="24"
