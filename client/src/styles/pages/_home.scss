@@ -2,7 +2,7 @@
   position: relative;
   display: flex;
   flex-direction: column;
-  height: calc(100vh - #{$navbar-height});
+  height: 100%;
 
   .embla {
     &__slide__inner {
