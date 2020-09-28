@@ -52,6 +52,14 @@ button {
   color: white;
 }
 
+.content {
+  position: relative;
+  background-color: #eee;
+  overflow: hidden;
+  overflow-y: scroll;
+  height: calc(100% - #{$navbar-height});
+}
+
 @media screen and (min-width: 600px) {
   .desktop-blocker {
     display: block;

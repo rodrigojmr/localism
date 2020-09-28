@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component, useState, useEffect } from 'react';
 import './styles/style.scss';
 import { Switch, Route } from 'react-router-dom';
 import { loadMe, signOut } from './services/authentication';
@@ -18,6 +18,8 @@ import ConfirmEmail from './views/Authentication/ConfirmEmail';
 import UserProfile from './views/User/UserProfile';
 
 import Spinner from './components/Spinner';
+
+import useWindowDimensions from './services/windowSize';
 
 //import  from './components/ProtectedRoute';
 
@@ -61,8 +63,12 @@ class App extends Component {
   };
 
   render() {
+    const style = {
+      height: window.innerHeight
+    };
+
     return (
-      <div className="App">
+      <div style={style} className="App">
         <div className="desktop-blocker">
           This app was developed mobile-first. Please view this app on your
           mobile browser.
