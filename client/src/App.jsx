@@ -19,10 +19,6 @@ import UserProfile from './views/User/UserProfile';
 
 import Spinner from './components/Spinner';
 
-import useWindowDimensions from './services/windowSize';
-
-//import  from './components/ProtectedRoute';
-
 class App extends Component {
   constructor() {
     super();

@@ -9,17 +9,21 @@ import {
 import './../../App.css';
 import '@reach/combobox/styles.css';
 
-const SearchName = React.forwardRef((props, ref) => {
-  const [isSearching, setSearch] = useState(false);
-
-  const toggleSearch = search => {
-    setSearch(search);
-    if (search) {
-      const input = document.querySelector('.search-box input');
-      document.querySelector('.search-box input').focus();
+const SearchName = props => {
+  const handleToggleSearch = isSearching => {
+    const input = document.querySelector('.search-box input');
+    props.toggleSearch(isSearching);
+    if (isSearching) {
+      input.focus();
     } else {
+      input.blur();
       props.onSearchUpdate('');
     }
+  };
+
+  const onPlaceSelection = place => {
+    props.handlePlaceSelection(place);
+    handleToggleSearch(false);
   };
 
   return (
@@ -32,7 +36,7 @@ const SearchName = React.forwardRef((props, ref) => {
           props.onSearchUpdate(name);
           try {
             const place = props.places.find(place => place.name === name);
-            props.handlePlaceSelection(place);
+            onPlaceSelection(place);
           } catch (error) {
             console.log('Error!');
           }
@@ -41,7 +45,6 @@ const SearchName = React.forwardRef((props, ref) => {
         <ComboboxInput
           placeholder={`Search in ${props.locality}...`}
           className="input-hidden"
-          ref={ref}
           id="input-name"
           value={props.searchQuery}
           onChange={e => {
@@ -60,7 +63,7 @@ const SearchName = React.forwardRef((props, ref) => {
         </ComboboxPopover>
       </Combobox>
       <svg
-        onClick={() => props.toggleSearch(!props.isSearching)}
+        onClick={() => handleToggleSearch(!props.isSearching)}
         xmlns="http://www.w3.org/2000/svg"
         width="24"
         height="24"
@@ -77,6 +80,6 @@ const SearchName = React.forwardRef((props, ref) => {
       </svg>
     </div>
   );
-});
+};
 
 export default SearchName;

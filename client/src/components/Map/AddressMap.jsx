@@ -55,7 +55,7 @@ const Map = props => {
   }, []);
 
   const setMarker = React.useCallback(({ lat, lng }) => {
-    setNewMarker(current => {
+    setNewMarker(() => {
       return { lat, lng, time: new Date() };
     });
   }, []);

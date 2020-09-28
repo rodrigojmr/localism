@@ -79,9 +79,13 @@ class HomeView extends Component {
     });
 
     const placeInfoWrapper = this.placeInfoWrapper.current;
-    place
-      ? placeInfoWrapper.classList.add('place-info-mini--expanded')
-      : placeInfoWrapper.classList.remove('place-info-mini--expanded');
+
+    if (place) {
+      placeInfoWrapper.classList.add('place-info-mini--expanded');
+    } else {
+      this.toggleSearch(false);
+      placeInfoWrapper.classList.remove('place-info-mini--expanded');
+    }
   };
 
   handleSearch = searchQuery => {
@@ -99,11 +103,6 @@ class HomeView extends Component {
     this.setState({
       isSearching: search
     });
-  };
-
-  removeSearch = () => {
-    const searchWrapper = this.searchWrapper.current;
-    searchWrapper.classList.remove('search-box--active');
   };
 
   render() {
