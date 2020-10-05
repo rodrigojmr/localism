@@ -104,7 +104,7 @@ const UserProfileForm = props => {
           <p>{props.error.message}</p>
         </div>
       )}
-      <button className="sign-button"> Sign Up</button>
+      <button className="sign-button">Sign Up</button>
     </form>
   );
 };

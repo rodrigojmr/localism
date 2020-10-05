@@ -16,7 +16,7 @@ import ProtectedRoute from './components/ProtectedRoute';
 import ErrorView from './views/ErrorView';
 import ConfirmEmail from './views/Authentication/ConfirmEmail';
 import UserProfile from './views/User/UserProfile';
-
+import { UserContext } from './components/Context/UserContext';
 import Spinner from './components/Spinner';
 
 class App extends Component {
@@ -62,129 +62,83 @@ class App extends Component {
     const style = {
       height: window.innerHeight
     };
+    const user = this.state.user;
 
     return (
       <div style={style} className="App">
-        <div className="desktop-blocker">
-          This app was developed mobile-first. Please view this app on your
-          mobile browser.
-        </div>
-        <main className="content">
-          {(this.state.loaded && (
-            <Switch>
-              {/* Home */}
-              <Route
-                path="/"
-                render={props => <HomeView user={this.state.user} {...props} />}
-                exact
-              />
-              {/* Places */}
-              <ProtectedRoute
-                path="/place/create"
-                render={props => (
-                  <CreatePlace user={this.state.user} {...props} />
-                )}
-                user={this.state.user}
-                redirect="/authentication/sign-in"
-                exact
-              />
-              <Route
-                path="/places/"
-                render={props => (
-                  <PlacesList user={this.state.user} {...props} />
-                )}
-                exact
-              />
-              <Route
-                path="/place/:id"
-                render={props => (
-                  <SinglePlace user={this.state.user} {...props} />
-                )}
-                exact
-              />
-              <ProtectedRoute
-                path="/place/:id/support"
-                render={props => (
-                  <SupportPlaceView user={this.state.user} {...props} />
-                )}
-                user={this.state.user}
-                redirect="/authentication/sign-in"
-                exact
-              />
-              {/* User Authentication */}
-              <ProtectedRoute
-                path="/authentication/sign-up"
-                render={props => (
-                  <AuthenticationSignUpView
-                    {...props}
-                    onUserUpdate={this.handleUserUpdate}
-                  />
-                )}
-                user={!this.state.user}
-                redirect={
-                  this.state.user ? `/profile/${this.state.user._id}` : `/`
-                }
-              />
-              <ProtectedRoute
-                path="/authentication/sign-in"
-                render={props => (
-                  <AuthenticationSignInView
-                    {...props}
-                    onUserUpdate={this.handleUserUpdate}
-                  />
-                )}
-                user={!this.state.user}
-                redirect="/"
-              />
-              <Route
-                path="/authentication/confirmation/:token"
-                render={props => (
-                  <ConfirmEmail
-                    {...props}
-                    onUserConfirmation={this.handleUserUpdate}
-                  />
-                )}
-                redirect="/"
-              />{' '}
-              {/*Profile route */}
-              <ProtectedRoute
-                path="/profile/edit"
-                render={props => (
-                  <EditProfileView
-                    user={this.state.user}
-                    {...props}
-                    onUserUpdate={this.handleUserUpdate}
-                  />
-                )}
-                user={this.state.user}
-                redirect="/"
-                exact
-              />
-              <Route
-                path="/profile/:id"
-                user={this.state.user}
-                render={props => (
-                  <UserProfile user={this.state.user} {...props} />
-                )}
-                exact
-              />
-              {/* Error */}
-              <Route path="/error" component={ErrorView} />
-              {/* <Redirect from="/" to="/error" /> */}
-              {/* <Route path="/authentication/sign-in" component={AuthenticationSignInView} /> */}
-            </Switch>
-          )) || (
-            <div className="loading">
-              <img
-                className="loading-logo"
-                src="/images/logo.svg"
-                alt="Localista"
-              />
-              <Spinner />
-            </div>
-          )}
-        </main>
-        <Navbar user={this.state.user} onSignOut={this.handleSignOut} />
+        <UserContext.Provider value={user}>
+          <div className="desktop-blocker">
+            This app was developed mobile-first. Please view this app on your
+            mobile browser.
+          </div>
+          <main className="content">
+            {(this.state.loaded && (
+              <Switch>
+                {/* Home */}
+                <Route path="/" component={HomeView} exact />
+                <Route path="/places/" component={PlacesList} exact />
+                <ProtectedRoute
+                  path="/place/create"
+                  component={CreatePlace}
+                  redirect="/authentication/sign-in"
+                  exact
+                />
+                <Route path="/place/:id" component={SinglePlace} exact />
+                {/* Protected Routes */}
+                <ProtectedRoute
+                  path="/place/:id/support"
+                  component={SupportPlaceView}
+                  onUserUpdate={this.handleUserUpdate}
+                  exact
+                />
+                {/* User Authentication */}
+                <ProtectedRoute
+                  path="/authentication/sign-in"
+                  component={AuthenticationSignInView}
+                  onUserUpdate={this.handleUserUpdate}
+                  exact
+                />
+                <Route
+                  path="/authentication/confirmation/:token"
+                  render={props => (
+                    <ConfirmEmail
+                      {...props}
+                      onUserUpdate={this.handleUserUpdate}
+                    />
+                  )}
+                  redirect="/"
+                />{' '}
+                {/*Profile route */}
+                <ProtectedRoute
+                  path="/profile/edit"
+                  component={EditProfileView}
+                  onUserUpdate={this.handleUserUpdate}
+                  exact
+                />
+                <Route
+                  path="/profile/:id"
+                  user={user}
+                  component={UserProfile}
+                  exact
+                />
+                {/* Error */}
+                <Route path="/error" component={ErrorView} />
+                {/* <Redirect from="/" to="/error" /> */}
+                {/* <Route path="/authentication/sign-in" component={AuthenticationSignInView} /> */}
+              </Switch>
+            )) || (
+              <div className="loading">
+                <img
+                  className="loading-logo"
+                  src="/images/logo.svg"
+                  alt="Localista"
+                />
+                <Spinner />
+              </div>
+            )}
+          </main>
+          <Navbar onSignOut={this.handleSignOut} />
+        </UserContext.Provider>
       </div>
     );
   }

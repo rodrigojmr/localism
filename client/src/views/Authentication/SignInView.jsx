@@ -41,7 +41,6 @@ class AuthenticationSignInView extends Component {
       <div className="sign-in-page">
         <div className="sign-in-title">
           <h1>Ready to get</h1>
-          <br></br>
           <h1>Local?</h1>
         </div>
         <form onSubmit={this.handleFormSubmission}>
@@ -82,7 +81,7 @@ class AuthenticationSignInView extends Component {
               <h2>Sign Up!</h2>
             </Link>
           </div>
-          <button className="sign-button">Get In</button>
+          <button className="sign-button">Sign Up</button>
         </form>
       </div>
     );

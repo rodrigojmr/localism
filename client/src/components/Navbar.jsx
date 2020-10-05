@@ -1,8 +1,10 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { Link } from 'react-router-dom';
 
+import { UserContext } from './Context/UserContext';
+
 const Navbar = props => {
-  const user = props.user;
+  const user = useContext(UserContext);
 
   const link = user ? `/profile/${user._id}` : '/authentication/sign-in';
 
@@ -70,10 +72,10 @@ const Navbar = props => {
             <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
             <circle cx="12" cy="7" r="4"></circle>
           </svg>
-          <p>Profile</p>
+          <p>{user ? 'Profile' : 'Sign In'}</p>
         </Link>
       </div>
-      {props.user && (
+      {user && (
         <>
           <div className="navbar-col">
             <Link to="/place/create">

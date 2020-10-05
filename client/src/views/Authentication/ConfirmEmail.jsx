@@ -18,7 +18,7 @@ export class ConfirmEmail extends Component {
     confirmEmail(token)
       .then(data => {
         const { user, message } = data;
-        this.props.onUserConfirmation(user);
+        this.props.onUserUpdate(user);
         this.setState({
           confirming: false,
           message

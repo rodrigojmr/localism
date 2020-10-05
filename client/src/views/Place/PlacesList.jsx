@@ -36,7 +36,7 @@ export class PlacesList extends Component {
         {this.state.loaded && (
           <div className="places-list">
             {this.state.places.map(place => (
-              <PlaceInfoWithCarousel key={place.id} place={place} support />
+              <PlaceInfoWithCarousel key={place._id} place={place} support />
             ))}
           </div>
         )}
