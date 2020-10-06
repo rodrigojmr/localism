@@ -6,8 +6,6 @@ const deserializeUser = async (req, res, next) => {
   // Make the user object available to any route handler or middleware
   // after this
   const id = req.session.userId;
-  console.log('req.session: ', req.session);
-  console.log('deserialize req session userId:', req.session.userId);
 
   try {
     const user = await User.findById(id).select(
