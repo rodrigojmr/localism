@@ -4,6 +4,8 @@ import SearchName from './../components/Search/SearchName';
 import PlaceInfoWithCarousel from './../components/Place/PlaceInfoWithCarousel';
 import { nearbyPlaces, localityPlaces } from './../services/place';
 
+import { useLocation } from '../hooks/useLocation';
+
 class HomeView extends Component {
   constructor(props) {
     super(props);
@@ -47,6 +49,8 @@ class HomeView extends Component {
       { maximumAge: 10000, timeout: 5000, enableHighAccuracy: true }
     );
   };
+
+  // const {latitude, longitude, error} = usePosition()
 
   getBoundaryPlaces = boundaries => {
     nearbyPlaces(boundaries).then(data => {

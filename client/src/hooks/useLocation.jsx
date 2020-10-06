@@ -5,7 +5,7 @@ const useLocation = () => {
   const [error, setError] = useState(null);
 
   useEffect(() => {
-    const geo = naigator.geolocation;
+    const geo = navigator.geolocation;
     if (!geo) {
       setError('Geolocation is not supported');
       return;
