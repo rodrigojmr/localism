@@ -14,7 +14,7 @@ import MapStyles from '../../MapStyles';
 const libraries = ['places'];
 const mapContainerStyle = {
   width: '100vw',
-  height: '20vh'
+  height: '25vh'
 };
 
 const options = {
@@ -75,7 +75,8 @@ const Map = props => {
             }}
           >
             <div>
-              <h2>Some Place</h2>
+              <h2>{selected.name}</h2>
+              <p>{selected.formatted_address}</p>
             </div>
           </InfoWindow>
         ) : null}
