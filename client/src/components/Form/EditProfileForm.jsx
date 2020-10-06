@@ -3,6 +3,7 @@ import AddressMap from '../Map/AddressMap';
 import { format } from 'date-fns';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
+import Button from '../Button';
 
 const UserProfileForm = props => {
   const handleFormSubmission = event => {
@@ -114,11 +115,7 @@ const UserProfileForm = props => {
           center={props.location}
         />
       </div>
-
-      <button className="sign-button">
-        {' '}
-        {props.isEdit ? 'Save' : 'Sign Up'}{' '}
-      </button>
+      <Button>Save</Button>
     </form>
   );
 };

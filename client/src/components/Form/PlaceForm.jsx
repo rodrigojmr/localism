@@ -6,6 +6,7 @@ import 'react-datepicker/dist/react-datepicker.css';
 
 import 'react-phone-number-input/style.css';
 import PhoneInput from 'react-phone-number-input';
+import Button from '../Button';
 
 export const PlaceForm = props => {
   const onFormSubmission = event => {
@@ -309,9 +310,7 @@ export const PlaceForm = props => {
           multiple
         />
       </div>
-      <button type="submit" className="sign-button">
-        Create Place
-      </button>
+      <Button>Create Place</Button>
     </form>
   );
 };
