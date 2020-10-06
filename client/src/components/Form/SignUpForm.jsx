@@ -1,5 +1,6 @@
 import React from 'react';
 import AddressMap from '../Map/AddressMap';
+import Button from '../../components/Button';
 
 const UserProfileForm = props => {
   const handleFormSubmission = event => {
@@ -104,7 +105,7 @@ const UserProfileForm = props => {
           <p>{props.error.message}</p>
         </div>
       )}
-      <button className="sign-button">Sign Up</button>
+      <Button>Sign Up</Button>
     </form>
   );
 };
