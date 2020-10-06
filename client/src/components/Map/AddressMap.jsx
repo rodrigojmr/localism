@@ -111,7 +111,7 @@ const Map = props => {
             }}
           >
             <div>
-              <h2>Some Place</h2>
+              <h2>{selected.name}</h2>
               {/* <p>Created {formatRelative(selected.time, new Date())}</p> */}
             </div>
           </InfoWindow>
