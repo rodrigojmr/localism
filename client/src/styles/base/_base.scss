@@ -58,31 +58,56 @@ button {
   overflow: hidden;
   overflow-y: scroll;
   height: calc(100% - #{$navbar-height});
-}
 
-@media screen and (min-width: 600px) {
-  .desktop-blocker {
-    display: block;
-  }
-  .content {
-    display: none;
-  }
-}
+  > * {
+    max-width: 1200px;
 
-@media screen and (max-width: 600px) {
-  .desktop-blocker {
-    display: none;
+    @media screen and (min-width: 1200px) {
+      margin: 0 auto;
+    }
   }
-  .content {
-    display: block;
-  }
-}
 
-.row {
-  display: flex;
+  @media screen and (min-width: 1280px) {
+    margin-top: $navbar-height;
+    top: 0;
+    bottom: initial;
+    height: auto;
+  }
 }
 
 // .App {
 //   max-width: 500px;
 //   max-height: 736px;
 // }
+
+// Hide Desktop Content
+
+// @media screen and (min-width: 600px) {
+//   .desktop-blocker {
+//     display: block;
+//   }
+//   .content {
+//     display: none;
+//   }
+// }
+
+// @media screen and (max-width: 600px) {
+//   .desktop-blocker {
+//     display: none;
+//   }
+//   .content {
+//     display: block;
+//   }
+// }
+
+.row {
+  display: flex;
+}
+
+// Breakpoints
+
+$bp-largest: 75em; // 1200px / 16
+$bp-large: 68.75em; // 1100px / 16
+$bp-medium: 56.25em; // 900 / 16
+$bp-small: 37.5em; // 600 / 16
+$bp-smallest: 31.25em;

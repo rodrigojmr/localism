@@ -66,7 +66,7 @@ class UserProfile extends Component {
               </section>
               {this.props.user && publicUser._id === this.props.user._id && (
                 <Link to={'/profile/edit'}>
-                  <button className="sign-button"> Edit Profile</button>
+                  <button className="btn"> Edit Profile</button>
                 </Link>
               )}
             </main>

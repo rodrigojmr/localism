@@ -114,8 +114,6 @@
   box-shadow: 0px 5px 5px 0px rgba(52, 49, 45, 0.3);
   background-color: #f3f3f4;
   color: #34312d;
-  margin-top: 20px;
-  margin-bottom: 20px;
 }
 
 .react-datepicker-wrapper {
@@ -144,4 +142,8 @@
   .search {
     margin-bottom: 10px;
   }
+}
+
+.sign-buttons .btn:not(:last-child) {
+  margin-right: 20px;
 }

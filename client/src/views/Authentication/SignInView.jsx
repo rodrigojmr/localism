@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, Redirect } from 'react-router-dom';
 import { signIn } from './../../services/authentication';
+import Button from '../../components/Button';
 
 class AuthenticationSignInView extends Component {
   constructor() {
@@ -27,6 +28,7 @@ class AuthenticationSignInView extends Component {
       .then(data => {
         const { user } = data;
         this.props.onUserUpdate(user);
+        this.props.history.push('/');
       })
       .catch(error => {
         const serverError = error.response.data.error;
@@ -50,7 +52,6 @@ class AuthenticationSignInView extends Component {
               id="input-username"
               type="text"
               name="username"
-              placeholder="write an username"
               value={this.state.username}
               onChange={this.handleInputChange}
               required
@@ -62,7 +63,6 @@ class AuthenticationSignInView extends Component {
               id="input-password"
               type="password"
               name="password"
-              placeholder="use a strong password"
               value={this.state.password}
               onChange={this.handleInputChange}
               required
@@ -75,13 +75,12 @@ class AuthenticationSignInView extends Component {
               <p>{this.state.error.message}</p>
             </div>
           )}
-          <div className="sign-up-title">
-            <h2>If you're new here,</h2>
+          <div className="sign-buttons">
+            <Button>Sign In</Button>
             <Link to={'/authentication/sign-up'}>
-              <h2>Sign Up!</h2>
+              <Button importance="primary">Sign Up</Button>
             </Link>
           </div>
-          <button className="sign-button">Sign Up</button>
         </form>
       </div>
     );

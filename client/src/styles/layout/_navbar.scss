@@ -4,10 +4,15 @@
   height: $navbar-height;
   width: 100%;
   padding: 0.7rem 0;
-  // position: fixed;
-  // bottom: 0;
+  position: fixed;
+  bottom: 0;
   background-color: #0ba6a4;
   font-size: 0;
+
+  @media screen and (min-width: 1280px) {
+    top: 0;
+    bottom: initial;
+  }
 }
 
 .navbar-col {
