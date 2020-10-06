@@ -17,6 +17,16 @@ const PlaceDescription = ({ place, support }) => {
       );
     }
   }
+
+  const localsSupport = () => {
+    const numberSupports = place.supports.length;
+    if (numberSupports === 1) {
+      return `1 local supports this place.`;
+    } else if (numberSupports > 1) {
+      return `${numberSupports} locals support this place.`;
+    } else return `No local supports this place yet.`;
+  };
+
   return (
     <div className="place-info__body">
       <div className="row place-info__info">
@@ -34,15 +44,7 @@ const PlaceDescription = ({ place, support }) => {
             </span>
           </p>
         )}
-        {support && (
-          <p className="place-info__supports">
-            {`${place.supports.length} ${
-              place.supports.length > 1
-                ? `locals support this place`
-                : `local supports this place`
-            }`}
-          </p>
-        )}
+        {support && <p className="place-info__supports">{localsSupport()}</p>}
         {place.description && (
           <p className="place-info__description">{place.description}</p>
         )}
