@@ -1,6 +1,6 @@
 import React, { Component, useState, useEffect } from 'react';
 import './styles/style.scss';
-import { Switch, Route } from 'react-router-dom';
+import { Switch, Route, Redirect } from 'react-router-dom';
 import { loadMe, signOut } from './services/authentication';
 
 import HomeView from './views/HomeView';
@@ -29,6 +29,10 @@ class App extends Component {
   }
 
   componentDidMount() {
+    this.loadUser();
+  }
+
+  loadUser = () => {
     loadMe()
       .then(data => {
         const user = data.user;
@@ -40,7 +44,7 @@ class App extends Component {
       .catch(error => {
         console.log(error);
       });
-  }
+  };
 
   handleUserUpdate = user => {
     this.setState({
@@ -67,10 +71,10 @@ class App extends Component {
     return (
       <div style={style} className="App">
         <UserContext.Provider value={user}>
-          <div className="desktop-blocker">
+          {/* <div className="desktop-blocker">
             This app was developed mobile-first. Please view this app on your
             mobile browser.
-          </div>
+          </div> */}
           <main className="content">
             {(this.state.loaded && (
               <Switch>
@@ -93,8 +97,16 @@ class App extends Component {
                 />
                 {/* User Authentication */}
                 <ProtectedRoute
+                  newUsers
                   path="/authentication/sign-in"
                   component={AuthenticationSignInView}
+                  onUserUpdate={this.handleUserUpdate}
+                  exact
+                />
+                <ProtectedRoute
+                  newUsers
+                  path="/authentication/sign-up"
+                  component={AuthenticationSignUpView}
                   onUserUpdate={this.handleUserUpdate}
                   exact
                 />
@@ -122,9 +134,8 @@ class App extends Component {
                   exact
                 />
                 {/* Error */}
+                <Route render={() => <Redirect to="/" />} />
                 <Route path="/error" component={ErrorView} />
-                {/* <Redirect from="/" to="/error" /> */}
-                {/* <Route path="/authentication/sign-in" component={AuthenticationSignInView} /> */}
               </Switch>
             )) || (
               <div className="loading">

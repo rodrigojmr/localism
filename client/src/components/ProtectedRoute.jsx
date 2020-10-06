@@ -3,9 +3,11 @@ import { UserContext } from './Context/UserContext';
 import { Route, Redirect } from 'react-router-dom';
 
 const ProtectedRoute = ({ component: Component, onUserUpdate, ...props }) => {
-  const user = useContext(UserContext);
+  let user = useContext(UserContext);
 
-  if (!user) {
+  const whoToBlock = props.newUsers ? props.newUsers && !user : user;
+
+  if (whoToBlock) {
     return (
       <Route
         {...props}
@@ -13,24 +15,8 @@ const ProtectedRoute = ({ component: Component, onUserUpdate, ...props }) => {
       />
     );
   } else {
-    return <Redirect to="/" />;
+    return <Redirect to={props.newUsers ? '/' : '/authentication/sign-in'} />;
   }
 };
-
-// const ProtectedRoute = ({ component: Component, ...props }) => {
-//   console.log('Component: ', Component);
-//   return (
-//     <Route
-//       {...rest}
-//       render={props =>
-//         props.user ? (
-//           <Component {...props} />
-//         ) : (
-//           <Redirect to="/authentication/sign-in" />
-//         )
-//       }
-//     />
-//   );
-// };
 
 export default ProtectedRoute;
