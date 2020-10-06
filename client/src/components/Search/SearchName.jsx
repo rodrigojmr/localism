@@ -32,7 +32,6 @@ const SearchName = props => {
   // };
 
   const onPlaceSelection = place => {
-    console.log('on place selection');
     props.handlePlaceSelection(place);
     props.toggleSearch(false);
   };
