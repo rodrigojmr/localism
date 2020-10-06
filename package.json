@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "start": "node ./server",
-    "dev": "nodemon ./server",
+    "dev": "concurrently \"nodemon ./server\" \"cd client && npm start\"",
     "dev:debug": "DEBUG=localism* npm run dev",
     "lint": "eslint ."
   },
