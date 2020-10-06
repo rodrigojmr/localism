@@ -20,6 +20,7 @@ const SupportsProfileList = ({ user, supports }) => {
         <div className="supports-highlights">
           {supportsWithDescription.map(support => (
             <SupportWithContent
+              key={support._id}
               place={support.place}
               content={support.content}
             />
