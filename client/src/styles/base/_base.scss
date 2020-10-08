@@ -80,25 +80,24 @@ button {
 //   max-height: 736px;
 // }
 
-// Hide Desktop Content
+// Hide Desktop
+@media screen and (min-width: 600px) {
+  .desktop-blocker {
+    display: block;
+  }
+  .content {
+    display: none;
+  }
+}
 
-// @media screen and (min-width: 600px) {
-//   .desktop-blocker {
-//     display: block;
-//   }
-//   .content {
-//     display: none;
-//   }
-// }
-
-// @media screen and (max-width: 600px) {
-//   .desktop-blocker {
-//     display: none;
-//   }
-//   .content {
-//     display: block;
-//   }
-// }
+@media screen and (max-width: 600px) {
+  .desktop-blocker {
+    display: none;
+  }
+  .content {
+    display: block;
+  }
+}
 
 .row {
   display: flex;

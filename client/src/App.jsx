@@ -71,10 +71,10 @@ class App extends Component {
     return (
       <div style={style} className="App">
         <UserContext.Provider value={user}>
-          {/* <div className="desktop-blocker">
+          <div className="desktop-blocker">
             This app was developed mobile-first. Please view this app on your
             mobile browser.
-          </div> */}
+          </div>
           <main className="content">
             {(this.state.loaded && (
               <Switch>
