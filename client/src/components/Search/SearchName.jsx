@@ -8,72 +8,77 @@ import {
 } from '@reach/combobox';
 import './../../App.css';
 import '@reach/combobox/styles.css';
+import TypeAheadDropdown from '../TypeAheadDropDown';
 
 const SearchName = props => {
-  const input = document.querySelector('.search-box input');
-  useEffect(() => {
-    if (input) {
-      if (props.isSearching) {
-        input.focus();
-      } else {
-        input.blur();
-        props.onSearchUpdate('');
-      }
-    }
-  }, [props.isSearching]);
+  const [query, setQuery] = useState('');
 
-  // const handleToggleSearch = isSearching => {
-  //   props.toggleSearch(isSearching);
-  //   if (isSearching) {
-  //     input.focus();
-  //   } else {
-  //     input.blur();
-  //   }
-  // };
+  const input = React.useRef();
+
+  const handleSearch = query => {
+    setQuery(query);
+    props.onSearch(query);
+  };
+
+  useEffect(() => {
+    if (!input.current) return;
+    if (props.searching) {
+      input.current.focus();
+    } else {
+      setQuery('');
+      input.current.blur();
+    }
+  }, [props.searching]);
 
   const onPlaceSelection = place => {
-    props.handlePlaceSelection(place);
-    props.toggleSearch(false);
+    props.setSelected(place);
+    props.setSearching(false);
   };
 
   return (
     <div
-      className={`search-box ${props.isSearching ? 'search-box--active' : ''}`}
+      className={`search-box ${props.searching ? 'search-box--active' : ''}`}
     >
       <Combobox
         className="search-box__input-wrapper"
         onSelect={async name => {
-          props.onSearchUpdate(name);
+          handleSearch(name);
           try {
+            console.log(props.places);
             const place = props.places.find(place => place.name === name);
             onPlaceSelection(place);
           } catch (error) {
+            console.log('error: ', error);
             console.log('Error!');
           }
         }}
       >
         <ComboboxInput
+          ref={input}
           placeholder={`Search in ${props.locality}...`}
           className="input-hidden"
+          id="combobox-input"
           id="input-name"
-          value={props.searchQuery}
-          onChange={e => {
-            props.onSearchUpdate(e.target.value);
-          }}
+          value={query}
+          onChange={e => handleSearch(e.target.value)}
         />
-        <ComboboxPopover>
-          <ComboboxList>
+        <ComboboxPopover id="combobox-popover">
+          <ComboboxList id="combobox-list">
             {props.places &&
               props.places.map(place => {
                 return (
-                  <ComboboxOption key={place.place_id} value={place.name} />
+                  <ComboboxOption
+                    key={place.place_id}
+                    className="combobox-option"
+                    value={place.name}
+                  />
                 );
               })}
           </ComboboxList>
         </ComboboxPopover>
       </Combobox>
       <svg
-        onClick={() => props.toggleSearch(!props.isSearching)}
+        onClick={() => props.setSearching(!props.searching)}
         xmlns="http://www.w3.org/2000/svg"
         width="24"
         height="24"
