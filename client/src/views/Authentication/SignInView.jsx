@@ -13,6 +13,8 @@ class AuthenticationSignInView extends Component {
     };
   }
 
+  //TODO Refactor to hooks
+
   handleInputChange = event => {
     const { name, value } = event.target;
     this.setState({

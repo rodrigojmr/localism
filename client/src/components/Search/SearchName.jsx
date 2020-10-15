@@ -8,7 +8,6 @@ import {
 } from '@reach/combobox';
 import './../../App.css';
 import '@reach/combobox/styles.css';
-import TypeAheadDropdown from '../TypeAheadDropDown';
 
 const SearchName = props => {
   const [query, setQuery] = useState('');
@@ -57,8 +56,7 @@ const SearchName = props => {
           ref={input}
           placeholder={`Search in ${props.locality}...`}
           className="input-hidden"
-          id="combobox-input"
-          id="input-name"
+          id="input-name combobox-input"
           value={query}
           onChange={e => handleSearch(e.target.value)}
         />

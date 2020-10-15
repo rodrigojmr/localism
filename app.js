@@ -32,7 +32,12 @@ app.use(express.json());
 app.use(
   cors({
     credentials: true,
-    origin: [process.env.CLIENT_APP_URL, 'http://127.0.0.1:3000']
+    origin: [
+      process.env.CLIENT_APP_URL,
+      'http://127.0.0.1:3000',
+      'http://localhost:3000'
+    ],
+    methods: ['GET', 'POST', 'HEAD', 'OPTIONS', 'PATCH', 'PUT', 'DELETE']
   })
 );
 
@@ -54,6 +59,7 @@ app.use(
     })
   })
 );
+
 app.use(deserializeUser);
 
 app.use('/', indexRouter);
@@ -70,7 +76,7 @@ app.use((req, res, next) => {
 });
 
 // Catch all error handler
-app.use((error, req, res, next) => {
+app.use((error, req, res) => {
   console.log('error:', error);
   res.status(error.status || 500);
   res.json({ type: 'error', error: { message: error.message } });

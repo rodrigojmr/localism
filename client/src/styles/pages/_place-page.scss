@@ -28,6 +28,10 @@
 
 .support-section {
   padding: 20px 0;
+
+  .user-support:not(:last-child) {
+    margin-bottom: 10px;
+  }
 }
 
 .owner-section {
@@ -36,5 +40,13 @@
 
   .owner .heading {
     font-size: 1.2rem;
+  }
+}
+
+.support-action {
+  text-align: center;
+
+  a {
+    margin-bottom: 2rem;
   }
 }

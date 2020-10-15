@@ -1,48 +1,31 @@
-import React, { Component } from 'react';
+import React, { useState, useEffect } from 'react';
 
 import { loadAllPlaces } from './../../services/place';
 
 import PlaceInfoWithCarousel from './../../components/Place/PlaceInfoWithCarousel';
 
-export class PlacesList extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      loaded: false,
-      places: undefined
-    };
-  }
+const PlacesList = () => {
+  const [loaded, setLoaded] = useState(false);
+  const [places, setPlaces] = useState([]);
 
-  componentDidMount() {
+  useEffect(() => {
     loadAllPlaces().then(data => {
-      const { places } = data;
-      this.setState({
-        loaded: true,
-        places
-      });
+      setPlaces(data.places);
+      setLoaded(true);
     });
-    /*loadSupport(id).then(data => {
-      const { support } = data;
-      this.setState({
-        loaded: true,
-        support
-      });
-    });*/
-  }
+  }, []);
 
-  render() {
-    return (
-      <div className="places">
-        {this.state.loaded && (
-          <div className="places-list">
-            {this.state.places.map(place => (
-              <PlaceInfoWithCarousel key={place._id} place={place} support />
-            ))}
-          </div>
-        )}
-      </div>
-    );
-  }
-}
+  return (
+    <div className="places">
+      {loaded && (
+        <div className="places-list">
+          {places.map(place => (
+            <PlaceInfoWithCarousel key={place._id} place={place} support />
+          ))}
+        </div>
+      )}
+    </div>
+  );
+};
 
 export default PlacesList;

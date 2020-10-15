@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import { useEmblaCarousel } from 'embla-carousel/react';
+import ImageFadeIn from 'react-image-fade-in';
 
 const EmblaCarousel = ({ name, slides }) => {
   const [viewportRef, embla] = useEmblaCarousel({
@@ -24,11 +25,16 @@ const EmblaCarousel = ({ name, slides }) => {
           {slides.map((slide, index) => (
             <div className="embla__slide" key={index}>
               <div className="embla__slide__inner">
-                <img
+                <ImageFadeIn
+                  alt={`${name} Image #${index + 1}`}
+                  className="embla__slide__img"
+                  src={slide}
+                />
+                {/* <img
                   className="embla__slide__img"
                   src={slide}
                   alt={`${name} Image #${index}`}
-                />
+                /> */}
               </div>
             </div>
           ))}

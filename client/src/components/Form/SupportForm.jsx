@@ -1,30 +1,73 @@
-import React from 'react';
+import React, { useState, useEffect, useContext } from 'react';
+import {
+  createSupport,
+  editSupport,
+  deleteSupport
+} from '../../services/support';
+import { UserContext } from '../../components/Context/UserContext';
 
-const SupportForm = props => {
-  const handleFormSubmission = event => {
-    event.preventDefault();
-    props.onFormSubmission();
+const SupportForm = ({ supported, place, ...props }) => {
+  const [content, setContent] = useState('');
+  const user = useContext(UserContext);
+  const id = place?._id;
+
+  useEffect(() => {
+    if (supported) {
+      const existingComment = place.supports.find(
+        support => support.creator._id === user._id
+      ).content;
+      setContent(existingComment);
+    }
+  }, []);
+
+  const handleFormSubmission = e => {
+    console.log('form submit');
+    e.preventDefault();
+    const body = { content };
+    if (supported) {
+      console.log('id, body: ', id, body);
+      editSupport(id, body).catch(error => {
+        console.log(error);
+      });
+    } else {
+      createSupport(id, body).catch(error => {
+        console.log(error);
+      });
+    }
+    if (props.setModal) {
+      props.setModal(false);
+    }
   };
 
-  const handleContentInputChange = event => {
-    const content = event.target.value;
-    props.onContentChange(content);
+  const handleSupportDelete = e => {
+    e.preventDefault();
+    console.log('attempting delete');
+    deleteSupport(id).catch(error => console.log(error));
   };
 
   return (
-    <form onSubmit={handleFormSubmission}>
-      <label htmlFor="content-input">What do you love about this place?</label>
-      <textarea
-        id="content-input"
-        placeholder="Write your comment here..."
-        name="content"
-        value={props.content}
-        onChange={handleContentInputChange}
-      />
-      <button type="submit">
-        {props.isEdit ? 'Edit Support' : 'Create Support'}
-      </button>
-    </form>
+    <>
+      <form className="support-form" onSubmit={handleFormSubmission}>
+        <label htmlFor="content-input">
+          What do you love about this place?
+        </label>
+        <textarea
+          id="content-input"
+          placeholder="Write your comment here... (Optional)"
+          name="content"
+          value={content}
+          onChange={e => setContent(e.target.value)}
+        />
+        <button className="btn btn--primary" type="submit">
+          {supported ? 'Edit' : 'Create Support'}
+        </button>
+        {supported && (
+          <button className="btn" onClick={e => handleSupportDelete(e)}>
+            Delete
+          </button>
+        )}
+      </form>
+    </>
   );
 };
 

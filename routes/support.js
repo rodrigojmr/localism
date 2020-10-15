@@ -1,3 +1,5 @@
+const cors = require('cors');
+
 const express = require('express');
 const Support = require('./../models/support');
 
@@ -36,18 +38,24 @@ supportRouter.get('/:id', async (request, response, next) => {
 supportRouter.post('/:id', async (req, res, next) => {
   const placeId = req.params.id;
   const { content } = req.body;
+  console.log('content: ', content);
   try {
+    const user = await User.findById(req.session.userId);
+    const place = await Place.findById(placeId).populate('supports');
+    if (place.supports.some(support => support.creator === req.user._id)) {
+      const error = new Error("You've already supported this place.");
+      next(error);
+    }
+
     const support = await Support.create({
       creator: req.user._id,
       place: placeId,
       content
     });
 
-    const user = await User.findById(req.session.userId);
     user.supports.push(support._id);
     user.save();
 
-    const place = await Place.findById(placeId);
     place.supports.push(support._id);
     place.save();
 
@@ -63,13 +71,29 @@ supportRouter.delete(
   async (req, res, next) => {
     const id = req.params.id;
 
-    Support.findOneAndDelete({ _id: id, creator: req.user._id })
-      .then(() => {
-        res.json({});
-      })
-      .catch(error => {
-        next(error);
+    try {
+      const support = await Support.findOneAndDelete({
+        _id: id,
+        creator: req.user._id
       });
+      console.log('support: ', support);
+      await User.findOneAndUpdate(
+        { _id: req.user._id },
+        { $pull: { supports: id } }
+      );
+      await Place.findOneAndUpdate(
+        { supports: { $in: [id] } },
+        { $pull: { supports: id } }
+      );
+      res.json('Deleted your support from this place');
+    } catch (error) {
+      next(error);
+    }
+
+    Place.findOneAndUpdate(
+      { supports: { $in: [id] } },
+      { $pull: { supports: id } }
+    );
   }
 );
 
@@ -77,11 +101,12 @@ supportRouter.patch(
   '/:id',
   routeAuthenticationGuard,
   (request, response, next) => {
+    console.log(request.user._id, content);
+    const { content } = request.body;
     const id = request.params.id;
-
     Support.findOneAndUpdate(
       { _id: id, creator: request.user._id },
-      { content: request.body.content },
+      { content },
       { new: true }
     )
       .then(post => {

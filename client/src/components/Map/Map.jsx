@@ -3,7 +3,6 @@ import { GoogleMap, useLoadScript, Marker } from '@react-google-maps/api';
 import panTo from '../../hooks/panTo';
 import usePosition from '../../hooks/usePosition';
 import useMapLocalityAxios from '../../hooks/useMapLocalityAxios';
-import Spinner from '../../components/Spinner';
 
 import './../../App.css';
 import '@reach/combobox/styles.css';
@@ -44,6 +43,9 @@ const Map = props => {
 
   useEffect(() => {
     props.handleMapLoad(isLoaded);
+    return () => {
+      props.handleMapLoad(false);
+    };
   }, [isLoaded]);
 
   // Get user position
@@ -56,16 +58,10 @@ const Map = props => {
     fetchLocality
   ] = useMapLocalityAxios(position);
 
-  // Set map on user location on load
-  useEffect(() => {
-    setInitialCenter(position);
-  }, [position]);
-
   const setInitialCenter = React.useCallback(
     ({ lat, lng }) => {
-      if (!mapRef.current) return;
-
-      panTo(mapRef, {
+      if (!mapRef.current || (!lat && !lng)) return;
+      panTo(mapRef, 14, {
         lat,
         lng
       });
@@ -108,7 +104,7 @@ const Map = props => {
 
   useEffect(() => {
     if (!props.selected) return;
-    panTo(mapRef, {
+    panTo(mapRef, 15, {
       lat: props.selected.location.coordinates[0],
       lng: props.selected.location.coordinates[1]
     });
@@ -120,7 +116,7 @@ const Map = props => {
       {isLoaded ? (
         <GoogleMap
           mapContainerStyle={mapContainerStyle}
-          zoom={15}
+          zoom={14}
           center={mapCenter}
           options={options}
           onClick={() => handlePlaceSelection(null)}

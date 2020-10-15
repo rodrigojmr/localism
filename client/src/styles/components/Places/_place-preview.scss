@@ -43,13 +43,15 @@
   box-shadow: 0px 5px 5px 0px rgba(0, 0, 0, 0.1);
 
   &__img-wrapper {
+    height: 90%;
     overflow: hidden;
     font-size: 0;
   }
 
   &__img {
     object-fit: cover;
-    width: auto;
+    object-position: 50% 50%;
+    height: 100%;
   }
 
   .heading {

@@ -101,11 +101,17 @@
     .supports-row {
       display: flex;
       flex-wrap: nowrap;
+      white-space: nowrap;
       overflow-x: auto;
       padding-bottom: 20px;
 
       .place-preview-simple {
-        flex: 0 0 150px;
+        height: 250px;
+        flex: 0 0 200px;
+
+        &:not(:last-child) {
+          margin-right: 10px;
+        }
       }
     }
   }

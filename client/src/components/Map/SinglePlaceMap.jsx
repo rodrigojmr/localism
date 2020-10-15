@@ -47,7 +47,7 @@ const Map = props => {
   if (loadError) return 'Error loading maps';
   if (!isLoaded) return 'Loading Maps';
   return (
-    <div className="map map--single-place">
+    <section className="map map--single-place">
       <GoogleMap
         mapContainerStyle={mapContainerStyle}
         zoom={15}
@@ -81,7 +81,7 @@ const Map = props => {
           </InfoWindow>
         ) : null}
       </GoogleMap>
-    </div>
+    </section>
   );
 };
 
