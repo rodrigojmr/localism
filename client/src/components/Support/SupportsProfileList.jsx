@@ -3,16 +3,10 @@ import SupportWithContent from './../../components/Support/SupportWithContent';
 import PlacePreviewSimple from './../../components/Place/PlacePreviewSimple';
 
 const SupportsProfileList = ({ user, supports }) => {
-  let supportsWithDescription;
-  let supportsWithoutDescription;
-  if (supports) {
-    supportsWithDescription = supports.filter(
-      support => support.content !== ''
-    );
-    supportsWithoutDescription = supports.filter(
-      support => support.content === '' || support.content === undefined
-    );
-  }
+  const supportsWithDescription = supports?.filter(support => support.content);
+  const supportsWithoutDescription = supports?.filter(
+    support => !support.content
+  );
 
   return (
     <div className="supports">

@@ -67,7 +67,7 @@ const SinglePlace = props => {
     .map(support => <SupportFromUser support={support} key={support._id} />);
 
   const supported = place?.supports.some(
-    support => support.creator._id === user._id
+    support => support.creator._id === user?._id
   );
 
   // Modal

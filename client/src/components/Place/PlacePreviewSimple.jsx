@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 const PlacePreviewSimple = ({ place }) => {
   return (
@@ -10,7 +11,9 @@ const PlacePreviewSimple = ({ place }) => {
           className="place-preview-simple__img"
         />
       </div>
-      <h4 className="heading heading--4">{place.name}</h4>
+      <Link to={`/place/${place._id}`}>
+        <h4 className="heading heading--4">{place.name}</h4>
+      </Link>
     </div>
   );
 };
