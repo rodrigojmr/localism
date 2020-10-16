@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import {
   GoogleMap,
   useLoadScript,
@@ -18,6 +18,7 @@ import {
 } from '@reach/combobox';
 import './../../App.css';
 import '@reach/combobox/styles.css';
+import usePosition from '../../hooks/usePosition';
 
 import MapStyles from '../../MapStyles';
 const libraries = ['places'];
@@ -28,7 +29,15 @@ const options = {
   zoomControl: true
 };
 
-const Map = props => {
+const Map = React.forwardRef((props, ref) => {
+  const [center, setCenter] = useState(null);
+  const { position, error } = usePosition();
+  useEffect(() => {
+    if (position) {
+      setCenter({ lat: position.lat, lng: position.lng });
+    }
+  }, [position.lat, position.lng]);
+
   const mapContainerStyle = {
     width: '100%',
     height: props.height
@@ -51,7 +60,7 @@ const Map = props => {
 
   const panTo = React.useCallback(({ lat, lng }) => {
     mapRef.current.panTo({ lat, lng });
-    mapRef.current.setZoom(18);
+    mapRef.current.setZoom(16);
   }, []);
 
   const setMarker = React.useCallback(({ lat, lng }) => {
@@ -79,6 +88,7 @@ const Map = props => {
   return (
     <div className="map">
       <Search
+        ref={ref}
         handleResultInfo={handleResultInfo}
         setMarker={setMarker}
         panTo={panTo}
@@ -86,7 +96,7 @@ const Map = props => {
       <GoogleMap
         mapContainerStyle={mapContainerStyle}
         zoom={15}
-        center={props.center}
+        center={center}
         options={options}
         // onClick={onMapClick}
         onLoad={onMapLoad}
@@ -119,64 +129,68 @@ const Map = props => {
       </GoogleMap>
     </div>
   );
-};
+});
 
-function Search({ required, handleResultInfo, panTo, setMarker }) {
-  const {
-    ready,
-    value,
-    suggestions: { status, data },
-    setValue,
-    clearSuggestions
-  } = usePlacesAutocomplete({
-    requestOptions: {
-      // location: {
-      //   lat: () => 6.5568767999999995, - Get current user location
-      //   lng: () => 3.3488895999999997 - Get current user location
-      // },
-      // radius: 200 * 1000
-    }
-  });
-  return (
-    <div className="search">
-      <label htmlFor="input-address">Address</label>
-      <Combobox
-        onSelect={async address => {
-          setValue(address, false);
-          clearSuggestions();
-          try {
-            const results = await getGeocode({ address });
-            const result = results[0];
-            const { lat, lng } = await getLatLng(result);
-            panTo({ lat, lng });
-            setMarker({ lat, lng });
-            handleResultInfo(result);
-          } catch (error) {
-            console.log('Error!', error);
-          }
-        }}
-      >
-        <ComboboxInput
-          required={required}
-          id="input-address"
-          value={value}
-          onChange={e => {
-            setValue(e.target.value);
+const Search = React.forwardRef(
+  ({ required, handleResultInfo, panTo, setMarker }, ref) => {
+    const {
+      ready,
+      value,
+      suggestions: { status, data },
+      setValue,
+      clearSuggestions
+    } = usePlacesAutocomplete({
+      requestOptions: {
+        // location: {
+        //   lat: () => 6.5568767999999995, - Get current user location
+        //   lng: () => 3.3488895999999997 - Get current user location
+        // },
+        // radius: 200 * 1000
+      }
+    });
+    return (
+      <div className="search">
+        <label htmlFor="input-address">Address</label>
+        <Combobox
+          onSelect={async address => {
+            setValue(address, false);
+            clearSuggestions();
+            try {
+              const results = await getGeocode({ address });
+              const result = results[0];
+              const { lat, lng } = await getLatLng(result);
+              panTo({ lat, lng });
+              setMarker({ lat, lng });
+              handleResultInfo(result);
+            } catch (error) {
+              console.log('Error!', error);
+            }
           }}
-          disabled={!ready}
-          placeholder="Enter your address"
-        />
-        <ComboboxPopover>
-          <ComboboxList>
-            {status === 'OK' &&
-              data.map(({ place_id, description }) => {
-                return <ComboboxOption key={place_id} value={description} />;
-              })}
-          </ComboboxList>
-        </ComboboxPopover>
-      </Combobox>
-    </div>
-  );
-}
+        >
+          <ComboboxInput
+            name="address"
+            ref={ref({ required: true })}
+            required={required}
+            id="input-address"
+            value={value}
+            onChange={e => {
+              setValue(e.target.value);
+            }}
+            disabled={!ready}
+            placeholder="Enter your address"
+          />
+          <ComboboxPopover>
+            <ComboboxList>
+              {status === 'OK' &&
+                data.map(({ place_id, description }) => {
+                  return <ComboboxOption key={place_id} value={description} />;
+                })}
+            </ComboboxList>
+          </ComboboxPopover>
+        </Combobox>
+      </div>
+    );
+  }
+);
 
 export default Map;

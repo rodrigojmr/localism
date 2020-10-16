@@ -1,55 +1,65 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
+import { useForm, Controller } from 'react-hook-form';
 import AddressMap from '../Map/AddressMap';
 import Button from '../../components/Button';
+import createImagePreview from '../../services/createImagePreview';
 
 const UserProfileForm = props => {
-  const handleFormSubmission = event => {
-    event.preventDefault();
-    props.onFormSubmission();
+  const { register, handleSubmit, control, reset } = useForm();
+
+  const [avatar, setAvatar] = useState('/images/default-avatar.png');
+  const [avatarPreview, setavatarPreview] = useState(
+    '/images/default-avatar.png'
+  );
+
+  const onSubmit = data => {
+    console.log(data);
+    // createPlace(data)
+    //   .then(res => {
+    //     const id = res.place._id;
+    //     // Redirect user to single post view
+    //     this.props.history.push(`/place/${id}`);
+    //   })
+    //   .catch(error => {
+    //     console.log(error);
+    //   });
   };
 
-  const handleValueChange = event => {
-    const name = event.target.name;
-    const value = event.target.value;
-    props.onValueChange(name, value);
-  };
+  const emailRegex = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
 
-  const handleAvatarInputChange = event => {
-    const file = event.target.files[0];
-    props.onAvatarChange(file);
+  const handleAvatarChange = async e => {
+    const file = e.target.files;
+    const image = await createImagePreview(file, 1);
+    setavatarPreview(image);
   };
 
   return (
-    <form onSubmit={handleFormSubmission} className="form">
+    <form onSubmit={handleSubmit(onSubmit)} className="form">
       <div className="user-profile-picture">
         <label htmlFor="input-avatar">
           <div className="image-cropper">
-            <img
-              src={props.avatarPreview}
-              alt={props.username}
-              className="profile-pic"
-            />
+            <img src={avatarPreview} className="profile-pic" />
           </div>
           <input
+            ref={register}
             style={{ display: 'none' }}
             id="input-avatar"
             type="file"
             name="avatar"
-            onChange={handleAvatarInputChange}
+            onChange={handleAvatarChange}
             className="image-input"
           />
         </label>
         <div className="input-username">
           <label htmlFor="input-username">Username</label>
           <input
+            ref={register({ required: true })}
             required
             minLength="3"
             id="input-username"
             type="text"
             name="username"
             placeholder="Enter a Username"
-            value={props.username}
-            onChange={handleValueChange}
           />
         </div>
       </div>
@@ -57,47 +67,38 @@ const UserProfileForm = props => {
       <div className="input-group">
         <label htmlFor="input-name">Full Name</label>
         <input
+          ref={register({ required: true })}
           id="input-name"
           type="text"
           name="name"
           placeholder="Enter Full Name"
-          value={props.name}
-          onChange={handleValueChange}
         />
       </div>
       <div className="input-group">
         <label htmlFor="input-email">Email</label>
         <input
+          ref={register({ required: true, pattern: emailRegex })}
           id="input-email"
           type="email"
           name="email"
           placeholder="Email"
-          value={props.email}
-          onChange={handleValueChange}
         />
       </div>
 
       <div className="input-group">
         <label htmlFor="input-password">Password</label>
         <input
+          ref={register({ required: true })}
           minLength="8"
-          required
           id="input-password"
           type="password"
           name="password"
           placeholder="Password"
-          value={props.password}
-          onChange={handleValueChange}
         />
       </div>
 
       <div className="input-group">
-        <AddressMap
-          required
-          height={'40vh'}
-          resultInfoHandler={(name, value) => props.onValueChange(name, value)}
-          center={props.location}
-        />
+        <AddressMap ref={register} height={'40vh'} />
       </div>
       {props.error && (
         <div className="error-block">
