@@ -50,7 +50,7 @@ const UserProfileForm = props => {
           />
         </div>
       </div>
-      <div className="input-group">
+      <div className="form__input-group">
         <label htmlFor="input-name">FullName</label>
         <input
           id="input-name"
@@ -61,7 +61,7 @@ const UserProfileForm = props => {
           onChange={handleValueChange}
         />
       </div>
-      <div className="input-group">
+      <div className="form__input-group">
         <label htmlFor="input-email">Email</label>
         <input
           id="input-email"
@@ -73,7 +73,7 @@ const UserProfileForm = props => {
         />
       </div>
 
-      <div className="input-group">
+      <div className="form__input-group">
         <label htmlFor="input-password">Password</label>
         <input
           minLength="8"
@@ -86,7 +86,7 @@ const UserProfileForm = props => {
         />
       </div>
 
-      <div className="input-group">
+      <div className="form__input-group">
         <label htmlFor="input-openDate">Birthday</label>
         <DatePicker
           id="input-birthday"
@@ -97,10 +97,10 @@ const UserProfileForm = props => {
           }
           dateFormat={'dd/MM/yyyy'}
           onChange={date => props.onValueChange('birthday', date)}
-          className="input-group"
+          className="form__input-group"
         />
       </div>
-      <div className="input-group">
+      <div className="form__input-group">
         <label htmlFor="input-gender">Gender</label>
         <select defaultValue="male" name="gender" id="input-gender">
           <option value="male">Male</option>
@@ -108,7 +108,7 @@ const UserProfileForm = props => {
           <option value="other">Other</option>
         </select>
       </div>
-      <div className="map-inputs">
+      <div className="form__map">
         <AddressMap
           height={'30vh'}
           resultInfoHandler={(name, value) => props.onValueChange(name, value)}

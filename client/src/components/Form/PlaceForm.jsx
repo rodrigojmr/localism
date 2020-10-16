@@ -3,6 +3,7 @@ import AddressMap from '../Map/AddressMap';
 import { format } from 'date-fns';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
+import { useForm } from 'react-hook-form';
 
 import 'react-phone-number-input/style.css';
 import PhoneInput from 'react-phone-number-input';
@@ -55,7 +56,7 @@ export const PlaceForm = props => {
         resultInfoHandler={(name, value) => props.onValueChange(name, value)}
         center={props.location}
       />
-      <div className="input-group">
+      <div className="form__input-group">
         <label htmlFor="input-name">Business Name</label>
         <input
           required
@@ -67,7 +68,7 @@ export const PlaceForm = props => {
           onChange={onValueChange}
         />
       </div>
-      <div className="input-group">
+      <div className="form__input-group">
         {/* Change to drop down */}
         <label htmlFor="input-category">Category</label>
         <select
@@ -117,10 +118,10 @@ export const PlaceForm = props => {
           id="input-category-other"
         />
       </div>
-      <div className="form-section-title">
+      <div className="form__section-title">
         <h1>Contacts</h1>
       </div>
-      <div className="input-group">
+      <div className="form__input-group">
         <label htmlFor="input-phoneNumber">Phone Number</label>
         <PhoneInput
           id="input-phoneNumber"
@@ -130,7 +131,7 @@ export const PlaceForm = props => {
           }
         />
       </div>
-      <div className="input-group" id="email">
+      <div className="form__input-group" id="email">
         <label htmlFor="input-email">Email</label>
         <input
           placeholder="Email"
@@ -141,7 +142,7 @@ export const PlaceForm = props => {
           onChange={onValueChange}
         />
       </div>
-      <div className="input-group" id="instagram">
+      <div className="form__input-group" id="instagram">
         <label htmlFor="input-instagram">instagram</label>
         <input
           placeholder="instagram"
@@ -152,7 +153,7 @@ export const PlaceForm = props => {
           onChange={onValueChange}
         />
       </div>
-      <div className="input-group" id="website">
+      <div className="form__input-group" id="website">
         <label htmlFor="input-website">website</label>
         <input
           placeholder="website"
@@ -163,12 +164,12 @@ export const PlaceForm = props => {
           onChange={onValueChange}
         />
       </div>
-      <div className="form-section-title">
+      <div className="form__section-title">
         <h1>Schedule</h1>
       </div>
-      <div className="input-group from-to-section">
-        <div className="schedule-inputs-wrapper">
-          <div className="schedule-inputs-wrapper__section">
+      <div className="form__input-group from-to-section">
+        <div className="form__schedule">
+          <div className="form__schedule-section">
             <div>
               <label htmlFor="input-schedule-open">From:</label>
               <select
@@ -206,7 +207,7 @@ export const PlaceForm = props => {
               </select>
             </div>
           </div>
-          <div className="schedule-inputs-wrapper__section">
+          <div className="form__schedule-section">
             <div>
               <label htmlFor="input-time">Opens:</label>
               <DatePicker
@@ -239,10 +240,10 @@ export const PlaceForm = props => {
         </div>
       </div>
 
-      <div className="create-place-title">
+      <div className="heading heading--1">
         <h1>Let's get relatable, tell locals more about your place!</h1>
       </div>
-      <div className="input-group">
+      <div className="form__input-group">
         <label htmlFor="input-description">Description:</label>
         <textarea
           onChange={onValueChange}
@@ -253,7 +254,7 @@ export const PlaceForm = props => {
         ></textarea>
       </div>
       {/* Separate into another form? */}
-      <div className="input-group">
+      <div className="form__input-group">
         <label htmlFor="input-openDate">It has been open since:</label>
         <DatePicker
           popperPlacement="auto"
@@ -267,7 +268,7 @@ export const PlaceForm = props => {
           onChange={date => props.onValueChange('openDate', date)}
         />
       </div>
-      <div className="input-group">
+      <div className="form__input-group">
         <label htmlFor="input-about">Tell us a bit about yourself!</label>
         <textarea
           onChange={onValueChange}
@@ -277,7 +278,7 @@ export const PlaceForm = props => {
           rows="10"
         ></textarea>
       </div>
-      <div className="create-place-title">
+      <div className="heading heading--1">
         <h1>Add recent photos and some important moments of your place!</h1>
         <div className="input-images__preview">
           <div className="input-image__img-wrapper">
