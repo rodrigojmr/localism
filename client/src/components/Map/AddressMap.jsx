@@ -31,7 +31,10 @@ const options = {
 };
 
 const Map = React.forwardRef((props, ref) => {
-  const [center, setCenter] = useState(null);
+  const [center, setCenter] = useState({
+    lat: 38.722252,
+    lng: -9.139337
+  });
   const { position, error } = usePosition();
   useEffect(() => {
     if (position) {
@@ -70,7 +73,7 @@ const Map = React.forwardRef((props, ref) => {
     });
   }, []);
 
-  const handleResultInfo = result => {
+  const handleAddressSearch = result => {
     const obj = {
       place_id: result.place_id,
       formatted_address: result.formatted_address,
@@ -78,10 +81,8 @@ const Map = React.forwardRef((props, ref) => {
       lat: result.geometry.location.lat(),
       lng: result.geometry.location.lng()
     };
-
-    for (let key in obj) {
-      props.resultInfoHandler(key, obj[key]);
-    }
+    console.log(obj);
+    props.setAddress(obj);
   };
 
   if (loadError) return 'Error loading maps';
@@ -90,7 +91,7 @@ const Map = React.forwardRef((props, ref) => {
     <div className="map">
       <Search
         ref={ref}
-        handleResultInfo={handleResultInfo}
+        onAddressSearch={handleAddressSearch}
         setMarker={setMarker}
         panTo={panTo}
       />
@@ -133,7 +134,7 @@ const Map = React.forwardRef((props, ref) => {
 });
 
 const Search = React.forwardRef(
-  ({ required, handleResultInfo, panTo, setMarker }, ref) => {
+  ({ required, onAddressSearch, panTo, setMarker }, ref) => {
     const {
       ready,
       value,
@@ -164,7 +165,7 @@ const Search = React.forwardRef(
               const { lat, lng } = await getLatLng(result);
               panTo({ lat, lng });
               setMarker({ lat, lng });
-              handleResultInfo(result);
+              onAddressSearch(result);
             } catch (error) {
               console.log('Error!', error);
             }

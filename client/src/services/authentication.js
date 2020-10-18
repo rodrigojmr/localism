@@ -6,10 +6,12 @@ const api = axios.create({
   withCredentials: true
 });
 
-export const signUp = body => {
+export const signUp = async body => {
+  console.log('body: ', body);
   const formData = jsonToFormData(body);
 
-  return api.post('/sign-up', formData).then(response => response.data);
+  const response = await api.post('/sign-up', formData);
+  return response.data;
 };
 
 export const signIn = body =>

@@ -13,6 +13,7 @@ import createImagePreview from '../../services/createImagePreview';
 
 export const PlaceForm = props => {
   const [images, setImages] = useState([]);
+  const [address, setAddress] = useState(null);
 
   const handleImagesChange = async event => {
     const files = event.target.files;
@@ -32,7 +33,8 @@ export const PlaceForm = props => {
   ));
 
   const onSubmit = data => {
-    createPlace(data)
+    const dataWithAddress = Object.assign(data, address);
+    createPlace(dataWithAddress)
       .then(res => {
         const id = res.place._id;
         // Redirect user to single post view
@@ -45,7 +47,7 @@ export const PlaceForm = props => {
 
   return (
     <form className="form form-create-place" onSubmit={handleSubmit(onSubmit)}>
-      <AddressMap ref={register} height={'20vh'} />
+      <AddressMap setAddress={setAddress} ref={register} height={'30vh'} />
       <div className="form__input-group">
         <label htmlFor="input-name">Business Name</label>
         <input
@@ -192,6 +194,7 @@ export const PlaceForm = props => {
             <div>
               <label htmlFor="input-time">Opens:</label>
               <Controller
+                defaultValue={new Date(2020, 0, 0, 9, 0, 0)}
                 control={control}
                 name="openTime"
                 render={({ onChange, onBlur, value }) => (
@@ -199,7 +202,6 @@ export const PlaceForm = props => {
                     onChange={onChange}
                     onBlur={onBlur}
                     selected={value}
-                    minDate={new Date()}
                     popperPlacement="auto"
                     dropdownMode="select"
                     showTimeSelect
@@ -217,6 +219,7 @@ export const PlaceForm = props => {
             <div>
               <label htmlFor="input-time">Closes:</label>
               <Controller
+                defaultValue={new Date(2020, 0, 0, 18, 0, 0)}
                 control={control}
                 name="closeTime"
                 render={({ onChange, onBlur, value }) => (
@@ -224,7 +227,6 @@ export const PlaceForm = props => {
                     onChange={onChange}
                     onBlur={onBlur}
                     selected={value}
-                    minDate={new Date()}
                     popperPlacement="auto"
                     dropdownMode="select"
                     showTimeSelect
@@ -259,18 +261,27 @@ export const PlaceForm = props => {
       {/* Separate into another form? */}
       <div className="form__input-group">
         <label htmlFor="input-openDate">It has been open since:</label>
-        <ReactDatePicker
-          ref={register({ required: true })}
-          popperPlacement="auto"
-          id="input-openDate"
+        <Controller
+          defaultValue={new Date(2020, 0, 0, 9, 0, 0)}
+          control={control}
           name="openDate"
-          // value={
-          //   props.openDate
-          //     ? format(props.openDate, 'dd-MM-yyyy')
-          //     : props.openDate
-          // }
-          dateFormat={'dd/MM/yyyy'}
-          onChange={date => props.onValueChange('openDate', date)}
+          id="input-openDate"
+          render={({ onChange, onBlur, value }) => (
+            <ReactDatePicker
+              onChange={onChange}
+              onBlur={onBlur}
+              selected={value}
+              showMonthDropdown
+              showYearDropdown
+              popperPlacement="auto"
+              dropdownMode="select"
+              timeCaption="Date"
+              dateFormat={'dd/MM/yyyy'}
+              shouldCloseOnSelect
+              placeholderText="Select a date"
+              control={control}
+            />
+          )}
         />
       </div>
       <div className="form__input-group">

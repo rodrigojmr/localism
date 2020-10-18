@@ -24,6 +24,7 @@ const SearchName = props => {
     if (props.searching) {
       input.current.focus();
     } else {
+      handleSearch('');
       setQuery('');
       input.current.blur();
     }
@@ -43,13 +44,9 @@ const SearchName = props => {
         onSelect={async name => {
           handleSearch(name);
           try {
-            console.log(props.places);
             const place = props.places.find(place => place.name === name);
             onPlaceSelection(place);
-          } catch (error) {
-            console.log('error: ', error);
-            console.log('Error!');
-          }
+          } catch (error) {}
         }}
       >
         <ComboboxInput

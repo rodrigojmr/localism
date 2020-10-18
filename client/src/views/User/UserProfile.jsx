@@ -5,6 +5,7 @@ import ProfileHeader from './../../components/Profile/ProfileHeader';
 import PlaceInfoWithCarousel from './../../components/Place/PlaceInfoWithCarousel';
 import SupportsProfileList from './../../components/Support/SupportsProfileList';
 import UserContext from '../../components/Context/UserContext';
+import Spinner from '../../components/Spinner';
 
 //import SinglePlaceMap from './../../components/Map/SinglePlaceMap';
 const UserProfile = props => {
@@ -28,7 +29,7 @@ const UserProfile = props => {
 
   return (
     <div className="profile-page">
-      {loaded && (
+      {loaded ? (
         <>
           <main className="profile">
             <ProfileHeader user={publicUser} />
@@ -66,6 +67,10 @@ const UserProfile = props => {
             </Link>
           )}
         </>
+      ) : (
+        <div className="loading">
+          <Spinner />
+        </div>
       )}
     </div>
   );

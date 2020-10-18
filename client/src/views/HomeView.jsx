@@ -1,15 +1,13 @@
-import React, { Component, useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import HomeMap from '../components/Map/HomeMap';
 import PlaceInfoWithCarousel from './../components/Place/PlaceInfoWithCarousel';
 import { localityPlaces } from './../services/place';
 
-import Spinner from '../components/Spinner';
-
 const HomeView = () => {
-  const searchWrapper = React.createRef();
   const placeInfoWrapper = React.createRef();
 
   // TODO Pass setLocality as prop to home map
+
   const [locality, setLocality] = useState('');
   const [places, setPlaces] = useState([]);
   const [selected, setSelected] = useState(null);

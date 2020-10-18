@@ -7,7 +7,7 @@ import Spinner from '../Spinner';
 
 const HomeMap = props => {
   const [mapLoad, setMapLoad] = useState(false);
-  const [filteredPlaces, setfilteredPlaces] = useState('');
+  const [filteredPlaces, setfilteredPlaces] = useState(props.places);
 
   const handleSearch = searchQuery => {
     const filteredPlaces = props.places.filter(place =>
@@ -28,12 +28,12 @@ const HomeMap = props => {
       )}
       <div className="home-map">
         <Map
+          places={props.searching ? filteredPlaces : props.places}
           setLocality={props.setLocality}
           setSearching={props.setSearching}
           setSelected={props.setSelected}
           selected={props.selected}
           handleMapLoad={setMapLoad}
-          places={props.places}
         />
         <SearchName
           locality={props.locality}

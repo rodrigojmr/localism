@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useCallback } from 'react';
+import React, { useEffect, useCallback } from 'react';
 import { useEmblaCarousel } from 'embla-carousel/react';
 import ImageFadeIn from 'react-image-fade-in';
 

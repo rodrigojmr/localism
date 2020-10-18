@@ -17,7 +17,7 @@ const options = {
   styles: MapStyles,
   streetViewControl: false,
   fullscreenControl: false,
-  //disableDefaultUI: true,
+  disableDefaultUI: true,
   zoomControl: false
 };
 
@@ -34,6 +34,7 @@ const Map = props => {
   const onMapLoad = map => {
     mapRef.current = map;
     setInitialCenter(position);
+    props.handleMapLoad(true);
   };
 
   const { isLoaded, loadError } = useLoadScript({

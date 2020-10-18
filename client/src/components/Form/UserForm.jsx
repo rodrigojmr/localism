@@ -18,6 +18,7 @@ const UserForm = props => {
     '/images/default-avatar.png'
   );
   const [error, setError] = useState(null);
+  const [address, setAddress] = useState(null);
 
   const { currentUser, setUser } = useContext(UserContext);
 
@@ -30,13 +31,13 @@ const UserForm = props => {
   }, [props.preloadValues]);
 
   const onSubmit = async data => {
-    console.log(props.edit);
+    const formData = Object.assign(data, address);
     let userData;
     try {
       if (props.edit) {
-        userData = await editProfile(currentUser._id, data);
+        userData = await editProfile(currentUser._id, formData);
       } else {
-        userData = await signUp(data);
+        userData = await signUp(formData);
       }
       console.log('userData: ', userData);
       const { user } = userData;
@@ -44,7 +45,7 @@ const UserForm = props => {
       history.push(`/profile/${user._id}`);
     } catch (error) {
       console.log('error: ', error);
-      setError(error.response.data.error);
+      setError(error?.response?.data?.error);
     }
   };
 
@@ -61,7 +62,11 @@ const UserForm = props => {
       <div className="input-group form__avatar-input">
         <label htmlFor="input-avatar">
           <div className="image-cropper">
-            <img src={avatarPreview} className="profile-pic" />
+            <img
+              src={avatarPreview}
+              alt="New user avatar"
+              className="profile-pic"
+            />
           </div>
           <input
             ref={register}
@@ -132,7 +137,6 @@ const UserForm = props => {
                   onChange={onChange}
                   onBlur={onBlur}
                   selected={value}
-                  openToDate={new Date(95, 0)}
                   popperPlacement="auto"
                   peekNextMonth
                   showMonthDropdown
@@ -162,7 +166,7 @@ const UserForm = props => {
         </>
       )}
       <div className="input-group">
-        <AddressMap ref={register} height={'40vh'} />
+        <AddressMap setAddress={setAddress} ref={register} height={'40vh'} />
       </div>
       {error && (
         <div className="error-block">

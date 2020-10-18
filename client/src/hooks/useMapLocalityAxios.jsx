@@ -1,6 +1,4 @@
-import React from 'react';
 import axios from 'axios';
-import { useLoadScript } from '@react-google-maps/api';
 import { useState, useEffect } from 'react';
 
 const useMapLocality = center => {

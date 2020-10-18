@@ -36,82 +36,78 @@ profileRouter.get('/:id', async (req, res, next) => {
   }
 });
 
-profileRouter.patch(
-  '/:id',
-  fileUploader.single('avatar'),
-  async (req, res, next) => {
-    const {
+profileRouter.patch('/:id', fileUploader.any(), async (req, res, next) => {
+  const {
+    name,
+    username,
+    password,
+    gender,
+    about,
+    birthday,
+    privateAddress,
+    email
+  } = req.body;
+
+  const id = req.params.id;
+
+  let avatar;
+  if (req.files) {
+    avatar = req.files[0].path;
+  }
+
+  let locality;
+  if (privateAddress) {
+    locality = privateAddress.find(
+      component =>
+        component.types.includes('locality') ||
+        component.types.includes('administrative_area_level_1')
+    ).short_name;
+  }
+
+  try {
+    let hashAndSalt;
+    if (password && password.length > 1 && password.length < 8) {
+      throw new Error('Password is too short.');
+    } else if (password && password.length >= 8) {
+      hashAndSalt = await bcrypt.hash(password, 10);
+    }
+    const obj = {
+      user: req.user._id,
       name,
       username,
-      password,
       gender,
-      about,
-      birthday,
-      privateAddress,
-      email
-    } = req.body;
-    const id = req.params.id;
-
-    let avatar;
-    if (req.file) {
-      avatar = req.file.path;
-    }
-
-    let locality;
-    if (privateAddress) {
-      locality = privateAddress.find(
-        component =>
-          component.types.includes('locality') ||
-          component.types.includes('administrative_area_level_1')
-      ).short_name;
-    }
-
-    try {
-      let hashAndSalt;
-      if (password.length > 1 && password.length < 8) {
-        throw new Error('Password is too short.');
-      } else if (password.length >= 8) {
-        hashAndSalt = await bcrypt.hash(password, 10);
-      }
-      const obj = {
-        user: req.user._id,
-        name,
-        username,
+      info: {
+        birthday,
         gender,
-        info: {
-          birthday,
-          gender,
-          about
-        },
-        privateAddress,
-        locality,
-        email,
-        avatar,
-        passwordHashAndSalt: hashAndSalt
-      };
+        about
+      },
+      privateAddress,
+      locality,
+      email,
+      avatar,
+      passwordHashAndSalt: hashAndSalt
+    };
 
-      for (let prop in obj) {
-        if (!obj[prop]) delete obj[prop];
-      }
-
-      const user = await User.findByIdAndUpdate(id, obj, { new: true });
-      res.json({
-        user: {
-          _id: user._id,
-          name: user.name,
-          username: user.username,
-          email: user.email,
-          avatar: user.avatar,
-          locality: user.locality,
-          owner: user.owner
-        }
-      });
-    } catch (error) {
-      console.log(error);
-      next(error);
+    for (let prop in obj) {
+      if (!obj[prop]) delete obj[prop];
     }
+
+    const user = await User.findByIdAndUpdate(id, obj, { new: true });
+    res.json({
+      user: {
+        _id: user._id,
+        name: user.name,
+        username: user.username,
+        email: user.email,
+        avatar: user.avatar,
+        locality: user.locality,
+        owner: user.owner
+      }
+    });
+  } catch (error) {
+    next(error);
   }
-);
+});
 
 profileRouter.delete(
   '/:id',

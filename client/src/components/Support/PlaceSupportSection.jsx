@@ -12,13 +12,15 @@ const PlaceSupportSection = ({ supported, place, showModal, setShowModal }) => {
           Show some love.
         </h3>
       )}
-      <a
-        onClick={() => setShowModal(!showModal)}
-        href="#"
+      <button
+        onClick={e => {
+          e.preventDefault();
+          setShowModal(!showModal);
+        }}
         className="btn btn--primary"
       >
         {text}
-      </a>
+      </button>
     </section>
   );
 };

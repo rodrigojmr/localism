@@ -1,4 +1,4 @@
-import React, { Component, useContext } from 'react';
+import React, { useContext } from 'react';
 import PlaceForm from '../../components/Form/PlaceForm';
 import UserContext from '../../components/Context/UserContext';
 

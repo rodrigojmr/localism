@@ -31,7 +31,6 @@ const usePosition = (watch = false, settings = defaultSettings) => {
 
     let watcher = null;
     if (watch) {
-      console.log('watch: ', watch);
       watcher = navigator.geolocation.watchPosition(
         onChange,
         onError,

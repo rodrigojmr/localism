@@ -4,19 +4,12 @@ import getHours from 'date-fns/getHours';
 const { utcToZonedTime } = require('date-fns-tz');
 
 const PlaceDescription = ({ place, support }) => {
-  let openTime, closeTime;
-  if (place) {
-    if (place.schedule.time.openTime) {
-      openTime = getHours(
-        utcToZonedTime(place.schedule.time.openTime, 'Europe/Lisbon')
-      );
-    }
-    if (place.schedule.time.closeTime) {
-      closeTime = getHours(
-        utcToZonedTime(place.schedule.time.closeTime, 'Europe/Lisbon')
-      );
-    }
-  }
+  const openTime = getHours(
+    utcToZonedTime(place?.schedule.time.openTime, 'Europe/Lisbon')
+  );
+  const closeTime = getHours(
+    utcToZonedTime(place?.schedule.time.closeTime, 'Europe/Lisbon')
+  );
 
   const localsSupport = () => {
     const numberSupports = place.supports.length;

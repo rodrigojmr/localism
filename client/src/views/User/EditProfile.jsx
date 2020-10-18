@@ -1,5 +1,4 @@
-import React, { Component, useState, useEffect } from 'react';
-import { editProfile } from './../../services/user';
+import React, { useState, useEffect } from 'react';
 import UserForm from '../../components/Form/UserForm';
 import { loadUser } from '../../services/authentication';
 

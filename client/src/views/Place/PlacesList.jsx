@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
-
 import { loadAllPlaces } from './../../services/place';
+import Spinner from '../../components/Spinner';
 
 import PlaceInfoWithCarousel from './../../components/Place/PlaceInfoWithCarousel';
 
@@ -17,11 +17,15 @@ const PlacesList = () => {
 
   return (
     <div className="places">
-      {loaded && (
+      {loaded ? (
         <div className="places-list">
           {places.map(place => (
             <PlaceInfoWithCarousel key={place._id} place={place} support />
           ))}
+        </div>
+      ) : (
+        <div className="loading">
+          <Spinner />
         </div>
       )}
     </div>

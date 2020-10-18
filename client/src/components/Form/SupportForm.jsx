@@ -40,13 +40,12 @@ const SupportForm = ({ supported, place, ...props }) => {
     switch (method) {
       case 'create':
         return createSupport(id, body);
-        break;
       case 'edit':
         return editSupport(id, body);
-        break;
       case 'delete':
         return deleteSupport(id);
-        break;
+      default:
+        return;
     }
   };
 

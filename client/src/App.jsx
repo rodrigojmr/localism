@@ -1,4 +1,4 @@
-import React, { Component, useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import './styles/style.scss';
 import { Switch, Route, Redirect } from 'react-router-dom';
 import { loadMe, signOut } from './services/authentication';

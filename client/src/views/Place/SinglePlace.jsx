@@ -1,9 +1,6 @@
 import React, { useState, useEffect, useContext, useRef } from 'react';
-import ReactCSSTransitionGroup from 'react-transition-group';
-import { Link } from 'react-router-dom';
 import { loadPlace } from './../../services/place';
 import SinglePlaceMap from './../../components/Map/SinglePlaceMap';
-import getHours from 'date-fns/getHours';
 import PlaceInfoWithCarousel from './../../components/Place/PlaceInfoWithCarousel';
 import Owner from './../../components/Profile/Owner';
 
@@ -17,13 +14,9 @@ import Modal from '../../components/Modal/Modal';
 import UserContext from '../../components/Context/UserContext';
 import useOnClick from '../../hooks/useOnClick';
 
-const { utcToZonedTime } = require('date-fns-tz');
-// import parse from 'date-fns/parse';
-
 const SinglePlace = props => {
   const [loaded, setLoaded] = useState(false);
   const [place, setPlace] = useState(null);
-  const [supportContent, setSupportContent] = useState(null);
   const [showModal, setShowModal] = useState(false);
   const { currentUser } = useContext(UserContext);
 
@@ -39,21 +32,6 @@ const SinglePlace = props => {
       setLoaded(true);
     });
   };
-
-  const getSupport = () => {};
-
-  let openTime, closeTime;
-
-  if (place?.schedule.time.openTime) {
-    openTime = getHours(
-      utcToZonedTime(place.schedule.time.openTime, 'Europe/Lisbon')
-    );
-  }
-  if (place?.schedule.time.closeTime) {
-    closeTime = getHours(
-      utcToZonedTime(place.schedule.time.closeTime, 'Europe/Lisbon')
-    );
-  }
 
   // Setting support conditionals
   const supportsWithCommentsExist = place?.supports.some(

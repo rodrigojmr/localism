@@ -47,7 +47,6 @@ authenticationRouter.post(
     try {
       const userExists = await User.findOne({ $or: [{ username }, { email }] });
       if (userExists) throw new Error('User already exists.');
-
       let url;
       if (req.file) {
         url = req.file.path;
