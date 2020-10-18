@@ -87,7 +87,7 @@ profileRouter.patch(
         locality,
         email,
         avatar,
-        passwordHashAndSalt: hashAndSalt || password
+        passwordHashAndSalt: hashAndSalt
       };
 
       for (let prop in obj) {
@@ -95,8 +95,19 @@ profileRouter.patch(
       }
 
       const user = await User.findByIdAndUpdate(id, obj, { new: true });
-      res.json({ user });
+      res.json({
+        user: {
+          _id: user._id,
+          name: user.name,
+          username: user.username,
+          email: user.email,
+          avatar: user.avatar,
+          locality: user.locality,
+          owner: user.owner
+        }
+      });
     } catch (error) {
+      console.log(error);
       next(error);
     }
   }

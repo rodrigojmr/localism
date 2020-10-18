@@ -14,7 +14,7 @@ import PlaceSupportSection from '../../components/Support/PlaceSupportSection';
 
 import Modal from '../../components/Modal/Modal';
 
-import { UserContext } from '../../components/Context/UserContext';
+import UserContext from '../../components/Context/UserContext';
 import useOnClick from '../../hooks/useOnClick';
 
 const { utcToZonedTime } = require('date-fns-tz');
@@ -25,7 +25,7 @@ const SinglePlace = props => {
   const [place, setPlace] = useState(null);
   const [supportContent, setSupportContent] = useState(null);
   const [showModal, setShowModal] = useState(false);
-  const user = useContext(UserContext);
+  const { currentUser } = useContext(UserContext);
 
   useEffect(() => {
     load();
@@ -34,6 +34,7 @@ const SinglePlace = props => {
   const load = () => {
     const { id } = props.match.params;
     loadPlace(id).then(data => {
+      console.log('data: ', data);
       setPlace(data.place);
       setLoaded(true);
     });
@@ -67,7 +68,7 @@ const SinglePlace = props => {
     .map(support => <SupportFromUser support={support} key={support._id} />);
 
   const supported = place?.supports.some(
-    support => support.creator._id === user?._id
+    support => support.creator._id === currentUser?._id
   );
 
   // Modal
@@ -105,7 +106,7 @@ const SinglePlace = props => {
               </>
             )}
           </section>
-          {user && place.owner._id !== user._id && (
+          {currentUser && place.owner._id !== currentUser._id && (
             <PlaceSupportSection
               supported={supported}
               place={place}
@@ -115,6 +116,7 @@ const SinglePlace = props => {
           )}
           <Modal modalRef={ref} show={showModal}>
             <SupportForm
+              refresh={load}
               place={place}
               supported={supported}
               setModal={setShowModal}

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import {
   GoogleMap,
   useLoadScript,
@@ -19,6 +19,7 @@ import {
 import './../../App.css';
 import '@reach/combobox/styles.css';
 import usePosition from '../../hooks/usePosition';
+import UserContext from '../Context/UserContext';
 
 import MapStyles from '../../MapStyles';
 const libraries = ['places'];
@@ -148,6 +149,8 @@ const Search = React.forwardRef(
         // radius: 200 * 1000
       }
     });
+    const { currentUser } = useContext(UserContext);
+
     return (
       <div className="search">
         <label htmlFor="input-address">Address</label>
@@ -169,7 +172,7 @@ const Search = React.forwardRef(
         >
           <ComboboxInput
             name="address"
-            ref={ref({ required: true })}
+            ref={ref({ required: !currentUser })}
             required={required}
             id="input-address"
             value={value}

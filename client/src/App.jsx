@@ -16,7 +16,7 @@ import ProtectedRoute from './components/ProtectedRoute';
 import ErrorView from './views/ErrorView';
 import ConfirmEmail from './views/Authentication/ConfirmEmail';
 import UserProfile from './views/User/UserProfile';
-import { UserContext } from './components/Context/UserContext';
+import UserContext from './components/Context/UserContext';
 import Spinner from './components/Spinner';
 
 const App = () => {
@@ -54,10 +54,10 @@ const App = () => {
 
   return (
     <div style={style} className="App">
-      <UserContext.Provider value={user}>
+      <UserContext.Provider value={{ currentUser: user, setUser }}>
         <div className="desktop-blocker">
-          This app was developed mobile-first. Please view this app on your
-          mobile browser.
+          <p>For now, this app is mobile-only. Check it out!</p>
+          <img className="qr-code" src="/images/qr-code.png" alt="QR Code" />
         </div>
         <main className="content">
           {(loaded && (

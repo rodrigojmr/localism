@@ -4,14 +4,14 @@ import { loadProfile } from './../../services/user';
 import ProfileHeader from './../../components/Profile/ProfileHeader';
 import PlaceInfoWithCarousel from './../../components/Place/PlaceInfoWithCarousel';
 import SupportsProfileList from './../../components/Support/SupportsProfileList';
-import { UserContext } from '../../components/Context/UserContext';
+import UserContext from '../../components/Context/UserContext';
 
 //import SinglePlaceMap from './../../components/Map/SinglePlaceMap';
 const UserProfile = props => {
   const [loaded, setLoaded] = useState(false);
   const [publicUser, setPublicUser] = useState(null);
   const [place, setPlace] = useState(null);
-  const user = useContext(UserContext);
+  const { currentUser } = useContext(UserContext);
 
   const getUser = () => {
     const id = props.match.params.id;
@@ -56,7 +56,7 @@ const UserProfile = props => {
               )}
             </section>
           </main>
-          {user && publicUser._id === user._id && (
+          {currentUser && publicUser._id === currentUser._id && (
             <Link
               className="btn btn--primary u-margin-top-xsmall u-margin-bottom-xsmall"
               to={'/profile/edit'}

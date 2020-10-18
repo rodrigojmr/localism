@@ -24,12 +24,15 @@ const HomeView = () => {
     }
   }, [locality]);
 
+  // TODO Refactor to use Context
+
   return (
     <div className="home">
       <div className="home-info">
         <h1 className="heading heading--1">Checking out {locality || '...'}</h1>
       </div>
       <HomeMap
+        locality={locality}
         selected={selected}
         setLocality={setLocality}
         searching={searching}

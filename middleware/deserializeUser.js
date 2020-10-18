@@ -9,7 +9,7 @@ const deserializeUser = async (req, res, next) => {
 
   try {
     const user = await User.findById(id).select(
-      '_id name email username avatar'
+      '_id name email username avatar owner locality active'
     );
     req.user = user;
     next();

@@ -37,7 +37,9 @@ app.use(
       'http://127.0.0.1:3000',
       'http://localhost:3000'
     ],
-    methods: ['GET', 'POST', 'HEAD', 'OPTIONS', 'PATCH', 'PUT', 'DELETE']
+    methods: ['GET', 'POST', 'HEAD', 'OPTIONS', 'PATCH', 'PUT', 'DELETE'],
+    allowedHeaders: 'Content-Type,Accept',
+    optionsSuccessStatus: 200
   })
 );
 
@@ -77,9 +79,9 @@ app.use((req, res, next) => {
 
 // Catch all error handler
 app.use((error, req, res) => {
-  console.log('error:', error);
-  res.status(error.status || 500);
+  console.log('Error next function:', error);
   res.json({ type: 'error', error: { message: error.message } });
+  res.status(error.status || 500);
 });
 
 module.exports = app;

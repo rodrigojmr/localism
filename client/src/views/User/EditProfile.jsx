@@ -1,103 +1,25 @@
-import React, { Component } from 'react';
-import { loadUser } from '../../services/authentication';
+import React, { Component, useState, useEffect } from 'react';
 import { editProfile } from './../../services/user';
-import UserProfileForm from '../../components/Form/EditProfileForm';
+import UserForm from '../../components/Form/UserForm';
+import { loadUser } from '../../services/authentication';
 
-class EditProfileView extends Component {
-  constructor() {
-    super();
-    this.state = {
-      loaded: false,
-      name: '',
-      username: '',
-      email: '',
-      password: '',
-      avatarPreview: '/images/default-avatar.png',
-      avatar: '',
-      location: null,
-      locality: '',
-      gender: '',
-      birthday: ''
-    };
-  }
+const EditProfileView = () => {
+  const [data, setData] = useState(null);
 
-  componentDidMount() {
-    this.getLocation();
-    this.getUser();
-  }
+  useEffect(() => {
+    fetchData();
+  }, []);
 
-  getUser() {
-    loadUser().then(data => {
-      this.setState({
-        avatarPreview: data.user.avatar,
-        ...data.user
-      });
-    });
-  }
-
-  getLocation() {
-    navigator.geolocation.getCurrentPosition(
-      position => {
-        this.setState({
-          location: {
-            lat: position.coords.latitude,
-            lng: position.coords.longitude
-          }
-        });
-      },
-      function error(msg) {
-        alert('Please enable your GPS position feature.');
-      },
-      { maximumAge: 10000, timeout: 5000, enableHighAccuracy: true }
-    );
-  }
-
-  handleValueChange = (name, value) => {
-    this.setState({
-      [name]: value
-    });
+  const fetchData = async () => {
+    const { user } = await loadUser();
+    setData(user);
   };
 
-  emailValidation = email => {
-    const regex = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-    return regex.test(email);
-  };
-
-  handleFormSubmission = () => {
-    const id = this.props.user._id;
-    const body = { ...this.state };
-    editProfile(id, body)
-      .then(data => {
-        const { user } = data;
-        this.props.onUserUpdate(user);
-        this.props.history.push(`/profile/${id}`);
-      })
-      .catch(error => {
-        console.log(error);
-      });
-  };
-
-  handleAvatarInputChange = avatar => {
-    this.setState({
-      avatarPreview: URL.createObjectURL(avatar),
-      avatar
-    });
-  };
-
-  render() {
-    return (
-      <div className="edit-profile-view">
-        <UserProfileForm
-          {...this.state}
-          onDateChange={this.handleDateChange}
-          onValueChange={this.handleValueChange}
-          onAvatarChange={this.handleAvatarInputChange}
-          onFormSubmission={this.handleFormSubmission}
-          isEdit={true}
-        />
-      </div>
-    );
-  }
-}
+  return (
+    <div className="edit-profile-view">
+      <UserForm edit preloadValues={data} />
+    </div>
+  );
+};
 
 export default EditProfileView;

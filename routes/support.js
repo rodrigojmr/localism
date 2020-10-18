@@ -70,21 +70,18 @@ supportRouter.delete(
   routeAuthenticationGuard,
   async (req, res, next) => {
     const id = req.params.id;
-
+    console.log('id: ', id);
     try {
       const support = await Support.findOneAndDelete({
-        _id: id,
+        place: id,
         creator: req.user._id
       });
-      console.log('support: ', support);
-      await User.findOneAndUpdate(
-        { _id: req.user._id },
-        { $pull: { supports: id } }
-      );
-      await Place.findOneAndUpdate(
-        { supports: { $in: [id] } },
-        { $pull: { supports: id } }
-      );
+      await User.findByIdAndUpdate(req.user._id, {
+        $pull: { supports: support._id }
+      });
+      await Place.findByIdAndUpdate(id, {
+        $pull: { supports: support._id }
+      });
       res.json('Deleted your support from this place');
     } catch (error) {
       next(error);
@@ -101,11 +98,10 @@ supportRouter.patch(
   '/:id',
   routeAuthenticationGuard,
   (request, response, next) => {
-    console.log(request.user._id, content);
     const { content } = request.body;
     const id = request.params.id;
     Support.findOneAndUpdate(
-      { _id: id, creator: request.user._id },
+      { place: id, creator: request.user._id },
       { content },
       { new: true }
     )

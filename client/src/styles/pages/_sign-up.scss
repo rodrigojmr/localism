@@ -1,10 +1,22 @@
 .sign-up-page {
-  background-color: #f96e46;
+  background-color: $color-terciary-light-2;
   height: auto;
   min-height: 100vh;
   padding-bottom: 2rem;
+
+  .form__avatar-input {
+    display: inline-block;
+    margin: 0 auto;
+    label {
+      display: inline-block;
+    }
+  }
+  label {
+    color: $color-white;
+  }
+
   h1 {
-    color: #f3f3f4;
+    color: $color-white;
     display: flex;
     align-content: flex-start;
     padding-top: 20px;

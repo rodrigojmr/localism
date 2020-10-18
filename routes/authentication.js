@@ -106,7 +106,8 @@ authenticationRouter.post('/sign-in', async (req, res, next) => {
         username: user.username,
         email: user.email,
         avatar: user.avatar,
-        locality: user.locality
+        locality: user.locality,
+        owner: user.owner
       }
     });
   } catch (error) {
@@ -132,7 +133,10 @@ authenticationRouter.get(`/confirmation/:token`, async (req, res, next) => {
           _id: user._id,
           name: user.name,
           username: user.username,
-          email: user.email
+          email: user.email,
+          avatar: user.avatar,
+          locality: user.locality,
+          owner: user.owner
         }
       });
     }

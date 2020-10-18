@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
-import { signUp } from './../../services/authentication';
-import SignUpForm from '../../components/Form/SignUpForm';
+import UserForm from '../../components/Form/UserForm';
 
 class AuthenticationSignUpView extends Component {
   render() {
@@ -8,7 +7,7 @@ class AuthenticationSignUpView extends Component {
       <>
         <div className="sign-up-page">
           <h1>Be local, sign up!</h1>
-          <SignUpForm />
+          <UserForm />
         </div>
       </>
     );

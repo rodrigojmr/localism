@@ -1,3 +1,7 @@
+.edit-profile-view {
+  padding: 20px 0;
+}
+
 .form {
   &__input-group {
     width: 100%;
@@ -10,7 +14,7 @@
   }
 
   input,
-  select,
+  select:not([class^='react-datepicker']),
   textarea {
     width: 100%;
     padding: 10px 15px;
@@ -103,6 +107,7 @@
 }
 .image-cropper,
 .image-input {
+  margin: 0 auto;
   width: 150px;
   height: 150px;
   overflow: hidden;

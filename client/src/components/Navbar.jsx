@@ -1,12 +1,14 @@
 import React, { useContext } from 'react';
 import { Link } from 'react-router-dom';
 
-import { UserContext } from './Context/UserContext';
+import UserContext from './Context/UserContext';
 
 const Navbar = props => {
-  const user = useContext(UserContext);
+  const { currentUser } = useContext(UserContext);
 
-  const link = user ? `/profile/${user._id}` : '/authentication/sign-in';
+  const link = currentUser
+    ? `/profile/${currentUser._id}`
+    : '/authentication/sign-in';
 
   return (
     <nav className="navbar">
@@ -72,32 +74,34 @@ const Navbar = props => {
             <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
             <circle cx="12" cy="7" r="4"></circle>
           </svg>
-          <p>{user ? 'Profile' : 'Sign In'}</p>
+          <p>{currentUser ? 'Profile' : 'Sign In'}</p>
         </Link>
       </div>
-      {user && (
+      {currentUser && (
         <>
-          <div className="navbar-col">
-            <Link to="/place/create">
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                width="24"
-                height="24"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth="2"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                className="icon--w navbar-icon feather feather-plus-circle"
-              >
-                <circle cx="12" cy="12" r="10"></circle>
-                <line x1="12" y1="8" x2="12" y2="16"></line>
-                <line x1="8" y1="12" x2="16" y2="12"></line>
-              </svg>
-              <p>Add place</p>
-            </Link>
-          </div>
+          {!currentUser.owner && (
+            <div className="navbar-col">
+              <Link to="/place/create">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="24"
+                  height="24"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="2"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  className="icon--w navbar-icon feather feather-plus-circle"
+                >
+                  <circle cx="12" cy="12" r="10"></circle>
+                  <line x1="12" y1="8" x2="12" y2="16"></line>
+                  <line x1="8" y1="12" x2="16" y2="12"></line>
+                </svg>
+                <p>Add place</p>
+              </Link>
+            </div>
+          )}
           <div className="navbar-col">
             <Link to="/">
               <svg

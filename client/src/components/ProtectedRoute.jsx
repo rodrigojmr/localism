@@ -1,11 +1,13 @@
 import React, { useContext } from 'react';
-import { UserContext } from './Context/UserContext';
+import UserContext from './Context/UserContext';
 import { Route, Redirect } from 'react-router-dom';
 
 const ProtectedRoute = ({ component: Component, onUserUpdate, ...props }) => {
-  let user = useContext(UserContext);
+  let { currentUser } = useContext(UserContext);
 
-  const whoToBlock = props.newUsers ? props.newUsers && !user : user;
+  const whoToBlock = props.newUsers
+    ? props.newUsers && !currentUser
+    : currentUser;
 
   if (whoToBlock) {
     return (

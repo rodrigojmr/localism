@@ -17,6 +17,8 @@ const HomeMap = props => {
     setfilteredPlaces(filteredPlaces);
   };
 
+  // TODO Refactor to use Context
+
   return (
     <>
       {!mapLoad && (
@@ -34,6 +36,7 @@ const HomeMap = props => {
           places={props.places}
         />
         <SearchName
+          locality={props.locality}
           searching={props.searching}
           setSearching={props.setSearching}
           setSelected={props.setSelected}
