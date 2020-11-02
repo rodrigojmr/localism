@@ -1,6 +1,5 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import AddressMap from '../Map/AddressMap';
-import { format } from 'date-fns';
 import ReactDatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 import { useForm, Controller } from 'react-hook-form';
@@ -11,7 +10,7 @@ import Button from '../Button';
 import { createPlace } from '../../services/place';
 import createImagePreview from '../../services/createImagePreview';
 
-export const PlaceForm = props => {
+export const PlaceForm = () => {
   const [images, setImages] = useState([]);
   const [address, setAddress] = useState(null);
 
@@ -24,7 +23,7 @@ export const PlaceForm = props => {
   const phoneRegex = /^[+]*[(]{0,1}[0-9]{1,4}[)]{0,1}[-\s\./0-9]*$/;
   const emailRegex = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
 
-  const { register, handleSubmit, control, reset } = useForm();
+  const { register, handleSubmit, control } = useForm();
 
   const imagePreviews = images.map((image, i) => (
     <div key={i} className="input-image__img-wrapper">

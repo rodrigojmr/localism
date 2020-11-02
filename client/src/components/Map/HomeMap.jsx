@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import SearchName from '../Search/SearchName';
 import Map from './Map';
 import Spinner from '../Spinner';

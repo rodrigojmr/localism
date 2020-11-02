@@ -92,7 +92,7 @@ authenticationRouter.post('/sign-in', async (req, res, next) => {
   const { username, password } = req.body;
   try {
     const user = await User.findOne({ username });
-    if (!user) throw new Error('No user with that username.');
+    if (!user) res.status(401).send('No user with that username.');
     const passwordHashAndSalt = user.passwordHashAndSalt;
     const comparison = await bcrypt.compare(password, passwordHashAndSalt);
     if (!comparison) throw new Error('Password did not match.');
@@ -125,18 +125,8 @@ authenticationRouter.get(`/confirmation/:token`, async (req, res, next) => {
     } else {
       user.active = true;
       user.save();
-      req.session.userId = user._id;
       res.json({
-        message: "You've confirmed your e-mail!",
-        user: {
-          _id: user._id,
-          name: user.name,
-          username: user.username,
-          email: user.email,
-          avatar: user.avatar,
-          locality: user.locality,
-          owner: user.owner
-        }
+        message: "You've confirmed your e-mail! Please log in."
       });
     }
   } catch (error) {

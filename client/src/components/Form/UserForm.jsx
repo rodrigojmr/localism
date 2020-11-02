@@ -39,12 +39,10 @@ const UserForm = props => {
       } else {
         userData = await signUp(formData);
       }
-      console.log('userData: ', userData);
       const { user } = userData;
       setUser(user);
       history.push(`/profile/${user._id}`);
     } catch (error) {
-      console.log('error: ', error);
       setError(error?.response?.data?.error);
     }
   };
